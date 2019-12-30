@@ -1,0 +1,125 @@
+body{
+  font-family: 'OpenSans',Arial,Helvetica,sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  .title{
+    margin-bottom: 2vw;
+  }
+
+  header{
+    display: flex;
+    align-items: center;
+    padding: 1vw 0;
+    .left-section{
+      display: flex;
+      align-items: center;
+      margin-right: 40vw;
+      .logo{
+        font-size: 25px;
+        margin-right: 10px;
+        color: rgba($color: #338841, $alpha: 1.0);
+      }
+      p{
+        font-size: 20px;
+      }
+    }
+    .right-section{
+      color: rgba($color: #3e8bff, $alpha: 1.0);
+      font-size: 15px;
+      font-weight: bold;
+    }
+  }
+
+  section{
+    color: gray;
+    display: flex;
+    font-size: 17.5px;
+
+    .location, .date, .car-total, .driver{
+      padding: 2vw 0;
+      border: 0.5px gray solid;
+      border-left: none;
+    }
+
+    .driver{
+      border-right: none;
+    }
+
+    .location{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 5vw;
+    }
+
+    .date{
+      display: flex;
+      padding: 0 5vw;
+      .start, .end{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .diff{
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+    }
+
+    .car-total{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 0 5vw;
+    }
+
+    .driver{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      p{
+        margin-left: 5vw;
+        margin-right: 2vw;
+      }
+      input{
+        margin-right: 5vw;
+      }
+    }
+  }
+  footer{
+    display: flex;
+    align-items: center;
+    .note{
+      color: gray;
+      margin-right: 20vw;
+    }
+
+    #button{
+      width: 10vw;
+      margin: 20px;
+      button{
+          width: 100%;
+          background-color: rgba($color: #fcf80e, $alpha: 1.0);
+          border: none;
+          color: rgba($color: #155ab4, $alpha: 1.0);
+          padding: 15px 32px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          border-radius: 40px;
+      }
+  }
+  }
+}
+
+
+
+

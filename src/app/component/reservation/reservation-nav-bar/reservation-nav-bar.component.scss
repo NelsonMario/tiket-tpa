@@ -1,0 +1,38 @@
+header{
+  font-family: 'Open Sans',Arial,Helvetica,sans-serif;
+  color: gray;
+  display: flex;
+  justify-content: space-around;
+  background-color: rgb(245, 245, 245);
+  border-radius: 20px 20px 0 0;
+  padding: 10px 0px;
+  .left-section{
+    .title{
+      font-size: 20px;
+    }
+    .content{
+      font-size:35px;
+    }
+  }
+
+  .right-section{
+
+    display: flex;
+    .image{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-right: 10px;
+      border: 1px rgb(207, 214, 216) solid;
+      padding: 5px;
+      border-radius: 10px;
+      b{
+        font-size: 10px;
+      }
+    }
+
+    .image:hover{
+      border: 2px #155ab4 solid;
+    }
+  }
+}

@@ -1,0 +1,162 @@
+footer{
+  font-family: 'Open Sans',Arial,Helvetica,sans-serif;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .container-upper-footer{
+      display: flex;
+      /*
+      * Contact Us
+      */
+
+      .contact-us{
+        margin-right: 5vw;
+          .logo{
+              margin-bottom: 30px;
+          }
+          .contact-us-content{
+              display: flex;
+              margin-bottom: 10px;
+              .image{
+                  margin-right:20px;
+                  img{
+                      width: 40px;
+                      height: 40px;
+                  }
+              }
+              .contact-us-phone{
+                  .span-gray{
+                      color: gray;
+                  }
+              }
+          }
+      }
+
+      /*
+      * Company, Product, Support
+      */
+      .company-list, .product-list, .support-list{
+          margin-right: 5vw;
+          .title{
+              font-size: 17px;
+              margin-bottom: 50px;
+          }
+          .content-container{
+              .content-item{
+                  color: gray;
+                  margin: 10px;
+              }
+          }
+      }
+
+      /*
+      *   App List
+      */
+
+      .footer-app-list{
+          .title{
+              font-size: 17px;
+              margin-bottom: 50px;
+          }
+          .app-container{
+              .play-store{
+                  margin-bottom: 10px;
+              }
+          }
+      }
+  }
+
+  .container-bottom-footer{
+    display: flex;
+    /*
+    * Wonderful Indonesia
+    */
+
+    .wonderful-indonesia{
+      display: flex;
+      align-items: center;
+      max-width: 300px;
+      margin-right: 2vw;
+      .wonderful-indonesia-content{
+        color: gray;
+      }
+
+      .image{
+        img{
+          min-width: 50px;
+          max-width: 150px;
+        }
+      }
+    }
+
+    /*
+    * Security
+    */
+
+
+
+    .secure-transaction{
+      display: flex;
+      flex-direction: column;
+      margin-right: 4vw;
+      .bottom-footer-title{
+        font-size: 17px;
+        margin-bottom: 50px;
+      }
+      .secure-transaction-content{
+        width: 25vw;
+        height: 15vh;
+        img{
+          margin-right: 20px;
+          margin-bottom: 25px;
+        }
+      }
+    }
+
+      /*
+    * Awards
+    */
+
+    .achievement{
+      display: flex;
+      flex-direction: column;
+      margin-right: 3vw;
+      .bottom-footer-title{
+        font-size: 17px;
+        margin-bottom: 50px;
+      }
+      .achievement-content{
+        img{
+          margin-right: 20px;
+          margin-bottom: 25px;
+        }
+      }
+    }
+
+    /*
+    * Social Media
+    */
+
+    .social-media{
+      display: flex;
+      flex-direction: column;
+      .bottom-footer-title{
+        font-size: 17px;
+        margin-bottom: 50px;
+      }
+      .social-media-content{
+        img{
+          border-radius: 30px;
+          margin-right: 20px;
+          margin-bottom: 25px;
+          filter: grayscale(100%);
+        }
+
+        img:hover{
+          filter: grayscale(0%);
+        }
+      }
+    }
+  }
+}

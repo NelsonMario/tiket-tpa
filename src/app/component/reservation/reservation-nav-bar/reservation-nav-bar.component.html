@@ -1,0 +1,16 @@
+<header>
+  <div class="left-section">
+    <div class="title">
+      Hey, kamu
+    </div>
+    <div class="content">
+      <b>Mau ke mana?</b>
+    </div>
+  </div>
+  <div class="right-section">
+    <div class="image" *ngFor="let reservationType of reservationTypes">
+      <img src="../../../../assets/reservation/{{reservationType.IMAGE_URL}}" alt="" width="76px" height="57px">
+      <b>{{reservationType.desc}}</b>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,45 @@
+
+
+.carousel{
+  display: flex;
+  align-items: center;
+  .carousel-container{
+    display: flex;
+    width: 99vw;
+    height: 40vh;
+    overflow: hidden;
+
+    .image{
+
+      animation: 25s carousel infinite;
+
+      img{
+        width: 100vw;
+        height: 40vh;
+      }
+
+      @keyframes carousel {
+        0%{
+          transform: translateX(0);
+        }
+        25%{
+          transform: translateX(-100%);
+        }
+        45%{
+          transform: translateX(-200%);
+        }
+        65%{
+          transform: translateX(-300%);
+        }
+        85%{
+          transform: translateX(-400%);
+        }
+        100%{
+          transform: translateX(-500%);
+        }
+
+      }
+    }
+  }
+}
+
