@@ -23,7 +23,13 @@ export class LoginComponent implements OnInit {
     private authService: GoogleAuthService,
     private gapiService: GoogleApiService) {
     this.gapiService.onLoad().subscribe();
+    
     };
+    
+    foo(){
+      var google = document.getElementById('google');
+      console.log(google);
+    }
 
     ngOnInit() {
       this.route.fragment.subscribe((fragment) => {
@@ -38,5 +44,7 @@ export class LoginComponent implements OnInit {
   public signIn() {
     this.userService.signIn();
   }
- 
+  
+  
+  
 }
