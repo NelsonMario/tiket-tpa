@@ -1,7 +1,7 @@
 <div class="carousel">
   <div class="carousel-container">
-    <div class="image"  *ngFor="let image of images">
-      <img src= "../../../assets/home-imageslider/{{image}}" alt="">
+    <div class="image"  *ngFor="let image of images; index as sliderId">
+      <img src="../../../assets/home-imageslider/{{image.name}}" alt="">
     </div>
   </div>
 </div>

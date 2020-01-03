@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { LoginComponent } from '../../login/login.component';
+import { RegisterComponent } from '../../register/register.component';
 
 @Component({
   selector: 'app-customer-header',
@@ -13,7 +14,12 @@ export class CustomerHeaderComponent implements OnInit {
 
   ngOnInit() {
   }
-  openDialog() : void {
+
+  openLoginDialog() : void {
     this.dialog.open(LoginComponent);
+  }
+
+  openRegisterDialog() : void {
+    this.dialog.open(RegisterComponent);
   }
 }

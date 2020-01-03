@@ -17,10 +17,10 @@ import { ReservationComponent } from './component/reservation/reservation.compon
 import { ReservationNavBarComponent } from './component/reservation/reservation-nav-bar/reservation-nav-bar.component';
 import { RentCarReservationComponent } from './component/reservation/reservation-type/rent-car-reservation/rent-car-reservation.component';
 import {
-  GoogleApiModule, 
-  GoogleApiService, 
-  GoogleAuthService, 
-  NgGapiClientConfig, 
+  GoogleApiModule,
+  GoogleApiService,
+  GoogleAuthService,
+  NgGapiClientConfig,
   NG_GAPI_CONFIG,
   GoogleApiConfig
 } from "ng-gapi";
@@ -28,6 +28,10 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { GoogleLoginService } from './service/google/google-login.service';
 import { SheetResourceService } from './service/google/sheet-resource.service';
+import { ButtonComponent } from './component/button/button.component';
+import { InputPlaceholderComponent } from './component/input-placeholder/input-placeholder.component';
+import { RegisterComponent } from './component/register/register.component';
+import { GraphQLModule } from './graphql.module';
 
 let gapiClientConfig: NgGapiClientConfig = {
   client_id: "602076487631-28k1qh3apnsm4510llsq5reejkq4qtlt.apps.googleusercontent.com",
@@ -52,8 +56,14 @@ let gapiClientConfig: NgGapiClientConfig = {
     ReservationComponent,
     ReservationNavBarComponent,
     RentCarReservationComponent,
+    ButtonComponent,
+    InputPlaceholderComponent,
+    RegisterComponent,
   ],
-  entryComponents: [LoginComponent],
+  entryComponents: [
+    LoginComponent,
+    RegisterComponent
+  ],
   imports: [
 
     BrowserModule,
@@ -70,7 +80,8 @@ let gapiClientConfig: NgGapiClientConfig = {
       provide: NG_GAPI_CONFIG,
       useValue: gapiClientConfig
     }),
-    
+    GraphQLModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

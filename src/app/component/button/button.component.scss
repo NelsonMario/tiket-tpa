@@ -1,0 +1,15 @@
+#button{
+    margin: 20px;
+    button{
+        width: 100%;
+        background-color: rgba($color: #ffef60, $alpha: 1.0);
+        border: none;
+        color: rgba($color: #155ab4, $alpha: 1.0);
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 20px;
+    }
+}

@@ -25,11 +25,6 @@ export class LoginComponent implements OnInit {
     this.gapiService.onLoad().subscribe();
     
     };
-    
-    foo(){
-      var google = document.getElementById('google');
-      console.log(google);
-    }
 
     ngOnInit() {
       this.route.fragment.subscribe((fragment) => {

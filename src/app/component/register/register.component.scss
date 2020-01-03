@@ -1,0 +1,20 @@
+section{
+    font-family: 'OpenSans',Arial,Helvetica,sans-serif;
+    width: 15vw;
+    padding: 20px 60px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px darkgray;
+    background-color: white;
+    #title{
+        font-size: 20px;
+    }
+    #desc{
+        color: #b0b2b6f5;
+    }
+    #horizontal{
+        display: flex
+    }
+}
