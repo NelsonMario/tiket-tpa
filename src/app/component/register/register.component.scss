@@ -1,7 +1,7 @@
 section{
     font-family: 'OpenSans',Arial,Helvetica,sans-serif;
-    width: 15vw;
-    padding: 20px 60px;
+    width: 21vw;
+    padding: 20px 50px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -11,10 +11,10 @@ section{
     #title{
         font-size: 20px;
     }
-    #desc{
+    .desc{
         color: #b0b2b6f5;
     }
     #horizontal{
-        display: flex
+        display: flex;
     }
 }

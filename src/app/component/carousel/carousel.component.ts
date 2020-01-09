@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { SliderService } from 'src/app/service/slider/slider.service';
+import { graphqlService } from 'src/app/service/graphql/graphql.service';
 import { Slider } from 'src/app/models/slider';
 @Component({
   selector: 'app-carousel',
@@ -12,7 +12,7 @@ export class CarouselComponent implements OnInit {
   images: Slider[] = [];
   image$: Subscription;
   index = 0;
-  constructor(private graphqlService: SliderService) {
+  constructor(private graphqlService: graphqlService) {
   }
 
   ngOnInit() {

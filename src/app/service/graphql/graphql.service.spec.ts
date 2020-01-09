@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SliderService } from './slider.service';
+import { GraphqlService } from './graphql.service';
 
-describe('SliderService', () => {
+describe('GraphqlService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: SliderService = TestBed.get(SliderService);
+    const service: GraphqlService = TestBed.get(GraphqlService);
     expect(service).toBeTruthy();
   });
 });

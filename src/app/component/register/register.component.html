@@ -2,17 +2,25 @@
     <div id="title">
             <label for="">Register</label>
     </div>
-
-    <div id="desc">
+    <div class="desc">
         <p>Your amazing trip starts here</p>
     </div>
-    <app-input-placeholder desc="First Name" width = 21></app-input-placeholder>
-    <app-input-placeholder desc="Last Name" width = 21></app-input-placeholder>
+    <app-input-placeholder desc="Email" width = 21 inputtedString = "{{data.email}}"></app-input-placeholder>
+    <app-input-placeholder desc="First Name" width = 21 (returnedString)="getFirstName($event)"></app-input-placeholder>
+    <app-input-placeholder desc="Last Name" width = 21 (returnedString)="getLastName($event)"></app-input-placeholder>
 
     <div id="horizontal">
-        <app-input-placeholder desc="Country Code" width = 10></app-input-placeholder>
-        <app-input-placeholder desc="Phone Number" width = 10></app-input-placeholder>
+      <div class="country-code-select">
+        <mat-label>Country Code</mat-label>
+        <mat-select (selectionChange)="selected($event)">
+          <mat-option [value] = "countryCode.calling_code" *ngFor="let countryCode of (countryCode$ | async)">
+            {{countryCode.country}}
+          </mat-option>
+        </mat-select>
+      </div>
+        <app-input-placeholder desc="Phone Number" width = 10 (returnedString)="getPhoneNumber($event)"></app-input-placeholder>
     </div>
-    <app-input-placeholder desc="Password" width=21></app-input-placeholder>
-    <app-button title = "Create Account" width = 15></app-button>
+    <app-input-placeholder desc="Password" (returnedString)="getPassword($event)" width=21></app-input-placeholder>
+    <div class="desc">Min. 7 Karakter dengan kombinasi antara angka, simbol, & huruf kapital.</div>
+    <app-button (click)="register()" title = "Create Account" width = 15></app-button>
 </section>

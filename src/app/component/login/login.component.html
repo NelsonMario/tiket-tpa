@@ -7,9 +7,9 @@
         <p>Perjalanan serumu dimulai di sini.</p>
     </div>
 
-    <app-input-placeholder desc="Nomor Ponsel atau Email" width = 21></app-input-placeholder>
+    <app-input-placeholder desc="Nomor Ponsel atau Email" width = 21 (returnedString)="getString($event)"></app-input-placeholder>
 
-    <app-button title="LANJUTKAN" width = 15></app-button>
+    <app-button (click)="login()" title="LANJUTKAN" width = 15></app-button>
 
     <div>
         <div class="line">

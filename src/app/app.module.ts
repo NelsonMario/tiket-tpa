@@ -1,17 +1,20 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgForm} from '@angular/forms'
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule } from '@angular/material'
+import { MatDialogModule, MatLabel } from '@angular/material'
+import { MatSelectModule} from '@angular/material/select'
+import { MatCheckboxModule } from '@angular/material/checkbox'
+import { MatInputModule } from '@angular/material/input'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
-import { CustomerHeaderComponent } from './component/customer/customer-header/customer-header.component';
-import { CustomerFooterComponent } from './component/customer/customer-footer/customer-footer.component';
-import { AdminComponent } from './component/admin/admin.component';
-import { CustomerComponent } from './component/customer/customer.component';
-import { CustomerSectionComponent } from './component/customer/customer-section/customer-section.component';
+import { CustomerHeaderComponent } from './model-component/customer/customer-header/customer-header.component';
+import { CustomerFooterComponent } from './model-component/customer/customer-footer/customer-footer.component';
+import { AdminComponent } from './model-component/admin/admin.component';
+import { CustomerComponent } from './model-component/customer/customer.component';
+import { CustomerSectionComponent } from './model-component/customer/customer-section/customer-section.component';
 import { CarouselComponent } from './component/carousel/carousel.component';
 import { ReservationComponent } from './component/reservation/reservation.component';
 import { ReservationNavBarComponent } from './component/reservation/reservation-nav-bar/reservation-nav-bar.component';
@@ -28,10 +31,12 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { GoogleLoginService } from './service/google/google-login.service';
 import { SheetResourceService } from './service/google/sheet-resource.service';
-import { ButtonComponent } from './component/button/button.component';
-import { InputPlaceholderComponent } from './component/input-placeholder/input-placeholder.component';
+import { ButtonComponent } from './custom-component/button/button.component';
+import { InputPlaceholderComponent } from './custom-component/input-placeholder/input-placeholder.component';
 import { RegisterComponent } from './component/register/register.component';
 import { GraphQLModule } from './graphql.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { from } from 'rxjs';
 
 let gapiClientConfig: NgGapiClientConfig = {
   client_id: "602076487631-28k1qh3apnsm4510llsq5reejkq4qtlt.apps.googleusercontent.com",
@@ -68,7 +73,13 @@ let gapiClientConfig: NgGapiClientConfig = {
 
     BrowserModule,
     AppRoutingModule,
+
+    //material
     MatDialogModule,
+    MatCheckboxModule,
+    MatSelectModule,
+    MatInputModule,
+
     BrowserAnimationsModule,
 
     RouterModule.forRoot([{
@@ -81,7 +92,8 @@ let gapiClientConfig: NgGapiClientConfig = {
       useValue: gapiClientConfig
     }),
     GraphQLModule,
-
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
