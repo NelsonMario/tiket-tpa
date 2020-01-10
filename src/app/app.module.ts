@@ -37,6 +37,10 @@ import { RegisterComponent } from './component/register/register.component';
 import { GraphQLModule } from './graphql.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { from } from 'rxjs';
+import { FlightReservationComponent } from './component/reservation/reservation-type/flight-reservation/flight-reservation.component';
+import { HotelReservationComponent } from './component/reservation/reservation-type/hotel-reservation/hotel-reservation.component';
+import { EntertainmentReservationComponent } from './component/reservation/reservation-type/entertainment-reservation/entertainment-reservation.component';
+import { TrainReservationComponent } from './component/reservation/reservation-type/train-reservation/train-reservation.component';
 
 let gapiClientConfig: NgGapiClientConfig = {
   client_id: "602076487631-28k1qh3apnsm4510llsq5reejkq4qtlt.apps.googleusercontent.com",
@@ -61,6 +65,10 @@ let gapiClientConfig: NgGapiClientConfig = {
     ReservationComponent,
     ReservationNavBarComponent,
     RentCarReservationComponent,
+    FlightReservationComponent,
+    HotelReservationComponent,
+    EntertainmentReservationComponent,
+    TrainReservationComponent,
     ButtonComponent,
     InputPlaceholderComponent,
     RegisterComponent,

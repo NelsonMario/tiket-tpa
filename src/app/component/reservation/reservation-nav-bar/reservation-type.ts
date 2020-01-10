@@ -1,3 +1,3 @@
 export class ReservationType {
-  constructor(private IMAGE_URL:string, private desc:string){}
+  constructor(private id: number, private IMAGE_URL:string, private desc:string){}
 }

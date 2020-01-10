@@ -1,4 +1,11 @@
 <section>
-  <app-reservation-nav-bar></app-reservation-nav-bar>
-  <app-rent-car-reservation></app-rent-car-reservation>
+  <app-reservation-nav-bar (reservationTypeOutput) = "getReservationType($event, quickCard)"></app-reservation-nav-bar>
+  <div id="quick-card-content" #quickCard>
+    <app-flight-reservation *ngIf="reservationType == 1"></app-flight-reservation>
+    <app-hotel-reservation *ngIf="reservationType == 2"></app-hotel-reservation>
+    <app-train-reservation *ngIf="reservationType == 3"></app-train-reservation>
+    <app-rent-car-reservation *ngIf="reservationType == 4"></app-rent-car-reservation>
+    <app-entertainment-reservation *ngIf="reservationType == 5"></app-entertainment-reservation>
+  </div>
 </section>
+

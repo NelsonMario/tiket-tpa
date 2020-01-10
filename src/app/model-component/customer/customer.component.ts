@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerComponent implements OnInit {
 
+  isHidden:boolean = true;
   constructor() { }
 
   ngOnInit() {
+  }
+
+  toggleOverlay(event){
+    if(event.target.id === "" && this.isHidden === false)
+      this.isHidden = !this.isHidden;
+    this.isHidden = !this.isHidden;
   }
 
 }

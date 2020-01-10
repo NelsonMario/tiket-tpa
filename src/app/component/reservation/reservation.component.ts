@@ -7,9 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReservationComponent implements OnInit {
 
+  reservationType: number = 1;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  getReservationType(event){
+    this.reservationType = event;
   }
 
 }
