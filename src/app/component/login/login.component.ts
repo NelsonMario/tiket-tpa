@@ -11,11 +11,13 @@ import { async } from '@angular/core/testing';
 import { query } from '@angular/animations';
 import { User } from 'src/app/models/user';
 
+declare const FB: any;
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
+
 export class LoginComponent implements OnInit {
 
   public sheetId: string;
@@ -38,7 +40,25 @@ export class LoginComponent implements OnInit {
     ngOnInit() {
       this.route.fragment.subscribe((fragment) => {
       console.log(fragment)
-      })
+      });
+
+      (window as any).fbAsyncInit = function() {
+        FB.init({
+          appId      : '993831117683156',
+          cookie     : true,
+          xfbml      : true,
+          version    : 'v3.1'
+        });
+        FB.AppEvents.logPageView();
+      };
+
+      (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
     }
 
     public isLoggedIn(): boolean {
@@ -46,8 +66,23 @@ export class LoginComponent implements OnInit {
     }
 
 
-    public signIn() {
+    public signInGoogle() {
       this.userService.signIn();
+    }
+
+    public signInFacebook(){
+      console.log("submit login to facebook");
+      FB.login((response)=>
+        {
+          console.log('submitLogin',response);
+          if (response.authResponse)
+          {
+            console.log("Login Success")
+          }else
+          {
+            console.log('User login failed');
+          }
+      });
     }
 
     getString($event){

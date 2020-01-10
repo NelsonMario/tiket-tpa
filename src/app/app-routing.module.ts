@@ -8,9 +8,13 @@ import { CustomerSectionComponent } from './model-component/customer/customer-se
 const routes: Routes = [
   {path: '',
   component: CustomerComponent,
-  children: [
-    {path: '', component: CustomerSectionComponent}
-  ]
+    children: [
+      {path: '', component: CustomerSectionComponent}
+    ]
+  },
+  {
+    path: 'admin',
+    component: AdminComponent
   }
 ];
 @NgModule({

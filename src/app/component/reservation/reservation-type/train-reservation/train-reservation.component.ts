@@ -11,5 +11,4 @@ export class TrainReservationComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }
