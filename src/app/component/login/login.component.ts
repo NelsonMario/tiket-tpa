@@ -77,7 +77,13 @@ export class LoginComponent implements OnInit {
           console.log('submitLogin',response);
           if (response.authResponse)
           {
-            console.log("Login Success")
+            console.log("Login Success");
+            FB.api('/me', function(response2){
+              console.log(response2)
+            }
+          );
+
+
           }else
           {
             console.log('User login failed');
