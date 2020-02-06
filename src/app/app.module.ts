@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { NgForm} from '@angular/forms'
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule, MatLabel, MatRadioButton, MatRadioModule, MatDatepickerModule, MatNativeDateModule, MatTooltipModule, MatButtonModule, MatButtonToggleModule } from '@angular/material'
+import { MatDialogModule, MatLabel, MatRadioButton, MatRadioModule, MatDatepickerModule, MatNativeDateModule, MatTooltipModule, MatButtonModule, MatButtonToggleModule, MatTabsModule } from '@angular/material'
 import { MatSelectModule} from '@angular/material/select'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatInputModule } from '@angular/material/input'
@@ -96,6 +96,7 @@ let gapiClientConfig: NgGapiClientConfig = {
     MatNativeDateModule,
     MatTooltipModule,
     MatButtonModule,
+    MatTabsModule,
     MatButtonToggleModule,
     BrowserAnimationsModule,
 
