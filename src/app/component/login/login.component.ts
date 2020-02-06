@@ -10,6 +10,7 @@ import { graphqlService } from '../../service/graphql/graphql.service'
 import { async } from '@angular/core/testing';
 import { query } from '@angular/animations';
 import { User } from 'src/app/models/user';
+import { tokenName } from '@angular/compiler';
 
 declare const FB: any;
 @Component({
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit {
 
     ngOnInit() {
       this.route.fragment.subscribe((fragment) => {
-      console.log(fragment)
+        console.log(fragment)
       });
 
       (window as any).fbAsyncInit = function() {
@@ -97,16 +98,17 @@ export class LoginComponent implements OnInit {
 
     login(){
       var userTemp: User[]  ;
-      console.log(this.input);
       this.graphql.getUserByEmailOrPhone(this.input).subscribe(async query=>{
         userTemp = query.data.userByEmailOrPhone;
         await
-        console.log(userTemp);
-        this.myAuthService.getUser(userTemp);
+        localStorage.setItem('currentUser', JSON.stringify(userTemp))
         if(userTemp.length === 0)
           this.dialogReference.close(this.input);
-        else
+        else{
           console.log(userTemp[0].firstName);
+          console.log(JSON.parse(localStorage.getItem('currentUser')))
+          window.location.reload()
+        }
       })
 
   }

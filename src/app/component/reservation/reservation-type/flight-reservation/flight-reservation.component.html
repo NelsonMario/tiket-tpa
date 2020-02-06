@@ -10,46 +10,52 @@
       <p>Pencarian Terakhir ></p>
     </div>
   </header>
-  <section>
-    <div class="location">
-      <div class="title">Lokasi Sewa</div>
-      <div class="content">
-        <div class="logo">
 
-        </div>
-        <b>Mau sewa di mana?</b>
-      </div>
+  <div class="way">
+    <mat-radio-group aria-label="Select an option">
+      <mat-radio-button value="twice" style="font-size: 15px; margin-right: 30px" name="goAndHome" ngDefaultControl [(ngModel)]="way">Pulang - Pergi</mat-radio-button>
+      <mat-radio-button value="once" style="font-size: 15px; margin-right: 30px;" >Sekali Jalan</mat-radio-button>
+    </mat-radio-group>
+  </div>
+
+  <section>
+    <div class="from">
+      <mat-label>From</mat-label>
+      <mat-select [formControl]="fromAirport" required>
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let airport of airports" [value]="airport">
+          {{airport.city}}
+        </mat-option>
+      </mat-select>
     </div>
-    <div class="date">
-      <div class="start">
-        <div class="title">Tanggal Mulai</div>
-        <div class="content">??</div>
-      </div>
-      <div class="diff">
-        ??
-      </div>
-      <div class="end">
-        <div class="title">Tanggal Selesai</div>
-        <div class="content">??</div>
-      </div>
+    <div class="to">
+      <mat-label>To</mat-label>
+      <mat-select [formControl]="toAirport" required>
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let airport of airports" [value]="airport">
+          {{airport.city}}
+        </mat-option>
+      </mat-select>
     </div>
-    <div class="car-total">
-      <div class="title">
-        Jumlah Mobil
+    <div class="schedule">
+      <div class="departure">
+        <mat-form-field>
+          <input matInput [matDatepicker]="departure" placeholder="Berangkat" [disabled] = "[way]">
+          <mat-datepicker-toggle matSuffix [for]="departure"></mat-datepicker-toggle>
+          <mat-datepicker #departure></mat-datepicker>
+        </mat-form-field>
       </div>
-      <div class="count">
-        ??
+      <div class="arrival">
+        <mat-form-field >
+            <input matInput [matDatepicker]="arrival" placeholder="Tiba" [disabled] = "[way]" >
+            <mat-datepicker-toggle matSuffix [for]="arrival"></mat-datepicker-toggle>
+            <mat-datepicker #arrival></mat-datepicker>
+        </mat-form-field>
       </div>
-    </div>
-    <div class="driver">
-      <p>Sewa mobil tanpa supir</p>
-      <mat-checkbox></mat-checkbox>
     </div>
   </section>
+
   <footer>
-    <div class="note">
-      Durasi satu hari sewa adalah 12 jam.
-    </div>
-    <app-button title="Cari mobil"></app-button>
+    <app-button title="Cari Penerbangan" (click)="searchFlight()"></app-button>
   </footer>
 </body>

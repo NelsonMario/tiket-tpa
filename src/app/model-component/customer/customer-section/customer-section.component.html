@@ -1,0 +1,8 @@
+<body>
+  <app-carousel></app-carousel>
+  <app-reservation (click)="toggleOverlay($event)"></app-reservation>
+  <div class="content">
+    <img src="../../../assets/Login/login-register-illustration.webp" alt="">
+  </div>
+  <div id="overlay" [hidden] = "isHidden" (click)="toggleOverlay($event)"></div>
+</body>

@@ -1,10 +1,6 @@
 <body>
   <app-customer-header></app-customer-header>
-  <app-carousel></app-carousel>
-  <app-reservation (click)="toggleOverlay($event)"></app-reservation>
-  <div class="content">
-    <img src="../../../assets/Login/login-register-illustration.webp" alt="">
-  </div>
+  <router-outlet id="router" name="customer-page"></router-outlet>
+  <!-- <app-customer-section (outputHidden) = "getHidden()"></app-customer-section> -->
   <app-customer-footer></app-customer-footer>
-  <div id="overlay" [hidden] = "isHidden" (click)="toggleOverlay($event)"></div>
 </body>

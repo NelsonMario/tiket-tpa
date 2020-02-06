@@ -1,7 +1,7 @@
 <header>
     <div id="left-side">
         <img src="../../../../assets/Login/tiket-logo-member.webp" alt="">
-        <div>Pesawat</div>
+        <div (click)="searchFlight()">Pesawat</div>
         <div>Hotel</div>
         <div>Kereta Api</div>
         <div>Sewa Mobil</div>
@@ -10,7 +10,8 @@
     <div id="right-side">
         <div><b>Tix Point</b></div>
         <div><b>Cek Order</b></div>
-        <div><b (click) = "openLoginDialog()">Login</b></div>
-        <div><b (click) = "openLoginDialog()">Daftar</b></div>
+        <div *ngIf="user == null"><b (click) = "openLoginDialog()">Login</b></div>
+        <div *ngIf="user == null"><b (click) = "openLoginDialog()">Daftar</b></div>
+        <div *ngIf="user" class="user" (click) = "logout()"><b>{{user[0].firstName}}</b></div>
     </div>
 </header>

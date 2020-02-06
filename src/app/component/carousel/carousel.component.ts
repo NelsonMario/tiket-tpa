@@ -19,7 +19,6 @@ export class CarouselComponent implements OnInit {
     this.image$ = this.graphqlService.getAllSlide().subscribe(async query =>{
       this.images =query.data.sliders;
     })
-
   }
 
 

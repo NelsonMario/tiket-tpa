@@ -7,22 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerFooterComponent implements OnInit {
 
-  company: string[] = [];
   product: string[] = [];
-  support: string[] = [];
+  support: {name: String, url: String}[] = [];
+  company: {name: String, url: String}[] = [];
 
   constructor() {
     /*
     * Company List
     */
-    this.company.push('Blog');
-    this.company.push('Karir');
-    this.company.push('Corporate');
-    this.company.push('Partner');
-    this.company.push('Tix Point');
-    this.company.push('Perlindungan');
-    this.company.push('Cicilan');
-    this.company.push('Daftarkan Hotel Anda');
+    this.company.push({name: 'Blog', url: 'https://blog.tiket.com/'});
+    this.company.push({name: 'Karir', url: 'https://www.tiket.com/careers/'});
+    this.company.push({name: 'Corporate', url: 'https://www.tiket.com/corporate'});
+    this.company.push({name: 'Partner', url: 'https://www.tiket.com/partner'});
+    this.company.push({name: 'Tix Point', url: 'https://www.tiket.com/tix'});
+    this.company.push({name: 'Perlindungan', url: 'https://www.tiket.com/insurance'});
+    this.company.push({name: 'Cicilan', url: 'https://www.tiket.com/info/cicilan'});
+
     /*
     * Product List
     */
@@ -34,13 +34,14 @@ export class CustomerFooterComponent implements OnInit {
     /*
     * Support List
     */
-    this.support.push('Pusat Bantuan');
-    this.support.push('Syarat dan Ketentuan');
-    this.support.push('Kebijakan dan Privasi');
-    this.support.push('Tiket Anti Galau');
+    this.support.push({name: 'Pusat Bantuan', url: 'https://www.tiket.com/help-center'})
+    this.support.push({name: 'Syarat dan Ketentuan', url: 'https://www.tiket.com/info'})
+    this.support.push({name: 'Kebijakan dan Privasi', url: 'https://www.tiket.com/info/privacy-policy'})
+    this.support.push({name: 'Tiket Anti Galau', url: 'https://tix.tiket.com/register'})
+    this.support.push({name: 'Daftarkan Hotel Anda', url: 'https://www.tiket.com/info/tiket-anti-galau'})
+    this.support.push({name: 'Group Booking', url: 'https://www.tiket.com/info/group-booking'})
   }
 
   ngOnInit() {
   }
-
 }

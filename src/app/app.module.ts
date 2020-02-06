@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { NgForm} from '@angular/forms'
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule, MatLabel } from '@angular/material'
+import { MatDialogModule, MatLabel, MatRadioButton, MatRadioModule, MatDatepickerModule, MatNativeDateModule, MatTooltipModule, MatButtonModule, MatButtonToggleModule } from '@angular/material'
 import { MatSelectModule} from '@angular/material/select'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatInputModule } from '@angular/material/input'
@@ -19,6 +19,7 @@ import { CarouselComponent } from './component/carousel/carousel.component';
 import { ReservationComponent } from './component/reservation/reservation.component';
 import { ReservationNavBarComponent } from './component/reservation/reservation-nav-bar/reservation-nav-bar.component';
 import { RentCarReservationComponent } from './component/reservation/reservation-type/rent-car-reservation/rent-car-reservation.component';
+
 import {
   GoogleApiModule,
   GoogleApiService,
@@ -41,6 +42,7 @@ import { FlightReservationComponent } from './component/reservation/reservation-
 import { HotelReservationComponent } from './component/reservation/reservation-type/hotel-reservation/hotel-reservation.component';
 import { EntertainmentReservationComponent } from './component/reservation/reservation-type/entertainment-reservation/entertainment-reservation.component';
 import { TrainReservationComponent } from './component/reservation/reservation-type/train-reservation/train-reservation.component';
+import { FlightPageComponent } from './component/pages/flight-page/flight-page.component';
 
 let gapiClientConfig: NgGapiClientConfig = {
   client_id: "602076487631-28k1qh3apnsm4510llsq5reejkq4qtlt.apps.googleusercontent.com",
@@ -72,6 +74,8 @@ let gapiClientConfig: NgGapiClientConfig = {
     ButtonComponent,
     InputPlaceholderComponent,
     RegisterComponent,
+    FlightPageComponent,
+
   ],
   entryComponents: [
     LoginComponent,
@@ -87,7 +91,12 @@ let gapiClientConfig: NgGapiClientConfig = {
     MatCheckboxModule,
     MatSelectModule,
     MatInputModule,
-
+    MatRadioModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatTooltipModule,
+    MatButtonModule,
+    MatButtonToggleModule,
     BrowserAnimationsModule,
 
     RouterModule.forRoot([{

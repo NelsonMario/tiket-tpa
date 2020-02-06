@@ -71,4 +71,120 @@ export class graphqlService {
     })
 
   }
+
+  getAllAirport(): Observable<any>{
+    return this.apollo.query<any>({
+      query: gql`
+        query {
+          distinctAirports{
+            city
+          }
+        }
+      `
+    })
+  }
+
+  getAllFlight(): Observable<any>{
+    return this.apollo.query<any>({
+      query: gql`
+        query {
+          flights{
+            id
+            airline{
+              id
+              name
+            }
+            from{
+              id
+              code
+              name
+              city
+              cityCode
+              province
+              country
+            }
+            to{
+              id
+              code
+              name
+              city
+              cityCode
+              province
+              country
+            }
+            flightFacility{
+              facility{
+                name
+              }
+            }
+            flightRoutes{
+              airport{
+                name
+              }
+            }
+            departure
+            arrival
+            duration
+            price
+            tax
+            serviceCharge
+          }
+        }
+      `
+    })
+  }
+
+  getFlightsByFromAndTo(from, to): Observable<any>{
+    return this.apollo.query<any>({
+      query: gql`
+        query GetFlightsByFromAndTo($from: String!, $to: String!){
+          flightByFromAndTo(from: $from, to: $to){
+            id
+            airline{
+              id
+              name
+            }
+            from{
+              id
+              code
+              name
+              city
+              cityCode
+              province
+              country
+            }
+            to{
+              id
+              code
+              name
+              city
+              cityCode
+              province
+              country
+            }
+            flightFacility{
+              facility{
+                name
+              }
+            }
+            flightRoutes{
+              airport{
+                name
+              }
+            }
+            departure
+            arrival
+            duration
+            price
+            tax
+            serviceCharge
+          }
+        }
+      `,
+      variables:{
+        "from": from,
+        "to": to
+      }
+    })
+  }
 }
