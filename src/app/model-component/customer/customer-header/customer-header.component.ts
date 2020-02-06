@@ -64,7 +64,7 @@ export class CustomerHeaderComponent implements OnInit {
   }
 
   ngOnDestroy(): void {
-    if(this.flightService.flights.length != 0)
+    if(this.flightService.flights.length != 0 && this.flightService.flights.length == 3)
       this.flight$.unsubscribe();
   }
 }
