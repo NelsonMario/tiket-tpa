@@ -2,9 +2,9 @@ body{
   font-family: 'OpenSans',Arial,Helvetica,sans-serif;
   display: flex;
   flex-direction: column;
-  align-items: center;
   background-color: white;
   border-radius: 0 0 20px 20px;
+
   .title{
     margin-bottom: 2vw;
   }
@@ -12,6 +12,7 @@ body{
   header{
     display: flex;
     align-items: center;
+    justify-content: center;
     padding: 1vw 0;
     .left-section{
       display: flex;
@@ -33,75 +34,43 @@ body{
     }
   }
 
+  .way{
+    padding: 20px 150px;
+  }
+
   section{
-    color: gray;
     display: flex;
-    font-size: 17.5px;
-
-    .location, .date, .car-total, .driver{
-      padding: 2vw 0;
-      border: 0.5px gray solid;
-      border-left: none;
-    }
-
-    .driver{
-      border-right: none;
-    }
-
-    .location{
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 0 5vw;
-    }
-
-    .date{
-      display: flex;
-      padding: 0 5vw;
-      .start, .end{
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    justify-content: center;
+    align-items: center;
+    .from, .to{
+      padding: 20px 50px;
+      mat-label{
+        font-size: 15px;
+        color: gray;
+      }
+      .mat-select{
+        padding-top: 10px;
         display: flex;
         flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .diff{
-        display: flex;
-        align-items: center;
-        margin-left: 10px;
-        margin-right: 10px;
+        width: 100px;
+        font-size: 18px;
+        font-weight: 2px;
       }
     }
-
-    .car-total{
+    .schedule{
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 0 5vw;
-    }
-
-    .driver{
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      p{
-        margin-left: 5vw;
-        margin-right: 2vw;
-      }
-      mat-checkbox{
-        margin-right: 5vw;
+      .departure{
+        margin-right: 15px;
       }
     }
   }
+
   footer{
     display: flex;
     align-items: center;
-    .note{
-      color: gray;
-      margin-right: 20vw;
-    }
-
+    justify-content: flex-end;
     #button{
       width: 10vw;
       margin: 20px;
@@ -117,7 +86,7 @@ body{
           font-size: 16px;
           border-radius: 40px;
       }
-  }
+    }
   }
 }
 

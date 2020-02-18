@@ -5,6 +5,9 @@ import { Airport } from 'src/app/models/airport';
 import { AirportService } from 'src/app/service/airport/airport.service';
 import { FormControl, Validators } from '@angular/forms';
 import { Filter } from 'src/app/models/filter';
+import { graphqlService } from 'src/app/service/graphql/graphql.service';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-flight-page',
@@ -36,16 +39,40 @@ export class FlightPageComponent implements OnInit {
   flights: Flight[] = []
   airports: Airport[] = []
   facilities: string[] = ['']
+  from: string
+  to: string
+  airport$: Subscription;
+  departureFlight$: Subscription
+  arrivalFlight$: Subscription
   fromAirport = new FormControl('', [Validators.required]);
   toAirport = new FormControl('', [Validators.required]);
+  formattedDeparture = new FormControl('', [Validators.required]);
+  formattedArrival = new FormControl('', [Validators.required]);
   @Output() outputHidden = new EventEmitter;
   isHidden:boolean = true;
+  buy: boolean = false
 
 
-  constructor(private flightService: FlightService, private airportService: AirportService) {
+  constructor(private flightService: FlightService, private airportService: AirportService, private graphqlService: graphqlService, private router: Router) {
     this.flights = flightService.flights
-    console.log(this.flights[0])
+    this.from = flightService.from
+    this.to = flightService.to
+  }
 
+  searchFlight(){
+    if(this.formattedArrival.value ==  null)
+    this.formattedArrival.setValue("")
+
+    this.departureFlight$ = this.graphqlService.getFlightsBySchedule(this.fromAirport.value.city, this.toAirport.value.city, this.formattedDeparture.value, this.formattedArrival.value).subscribe(async query=>{
+      this.flightService.flights = query.data.flightBySchedule
+      await
+      console.log(query.data.flightBySchedule)
+      console.log(this.formattedDeparture.value)
+      console.log(this.formattedArrival.value)
+      this.flightService.from = this.fromAirport.value.city
+      this.flightService.to = this.toAirport.value.city
+      this.router.navigate(["/flight"])
+    })
   }
 
   filterValidation(index){
@@ -129,6 +156,11 @@ export class FlightPageComponent implements OnInit {
       }
     }
     return false;
+  }
+
+  setBuy(){
+    this.buy = !this.buy
+    console.log(this.buy)
   }
 
   ngOnInit() {

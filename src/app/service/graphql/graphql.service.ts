@@ -134,11 +134,11 @@ export class graphqlService {
     })
   }
 
-  getFlightsByFromAndTo(from, to): Observable<any>{
+  getFlightsByOneSchedule(from, to, date): Observable<any>{
     return this.apollo.query<any>({
       query: gql`
-        query GetFlightsByFromAndTo($from: String!, $to: String!){
-          flightByFromAndTo(from: $from, to: $to){
+        query GetFlightsByOneSchedule($from: String!, $to: String!, $date: String!){
+          flightByOneSchedule(from: $from, to: $to, date: $date){
             id
             airline{
               id
@@ -183,8 +183,221 @@ export class graphqlService {
       `,
       variables:{
         "from": from,
-        "to": to
+        "to": to,
+        "date": date,
       }
+    })
+  }
+
+  getFlightsBySchedule(from, to, departure, arrival): Observable<any>{
+    return this.apollo.query<any>({
+      query: gql`
+        query GetFlightsBySchedule($from: String!, $to: String!, $departure: String!, $arrival: String!){
+          flightBySchedule(from: $from, to: $to, departure: $departure, arrival: $arrival){
+            id
+            airline{
+              id
+              name
+            }
+            from{
+              id
+              code
+              name
+              city
+              cityCode
+              province
+              country
+            }
+            to{
+              id
+              code
+              name
+              city
+              cityCode
+              province
+              country
+            }
+            flightFacility{
+              facility{
+                name
+              }
+            }
+            flightRoutes{
+              airport{
+                name
+              }
+            }
+            departure
+            arrival
+            duration
+            price
+            tax
+            serviceCharge
+          }
+        }
+      `,
+      variables:{
+        "from": from,
+        "to": to,
+        "departure": departure,
+        "arrival": arrival
+      }
+    })
+  }
+
+  getAllRailroad(): Observable<any>{
+    return this.apollo.query<any>({query: gql`
+      query{
+        railroads{
+          id
+          station{
+            id
+            name
+          }
+          from{
+            id
+            code
+            name
+            city
+            cityCode
+            province
+            country
+          }
+          to{
+            id
+            code
+            name
+            city
+            cityCode
+            province
+            country
+          }
+          railroadRoutes{
+            station{
+              name
+            }
+          }
+          departure
+          arrival
+          duration
+          price
+          tax
+          serviceCharge
+        }
+      }`
+    })
+  }
+
+  getRailroadByOneSchedule(from, to, date): Observable<any>{
+    return this.apollo.query<any>({
+      query: gql`
+        query getRailroadByOneSchedule($from: String!, $to: String!, $date: String!){
+          railroadsByOneSchedule(from: $from, to: $to, date: $date){
+            id
+            train{
+              id
+              name
+            }
+            from{
+              id
+              code
+              name
+              city
+              cityCode
+              province
+              country
+            }
+            to{
+              id
+              code
+              name
+              city
+              cityCode
+              province
+              country
+            }
+            railroadRoutes{
+              station{
+                name
+              }
+            }
+            departure
+            arrival
+            duration
+            price
+            tax
+            serviceCharge
+          }
+        }
+      `,
+      variables:{
+        "from": from,
+        "to": to,
+        "date": date,
+      }
+    })
+  }
+
+  getRailroadBySchedule(from, to, departure, arrival): Observable<any>{
+    return this.apollo.query<any>({
+      query: gql`
+        query getRailroadBySchedule($from: String!, $to: String!, $departure: String!, $arrival: String!){
+          railroadsBySchedule(from: $from, to: $to, departure: $departure, arrival: $arrival){
+            id
+            train{
+              id
+              name
+            }
+            from{
+              id
+              code
+              name
+              city
+              cityCode
+              province
+              country
+            }
+            to{
+              id
+              code
+              name
+              city
+              cityCode
+              province
+              country
+            }
+            railroadRoutes{
+              station{
+                name
+              }
+            }
+            departure
+            arrival
+            duration
+            price
+            tax
+            serviceCharge
+          }
+        }
+      `,
+      variables:{
+        "from": from,
+        "to": to,
+        "departure": departure,
+        "arrival": arrival
+      }
+    })
+  }
+
+  getAllStation(): Observable<any>{
+    return this.apollo.query<any>({
+      query: gql`
+        query {
+          distinctStation{
+            city
+          }
+        }
+      `
     })
   }
 }

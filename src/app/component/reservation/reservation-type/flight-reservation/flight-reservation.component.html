@@ -13,8 +13,8 @@
 
   <div class="way">
     <mat-radio-group aria-label="Select an option">
-      <mat-radio-button value="twice" style="font-size: 15px; margin-right: 30px" name="goAndHome" ngDefaultControl [(ngModel)]="way">Pulang - Pergi</mat-radio-button>
-      <mat-radio-button value="once" style="font-size: 15px; margin-right: 30px;" >Sekali Jalan</mat-radio-button>
+      <mat-radio-button value="twice" style="font-size: 15px; margin-right: 30px" name="goAndHome" ngDefaultControl [(ngModel)]="way" (change) = "checkWay()">Pulang - Pergi</mat-radio-button>
+      <mat-radio-button value="once" style="font-size: 15px; margin-right: 30px;" (change) = "checkWay()">Sekali Jalan</mat-radio-button>
     </mat-radio-group>
   </div>
 
@@ -40,17 +40,19 @@
     <div class="schedule">
       <div class="departure">
         <mat-form-field>
-          <input matInput [matDatepicker]="departure" placeholder="Berangkat" [disabled] = "[way]">
+          <input matInput [matDatepicker]="departure" placeholder="Berangkat" [disabled] = "![way]" [(ngModel)] = "fromSchedule">
+          <input hidden [formControl] = "formattedDeparture" matinput [ngModel] = "fromSchedule | date:'yyyy-MM-dd'">
           <mat-datepicker-toggle matSuffix [for]="departure"></mat-datepicker-toggle>
           <mat-datepicker #departure></mat-datepicker>
         </mat-form-field>
       </div>
       <div class="arrival">
         <mat-form-field >
-            <input matInput [matDatepicker]="arrival" placeholder="Tiba" [disabled] = "[way]" >
+            <input matInput [matDatepicker]="arrival" placeholder="Tiba" [disabled] = "![way]" [(ngModel)] = "toSchedule" >
+            <input  hidden [formControl] = "formattedArrival" matinput [ngModel] = "toSchedule | date:'yyyy-MM-dd'">
             <mat-datepicker-toggle matSuffix [for]="arrival"></mat-datepicker-toggle>
             <mat-datepicker #arrival></mat-datepicker>
-        </mat-form-field>
+          </mat-form-field>
       </div>
     </div>
   </section>

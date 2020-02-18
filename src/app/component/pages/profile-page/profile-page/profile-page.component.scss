@@ -1,0 +1,16 @@
+a{
+  text-decoration: none;
+  color: rgba($color: #000000, $alpha: 1.0)
+}
+
+.content{
+  display: flex;
+  justify-content: space-between;
+  .choice{
+    min-width: 20%;
+    .sub-choice{
+      display: flex;
+    }
+  }
+
+}

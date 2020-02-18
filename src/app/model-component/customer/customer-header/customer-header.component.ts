@@ -44,9 +44,8 @@ export class CustomerHeaderComponent implements OnInit {
     })
   }
 
-  logout(){
-    localStorage.clear()
-    window.location.reload()
+  profile(){
+    this.router.navigate(["/profile"])
   }
 
 
@@ -55,16 +54,16 @@ export class CustomerHeaderComponent implements OnInit {
   flight$: Subscription
 
   searchFlight(){
-    this.flight$ = this.graphqlService.getAllFlight().subscribe(async query=>{
-      this.flightService.flights = query.data.flights
-      console.log(this.flightService.flights)
-      await
-      this.router.navigate(["/flight"])
-    })
+    // this.flight$ = this.graphqlService.getAllFlight().subscribe(async query=>{
+    //   this.flightService.departureFlights = query.data.flights
+    //   console.log(this.flightService.departureFlights)
+    //   await
+    //   this.router.navigate(["/flight"])
+    // })
   }
 
   ngOnDestroy(): void {
-    if(this.flightService.flights.length != 0 && this.flightService.flights.length == 3)
-      this.flight$.unsubscribe();
+  //   if(this.flightService.departureFlights.length != 0 && this.flightService.departureFlights.length == 3)
+  //     this.flight$.unsubscribe();
   }
 }

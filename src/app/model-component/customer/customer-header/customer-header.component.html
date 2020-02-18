@@ -12,6 +12,6 @@
         <div><b>Cek Order</b></div>
         <div *ngIf="user == null"><b (click) = "openLoginDialog()">Login</b></div>
         <div *ngIf="user == null"><b (click) = "openLoginDialog()">Daftar</b></div>
-        <div *ngIf="user" class="user" (click) = "logout()"><b>{{user[0].firstName}}</b></div>
+        <div *ngIf="user" class="user" (click) = "profile()"><b>{{user[0].firstName}}</b></div>
     </div>
 </header>

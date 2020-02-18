@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { NgForm} from '@angular/forms'
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatDialogModule, MatLabel, MatRadioButton, MatRadioModule, MatDatepickerModule, MatNativeDateModule, MatTooltipModule, MatButtonModule, MatButtonToggleModule, MatTabsModule } from '@angular/material'
+import { MatDialogModule, MatLabel, MatRadioButton, MatRadioModule, MatDatepickerModule, MatNativeDateModule, MatTooltipModule, MatButtonModule, MatButtonToggleModule, MatTabsModule, MAT_DATE_LOCALE } from '@angular/material'
 import { MatSelectModule} from '@angular/material/select'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatInputModule } from '@angular/material/input'
@@ -43,6 +43,8 @@ import { HotelReservationComponent } from './component/reservation/reservation-t
 import { EntertainmentReservationComponent } from './component/reservation/reservation-type/entertainment-reservation/entertainment-reservation.component';
 import { TrainReservationComponent } from './component/reservation/reservation-type/train-reservation/train-reservation.component';
 import { FlightPageComponent } from './component/pages/flight-page/flight-page.component';
+import { TrainPageComponent } from './component/pages/train-page/train-page.component';
+import { ProfilePageComponent } from './component/pages/profile-page/profile-page/profile-page.component';
 
 let gapiClientConfig: NgGapiClientConfig = {
   client_id: "602076487631-28k1qh3apnsm4510llsq5reejkq4qtlt.apps.googleusercontent.com",
@@ -75,6 +77,8 @@ let gapiClientConfig: NgGapiClientConfig = {
     InputPlaceholderComponent,
     RegisterComponent,
     FlightPageComponent,
+    TrainPageComponent,
+    ProfilePageComponent
 
   ],
   entryComponents: [
@@ -113,7 +117,9 @@ let gapiClientConfig: NgGapiClientConfig = {
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

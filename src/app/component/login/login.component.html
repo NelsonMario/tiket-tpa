@@ -7,7 +7,17 @@
         <p>Perjalanan serumu dimulai di sini.</p>
     </div>
 
-    <app-input-placeholder desc="Nomor Ponsel atau Email" width = 21 (returnedString)="getString($event)"></app-input-placeholder>
+    <form class="loginForm">
+      <mat-form-field class="Email or Phone">
+        <mat-label>Email Or Phone</mat-label>
+        <input [formControl] = "emailOrPhone" matInput class="emailOrPhone">
+      </mat-form-field>
+
+      <mat-form-field class="Password">
+        <mat-label>password</mat-label>
+        <input [formControl] = "password" matInput type = "password" class="password">
+      </mat-form-field>
+    </form>
 
     <app-button (click)="login()" title="LANJUTKAN" width = 15></app-button>
 

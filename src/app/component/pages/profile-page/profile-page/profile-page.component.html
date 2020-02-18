@@ -1,0 +1,14 @@
+<div class="content">
+  <div class="choice">
+    <div class="profile">
+
+    </div>
+    <div class="sub-choice" *ngFor="let profile of profiles">
+      <div class="logo">
+        {{profile.logo}}
+      </div>
+      <a href="" *ngIf="profile.logo != 'K'">{{profile.desc}}</a>
+      <a href="" *ngIf="profile.logo == 'K'" (click)="logout()">{{profile.desc}}</a>
+    </div>
+  </div>
+</div>

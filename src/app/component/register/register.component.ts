@@ -51,17 +51,44 @@ export class RegisterComponent implements OnInit {
     this.password = $event;
   }
 
+  checkLength(string, min, max){
+    if(string.length <= max && string.length >= min)
+      return true
+    return false
+
+  }
+
+  emailValidation(email){
+    if(email[email.indexOf('@') - 1] ||email[email.indexOf('@') + 1])
+      return false
+    else if(!email.endsWith(".com"))
+      return false
+    return true
+  }
+
   register(){
+
     this.user.email = this.data.email.replace(/\s/g, "");
     this.user.firstName = this.firstName.replace(/\s/g, "");
     this.user.lastName = this.lastName.replace(/\s/g, "");
     this.user.phoneNumber = "+" + this.countryCode + this.phoneNumber.replace(/\s/g, "");
     this.user.password = this.password.replace(/\s/g, "");
 
+    if(!this.checkLength(this.user.phoneNumber, 14, 14))console.log("phone")
+    if(!this.checkLength(this.user.firstName, 5, 10))console.log("first")
+    if(!this.checkLength(this.user.lastName, 5, 10))console.log("last")
+    if(!this.checkLength(this.user.password, 5, 10))console.log("password")
+    if(this.emailValidation(this.user.email))console.log("email")
 
-    this.graphql.insertRegisterUser(this.user.email, this.user.firstName,
-      this.user.lastName, this.user.password, this.user.phoneNumber).subscribe(async query=>{
-      });
+    if(this.emailValidation(this.user.email) || !this.checkLength(this.user.phoneNumber, 14, 14) || !this.checkLength(this.user.firstName, 5, 10) || !this.checkLength(this.user.lastName, 5, 10) || !this.checkLength(this.user.password, 5, 10)) console.log("Registration Failed")
+    else{
+      this.graphql.insertRegisterUser(this.user.email, this.user.firstName,
+        this.user.lastName, this.user.password, this.user.phoneNumber).subscribe(async query=>{
+          console.log("Registration Success")
+        });
+        localStorage.setItem('currentUser', JSON.stringify(this.user))
+        window.location.reload()
+    }
   }
 
 

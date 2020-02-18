@@ -1,15 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Flight } from 'src/app/models/flight';
+import { Railroad } from 'src/app/models/railroad';
 
 @Injectable({
   providedIn: 'root'
 })
-export class FlightService {
+export class RailroadService {
 
-  flights: Flight[] = []
+  railroad: Railroad[] = []
   from : string
   to : string
-  way: boolean
   constructor() { }
-
 }
