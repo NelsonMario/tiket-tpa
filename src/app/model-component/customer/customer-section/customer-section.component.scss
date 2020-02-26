@@ -6,6 +6,8 @@ body{
   align-items: center;
   position: relative;
   min-width: 30%;
+  background-color: grayscale($color: #eeeeee);
+  font-family: 'Open Sans',Arial,Helvetica,sans-serif;
   app-reservation{
     position: absolute;
     transform: translateY(20vh);
@@ -13,6 +15,31 @@ body{
   }
   .content{
     margin-top: 60vh;
+    min-width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    .res-hotel{
+      display: flex;
+      width: 100%;
+      justify-content: space-evenly;
+      .recommended-hotel{
+        display: flex;
+        padding: 30px;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        background-color: white;
+        min-width: 30%;
+        section{
+          display: flex;
+          justify-content: space-around;
+        }
+      }
+    }
   }
 }
 
@@ -24,3 +51,4 @@ body{
   background-color: rgba($color: #00000005, $alpha: 0.3);
   z-index: 1;
 }
+

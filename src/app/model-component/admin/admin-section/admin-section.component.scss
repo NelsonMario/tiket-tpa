@@ -1,0 +1,15 @@
+
+body{
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  min-width: 30%;
+  .content{
+  }
+  #map{
+    height: 100vw;
+    width: 100vh;
+  }
+}

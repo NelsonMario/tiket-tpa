@@ -14,7 +14,7 @@ export class ReservationComponent implements OnInit {
   ngOnInit() {
   }
 
-  getReservationType(event){
+  getReservationType(event, quickCard){
     this.reservationType = event;
   }
 

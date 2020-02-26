@@ -1,14 +1,47 @@
 <div class="content">
   <div class="choice">
-    <div class="profile">
-
-    </div>
-    <div class="sub-choice" *ngFor="let profile of profiles">
-      <div class="logo">
-        {{profile.logo}}
+    <div class="wrapper-choice">
+      <div class="sub-choice" *ngFor="let profile of profiles">
+        <div class="logo">
+          {{profile.logo}}
+        </div>
+        <a href="" *ngIf="profile.logo != 'K'">{{profile.desc}}</a>
+        <a href="" *ngIf="profile.logo == 'K'" (click)="logout()">{{profile.desc}}</a>
       </div>
-      <a href="" *ngIf="profile.logo != 'K'">{{profile.desc}}</a>
-      <a href="" *ngIf="profile.logo == 'K'" (click)="logout()">{{profile.desc}}</a>
+    </div>
+  </div>
+  <div class="profile">
+    <div class="profile-detail">
+      <div class="profile-detail-title">Detail Profile</div>
+      <mat-form-field class="first-name">
+        <mat-label>First Name</mat-label>
+        <input [formControl] = "firstName" matInput class="firstName" >
+      </mat-form-field>
+      <mat-form-field class="last-name">
+        <mat-label>Last Name</mat-label>
+        <input [formControl] = "lastName" matInput class="lastName">
+      </mat-form-field>
+      <mat-form-field class="email">
+        <mat-label>Email</mat-label>
+        <input [formControl] = "email" matInput class="email">
+      </mat-form-field>
+      <mat-form-field class="phoneNumber">
+        <mat-label>PhoneNumber</mat-label>
+        <input [formControl] = "phoneNumber" matInput class="phoneNumber">
+      </mat-form-field>
+      <mat-form-field class="city-name">
+        <mat-label>City</mat-label>
+        <input [formControl] = "city" matInput class="city-name">
+      </mat-form-field>
+      <mat-form-field class="address">
+        <mat-label>Address</mat-label>
+        <input [formControl] = "address" matInput class="address">
+      </mat-form-field>
+      <mat-form-field class="postcode">
+        <mat-label>postcode</mat-label>
+        <input [formControl] = "postcode" matInput class="postcode">
+      </mat-form-field>
+      <app-button title="Update Data" width = 15 (click)="updateProfile()"></app-button>
     </div>
   </div>
 </div>

@@ -6,7 +6,9 @@ header{
   background-color: rgb(245, 245, 245);
   border-radius: 20px 20px 0 0;
   padding: 10px 0px;
+  min-width: 30%;
   .left-section{
+    min-width: 30%;
     .title{
       font-size: 20px;
     }
@@ -16,7 +18,7 @@ header{
   }
 
   .right-section{
-
+    min-width: 30%;
     display: flex;
     .image{
       display: flex;
@@ -26,6 +28,8 @@ header{
       border: 1px rgb(207, 214, 216) solid;
       padding: 5px;
       border-radius: 10px;
+      min-width: 5%;
+
       cursor: pointer;
       b{
         font-size: 10px;
@@ -34,6 +38,14 @@ header{
 
     .image:hover{
       border: 2px #155ab4 solid;
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  header{
+    .left-section, .right-section{
+      flex-direction: column;
     }
   }
 }

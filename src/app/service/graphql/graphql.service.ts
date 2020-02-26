@@ -4,6 +4,7 @@ import { Apollo } from 'apollo-angular'
 import gql from 'graphql-tag'
 import { variable } from '@angular/compiler/src/output/output_ast';
 import { query } from '@angular/animations';
+import { identifierModuleUrl } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,7 @@ export class graphqlService {
       query: gql`
         query ($input: String!){
           userByEmailOrPhone(input: $input){
+            id
             firstName
             lastName
             email
@@ -72,12 +74,146 @@ export class graphqlService {
 
   }
 
+  insertFlight(airlineRefer, from, to, arrival, departure, duration, price, tax, serviceCharge): Observable<any>{
+    return this.apollo.mutate<any>({
+      mutation:gql`
+      mutation insertFlight($airlineRefer: Int!, $fromRefer: Int!, $toRefer: Int!, $depature: DateTime!, $arrival: DateTime!, $duration: Int!, $price: Int!, $tax: Int!, $serviceCharge: Int!){
+        insertFlight(airlineRefer: $airlineRefer, fromRefer: $fromRefer, toRefer: $toRefer, departure: $depature, arrival: $arrival, duration: $duration, price: $price, tax: $tax, serviceCharge: $serviceCharge){
+          airlineRefer
+          fromRefer
+          toRefer
+          departure
+          arrival
+          duration
+          price
+          serviceCharge
+          tax
+        }
+      }
+    `,
+    variables:{
+      "airlineRefer": airlineRefer,
+      "arrival": arrival,
+      "depature": departure,
+      "duration": duration,
+      "fromRefer": from,
+      "serviceCharge": serviceCharge,
+      "price": price,
+      "tax": tax,
+      "toRefer": to
+    }
+    })
+
+  }
+
+  updateFlight(id, airlineRefer, from, to, arrival, departure, duration, price, tax, serviceCharge): Observable<any>{
+    return this.apollo.mutate<any>({
+      mutation:gql`
+      mutation updateFlight($id: Int!, $airlineRefer:Int!, $fromRefer: Int!, $toRefer: Int!, $arrival: DateTime!, $departure: DateTime!, $duration: Int!, $price: Int!, $tax: Int!, $serviceCharge: Int!){
+        updateFlight(id: $id, airline_refer: $airlineRefer, from_refer: $fromRefer, to_refer:$toRefer, arrival:$arrival, departure:$departure, duration:$duration, price: $price, tax: $tax, service_charge: $serviceCharge){
+          id
+        }
+      }
+    `,
+    variables:{
+      "id": id,
+      "airlineRefer": airlineRefer,
+      "arrival": arrival,
+      "departure": departure,
+      "duration": duration,
+      "fromRefer": from,
+      "serviceCharge": serviceCharge,
+      "price": price,
+      "tax": tax,
+      "toRefer": to
+    }
+    })
+
+  }
+
+  removeFlight(id){
+    return this.apollo.mutate<any>({
+      mutation: gql`
+      mutation($id: Int!){
+        removeFlight(id: $id){
+          id
+        }
+      }
+      `,
+      variables:{
+        "id": id
+      }
+    })
+  }
+
+  updateUser(id, firstName, lastName, phoneNumber, email, cityName, address, postCode){
+    return this.apollo.mutate<any>({
+      mutation: gql`
+      mutation updateUser($id: Int!, $firstName: String!, $lastName: String!, $phoneNumber: String!,$email: String!, $cityName: String!, $address: String!, $postCode: String!){
+        updateUser(id: $id, first_name: $firstName, last_name: $lastName, phone_number: $phoneNumber,email: $email, city_name: $cityName, address: $address, post_code: $postCode){
+          id
+          firstName
+          lastName
+          email
+          phoneNumber
+          cityName
+          address
+          postcode
+        }
+      }
+      `,
+      variables:{
+        "address": address,
+        "cityName": cityName,
+        "email": email,
+        "firstName": firstName,
+        "id": id,
+        "lastName": lastName,
+        "postCode": postCode,
+        "phoneNumber": phoneNumber
+      }
+    })
+  }
+
   getAllAirport(): Observable<any>{
     return this.apollo.query<any>({
       query: gql`
         query {
           distinctAirports{
             city
+          }
+        }
+      `
+    })
+  }
+
+
+
+  getAirlines(): Observable<any>{
+    return this.apollo.query<any>({
+      query: gql`
+        query {
+          airlines{
+            id
+            name
+          }
+        }
+      `
+    })
+  }
+
+  getAirports(): Observable<any>{
+    return this.apollo.query<any>({
+      query: gql`
+        query {
+          airports{
+            id
+            name
+            city
+            country
+            cityCode
+            province
+            code
           }
         }
       `
@@ -326,6 +462,7 @@ export class graphqlService {
             duration
             price
             tax
+            class
             serviceCharge
           }
         }
@@ -376,6 +513,7 @@ export class graphqlService {
             duration
             price
             tax
+            class
             serviceCharge
           }
         }
@@ -398,6 +536,149 @@ export class graphqlService {
           }
         }
       `
+    })
+  }
+
+  getCarByLocation(location): Observable<any>{
+    return this.apollo.query<any>({
+      query: gql`
+        query carByLocation($location: String!){
+          carByLocation(location:$location){
+            name
+            model
+            passanger
+            price
+            vendorCar{
+              vendor{
+                name
+                vendorLocation{
+                  location{
+                    city
+                    country
+                    lat
+                    lng
+                  }
+                }
+              }
+            }
+          }
+        }
+      `,
+      variables:{
+        "location": location
+      }
+    })
+  }
+
+  getAllLocation(): Observable<any>{
+    return this.apollo.query<any>({
+      query: gql`
+      query{
+        location{
+          city
+          country
+          lat
+          lng
+        }
+        }
+      `
+    })
+  }
+
+
+  getNearestHotelByLocation(location): Observable<any>{
+    return this.apollo.query<any>({
+      query: gql`
+      query getNearestHotelByLocation($location: String!){
+        nearestHotels(location: $location){
+          name
+          rating
+          location{
+            id
+            city
+            lat
+            lng
+          }
+          hotelFacility{
+            facility{
+              id
+              name
+            }
+          }
+          hotelRoom{
+            room{
+              id
+              checkIn
+              checkOut
+              maxGuest
+              bed
+              roomFacility{
+                id
+                facilityType
+                facility{
+                  id
+                  name
+                }
+              }
+              size
+              price
+            }
+          }
+        }
+      }
+      `,
+      variables: {
+        "location": location
+      }
+    })
+  }
+
+  getHotelByLocation(location): Observable<any>{
+    return this.apollo.query<any>({
+      query: gql`
+      query getHotelByLocation($location: String!){
+        hotelByLocation(location: $location){
+          name
+          rating
+          hotelLat
+          hotelLng
+          location{
+            id
+            city
+            lat
+            lng
+          }
+          hotelFacility{
+            facility{
+              id
+              name
+            }
+          }
+          hotelRoom{
+            room{
+              id
+              checkIn
+              checkOut
+              maxGuest
+              bed
+              roomFacility{
+                id
+                facilityType
+                facility{
+                  id
+                  name
+                }
+              }
+              size
+              price
+            }
+          }
+        }
+      }
+      `,
+      variables: {
+        "location": location
+      }
     })
   }
 }

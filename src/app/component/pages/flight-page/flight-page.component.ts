@@ -8,6 +8,7 @@ import { Filter } from 'src/app/models/filter';
 import { graphqlService } from 'src/app/service/graphql/graphql.service';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Airline } from 'src/app/models/airline';
 
 @Component({
   selector: 'app-flight-page',
@@ -36,9 +37,12 @@ export class FlightPageComponent implements OnInit {
     {name: "2+ Transit", active: false, transit: 2}
   ]
 
+  airlines: any [] = []
   flights: Flight[] = []
   airports: Airport[] = []
   facilities: string[] = ['']
+  filterFacility: any[] = []
+
   from: string
   to: string
   airport$: Subscription;
@@ -51,12 +55,47 @@ export class FlightPageComponent implements OnInit {
   @Output() outputHidden = new EventEmitter;
   isHidden:boolean = true;
   buy: boolean = false
-
+  fromSchedule: string = ""
+  toSchedule: string = ""
 
   constructor(private flightService: FlightService, private airportService: AirportService, private graphqlService: graphqlService, private router: Router) {
     this.flights = flightService.flights
     this.from = flightService.from
     this.to = flightService.to
+
+
+    var airlineTemp = []
+    console.log(this.flightService.flights)
+    this.flightService.flights.forEach(element => {
+      airlineTemp.push(element.airline.name)
+    });
+
+
+    airlineTemp = airlineTemp.filter((airlineName, i, arr) => arr.findIndex(a=>a==airlineName)==i)
+
+    airlineTemp.forEach(element => {
+      this.airlines.push({
+        name: element,
+        active: false
+      })
+    });
+
+
+    var facilityTemp = []
+
+    for(let i = 0 ; i < this.flights.length ; i++){
+      for(let j = 0 ; j < this.flights[i].flightFacility.length ; j++){
+        facilityTemp[j] = this.flights[i].flightFacility[j].facility.name
+      }
+    }
+    facilityTemp = facilityTemp.filter((facilityTempName, i, arr) => arr.findIndex(a=>a==facilityTempName)==i)
+
+    facilityTemp.forEach(element => {
+      this.filterFacility.push({
+        name: element,
+        active: false
+      })
+    });
   }
 
   searchFlight(){
@@ -71,13 +110,17 @@ export class FlightPageComponent implements OnInit {
       console.log(this.formattedArrival.value)
       this.flightService.from = this.fromAirport.value.city
       this.flightService.to = this.toAirport.value.city
+
       this.router.navigate(["/flight"])
     })
   }
 
   filterValidation(index){
-    if(!this.departureTimeValidation(index))
-      //if return true than dont show
+    if(!this.airlineValidation(index))
+      return false
+    else if(!this.facilityValidation(index))
+      return false
+    else if(!this.departureTimeValidation(index))
       return false
     else if(!this.arrivalTimeValidation(index))
       return false
@@ -110,6 +153,30 @@ export class FlightPageComponent implements OnInit {
     return false;
   }
 
+  facilityValidation(index){
+    var unchecked: Boolean = true;
+
+    for(let i = 0 ; i < this.filterFacility.length ; i++){
+      if(this.filterFacility[i].active){
+        unchecked = false;
+        break;
+      }
+    }
+
+    if(unchecked)return true;
+
+
+    var flightFacility = this.flights[index].flightFacility
+    for(let i=0 ; i<flightFacility.length ; i++){
+      for(let j=0 ; j<this.filterFacility.length ; j++)
+        var element = this.filterFacility[j].name
+        if(flightFacility[i].facility.name == element){
+          return true
+        }
+    }
+    return false;
+  }
+
   arrivalTimeValidation(index){
     var unchecked: Boolean = true;
 
@@ -128,6 +195,30 @@ export class FlightPageComponent implements OnInit {
     for(let i=0 ; i<this.arrivals.length ; i++){
       var element = this.arrivals[i];
       if(element.active && arrivalFlight >= element.startTime && arrivalFlight <= element.endTime){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  airlineValidation(index){
+    var unchecked: Boolean = true;
+
+    for(let i = 0 ; i < this.airlines.length ; i++){
+      if(this.airlines[i].active){
+        unchecked = false;
+        break;
+      }
+    }
+
+    if(unchecked)return true;
+
+
+    var airlineName = this.flightService.flights[index].airline.name
+
+    for(let i=0 ; i<this.airlines.length ; i++){
+      var element = this.airlines[i];
+      if(element.active && airlineName === element.name){
         return true;
       }
     }

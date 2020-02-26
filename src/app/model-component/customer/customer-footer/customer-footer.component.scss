@@ -130,6 +130,7 @@ footer{
       flex-direction: column;
       margin-right: 3vw;
       .bottom-footer-title{
+
         font-size: 17px;
         margin-bottom: 50px;
       }
@@ -153,6 +154,7 @@ footer{
         margin-bottom: 50px;
       }
       .social-media-content{
+
         img{
           border-radius: 30px;
           margin-right: 20px;
@@ -163,6 +165,21 @@ footer{
         img:hover{
           filter: grayscale(0%);
         }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  footer{
+    display: flex;
+    flex-direction: column;
+    .container-upper-footer, .container-bottom-footer, .secure-transaction, .social-media{
+      display: flex;
+      flex-direction: column;
+      .social-media-content{
+        display: flex;
+        flex-direction: column;
       }
     }
   }

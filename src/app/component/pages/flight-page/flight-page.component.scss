@@ -70,15 +70,21 @@ body{
     justify-content: space-between;
     .filter{
       min-width: 30%;
-      .arrival, .departure, .transits{
+
+      .departure{
+        border-radius: 10px 10px 0 0px;
+      }
+      .transits{
+        border-radius:  0 0px 10px 10px;
+      }
+      .arrival, .departure, .transits, .airline, .facility{
         background-color: white;
-        border-radius: 10px;
         padding: 10px;
         .title{
           font-size: 20px;
           color: gray;
         }
-        .sub-arrival, .sub-departure, .sub-transits{
+        .sub-arrival, .sub-departure, .sub-transits, .sub-airline, .sub-facility{
           cursor: pointer;
           display: flex;
           padding: 10px 20px;
@@ -89,7 +95,7 @@ body{
             margin-right: 20%;
           }
         }
-        .sub-arrival:hover, .sub-departure:hover, .sub-transits:hover{
+        .sub-arrival:hover, .sub-departure:hover, .sub-transits:hover, .sub-airline:hover, .sub-facility:hover{
           background-color: rgb(0, 108, 197);
           .filter-desc{
             color: white;
@@ -170,5 +176,13 @@ body{
     background-color: rgba($color: #00000005, $alpha: 0.3);
     z-index: 1;
   }
+}
 
+@media only screen and (max-width: 500px) {
+  .flight-result{
+    header, section, footer{
+      display: flex;
+      flex-direction: column;
+    }
+  }
 }

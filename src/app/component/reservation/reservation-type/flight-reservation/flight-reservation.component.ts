@@ -22,6 +22,8 @@ export class FlightReservationComponent implements OnInit {
   arrivalFlight$: Subscription
   fromAirport = new FormControl('', [Validators.required]);
   toAirport = new FormControl('', [Validators.required]);
+  fromSchedule : string = ""
+  toSchedule : string = ""
   formattedDeparture = new FormControl('', [Validators.required]);
   formattedArrival = new FormControl('', [Validators.required]);
 

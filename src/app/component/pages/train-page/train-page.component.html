@@ -48,33 +48,57 @@
 
   <div class="content">
     <div class="filter">
+
+      <div class="train">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Train
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div class="sub-train" *ngFor="let train of trains; let i = index">
+            <div class="filter-desc">
+              {{train.name}}
+            </div>
+            <mat-checkbox [checked] = "train.active" [(ngModel)]="train.active" name= "{{i}}-name"></mat-checkbox>
+          </div>
+        </mat-expansion-panel>
+      </div>
+
       <div class="departure">
-        <div class="title">Departure</div>
-        <div class="sub-departure" *ngFor="let departure of departures; let i = index">
-          <div class="filter-desc">
-            {{departure.name}}
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Departure
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div class="sub-departure" *ngFor="let departure of departures; let i = index">
+            <div class="filter-desc">
+              {{departure.name}}
+            </div>
+            <mat-checkbox [checked] = "departure.active" [(ngModel)]="departure.active" name= "{{i}}-name"></mat-checkbox>
           </div>
-          <mat-checkbox [checked] = "departure.active" [(ngModel)]="departure.active" name= "{{i}}-name"></mat-checkbox>
-        </div>
+        </mat-expansion-panel>
       </div>
-      <!-- <div class="arrival">
-        <div class="title">Arrival</div>
-        <div class="sub-arrival" *ngFor="let arrival of arrivals">
-          <div class="filter-desc">
-            {{arrival.name}}
-          </div>
-          <mat-checkbox [checked] = "arrival.active" [(ngModel)]="arrival.active" name= "{{i}}-name"></mat-checkbox>
-        </div>
+
+      <div class="class">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Class
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="sub-class" *ngFor="let clas of class; let i = index">
+              <div class="filter-desc">
+                {{clas.name}}
+              </div>
+              <mat-checkbox [checked] = "clas.active" [(ngModel)]="clas.active" name= "{{i}}-name"></mat-checkbox>
+            </div>
+          </mat-expansion-panel>
       </div>
-      <div class="transits">
-        <div class="title">Transit</div>
-        <div class="sub-transits" *ngFor="let transit of transits">
-          <div class="filter-desc">
-            {{transit.name}}
-          </div>
-          <mat-checkbox [checked] = "transit.active" [(ngModel)]="transit.active" name= "{{i}}-name"></mat-checkbox>
-        </div>
-      </div> -->
     </div>
 
     <div class="wrapper-railroad">
@@ -82,7 +106,7 @@
         <div class="sub-results" *ngFor="let railroad of railroads; let i = index">
           <div class="railroad-result" *ngIf="filterValidation(i)  && railroad.from.city == from">
             <header>
-              <div class="name">{{railroad.train.name}}</div>
+              <div class="name">{{railroad.train.name}}({{railroad.class}})</div>
             </header>
             <section>
               <div class="left">
@@ -135,7 +159,7 @@
         <div class="sub-results" *ngFor="let railroad of railroads; let i = index">
           <div class="railroad-result" *ngIf="filterValidation(i) && railroad.to.city == to">
             <header>
-              <div class="name">{{railroad.train.name}}</div>
+              <div class="name">{{railroad.train.name}}({{railroad.class}})</div>
             </header>
             <section>
               <div class="left">

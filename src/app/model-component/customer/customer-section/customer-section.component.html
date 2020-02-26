@@ -3,6 +3,20 @@
   <app-reservation (click)="toggleOverlay($event)"></app-reservation>
   <div class="content">
     <img src="../../../assets/Login/login-register-illustration.webp" alt="">
+    <div class="title"><b style="font-size: 30px; color: gray;">Recommended Nearest hotel</b></div>
+    <div class="res-hotel">
+      <div class="recommended-hotel" *ngFor="let hotel of nearestHotels">
+        <header>
+          <img src="../../../../assets/airline/hotel.jpg" alt="" width="100px" height="100px" style="border-radius: 180px;">
+        </header>
+        <section>
+          {{hotel.name}}, {{hotel.location.city}}
+        </section>
+        <footer>
+          {{hotel.rating}} Stars
+        </footer>
+      </div>
+    </div>
   </div>
   <div id="overlay" [hidden] = "isHidden" (click)="toggleOverlay($event)"></div>
 </body>

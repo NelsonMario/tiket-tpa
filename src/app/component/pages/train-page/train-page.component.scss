@@ -65,15 +65,14 @@ body{
     justify-content: space-between;
     .filter{
       min-width: 30%;
-      .departure{
+      .departure, .class, .train{
         background-color: white;
-        border-radius: 10px;
         padding: 10px;
         .title{
           font-size: 20px;
           color: gray;
         }
-        .sub-departure{
+        .sub-departure, .sub-class, .sub-train{
           cursor: pointer;
           display: flex;
           padding: 10px 20px;
@@ -166,4 +165,13 @@ body{
     z-index: 1;
   }
 
+}
+
+@media only screen and (max-width: 500px) {
+  .railroad-result{
+    header, section, footer{
+      display: flex;
+      flex-direction: column;
+    }
+  }
 }

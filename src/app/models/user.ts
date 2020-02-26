@@ -7,6 +7,10 @@ export class User {
 	phoneNumber:string;
 	cityName:string;
 	address:string;
-	postCode:string;
+  postCode:string;
+
+  setfirstName(firstName){
+    this.firstName = firstName
+  }
 
 }

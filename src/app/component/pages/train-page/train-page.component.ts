@@ -19,11 +19,20 @@ export class TrainPageComponent implements OnInit {
     {name: "12:00 - 18:00", active: false,startTime: 12, endTime: 18},
     {name: "18:00 - 24:00", active: false,startTime: 18, endTime: 24}
   ]
+  class: any[] = [
+    {name: "Ekonomi", active: false},
+    {name: "Bisnis", active: false},
+    {name: "Eksekutif", active: false},
+  ]
 
+  trainTemp : any[] = []
+  trains: any[] = []
   railroads: Railroad[] = []
   stations: Station[] = []
   fromStation = new FormControl('', [Validators.required]);
   toStation = new FormControl('', [Validators.required]);
+  fromTrain = new FormControl('', [Validators.required]);
+  toTrain = new FormControl('', [Validators.required]);
   from : string
   to : string
   isHidden: boolean = true
@@ -34,7 +43,18 @@ export class TrainPageComponent implements OnInit {
     this.railroads = railroadService.railroad
     this.from = railroadService.from
     this.to = railroadService.to
-    console.table(this.from, this.to)
+    this.railroads.forEach(elements => {
+      this.trains.push(elements.train.name)
+    })
+
+    this.trainTemp = this.trains.filter((trainName, i, arr) => arr.findIndex(a=>a==trainName)==i)
+    this.trains = []
+    this.trainTemp.forEach(element => {
+      this.trains.push({
+        name: element,
+        checked: false
+      })
+    })
   }
 
   ngOnInit() {
@@ -43,6 +63,9 @@ export class TrainPageComponent implements OnInit {
 
   filterValidation(index){
     if(!this.departureTimeValidation(index))
+      //if return true than dont show
+      return false
+    else if(!this.classValidation(index))
       //if return true than dont show
       return false
     return true
@@ -66,6 +89,55 @@ export class TrainPageComponent implements OnInit {
     for(let i=0 ; i<this.departures.length ; i++){
       var element = this.departures[i];
       if(element.active && departureFlight >= element.startTime && departureFlight <= element.endTime){
+        return true;
+      }
+    }
+    return false;
+  }
+
+
+  classValidation(index){
+    var unchecked: Boolean = true;
+
+    for(let i = 0 ; i < this.class.length ; i++){
+      if(this.class[i].active){
+        unchecked = false;
+        break;
+      }
+    }
+
+    if(unchecked)return true;
+
+
+    var classRoute = this.railroads[index].class.toString()
+
+    for(let i=0 ; i<this.class.length ; i++){
+      var element = this.class[i];
+      if(element.active && classRoute === element.name){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  trainValidation(index){
+    var unchecked: Boolean = true;
+
+    for(let i = 0 ; i < this.trains.length ; i++){
+      if(this.trains[i].active){
+        unchecked = false;
+        break;
+      }
+    }
+
+    if(unchecked)return true;
+
+
+    var train = this.railroads[index].train.name
+
+    for(let i=0 ; i<this.trains.length ; i++){
+      var element = this.trains[i];
+      if(element.active && train === element.name){
         return true;
       }
     }

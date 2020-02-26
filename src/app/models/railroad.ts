@@ -3,7 +3,7 @@ import { Train } from './train'
 
 export class Railroad {
   id: number
-  station: Train
+  train: Train
   railroadRoutes: any [] = []
   from: Station
   to: Station
@@ -13,4 +13,5 @@ export class Railroad {
   price: number
   tax: number
   serviceCharge: number
+  class: string
 }

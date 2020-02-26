@@ -7,6 +7,7 @@ section{
     width: 21vw;
     padding: 20px 60px;
     display: flex;
+    justify-content: center;
     align-items: center;
     flex-direction: column;
     border-radius: 10px;
@@ -53,8 +54,9 @@ section{
     #button{
         width: 15vw;
         margin: 20px;
+        min-width: 30%;
         button{
-            width: 100%;
+            min-width: 30%;
             background-color: rgba($color: #ffef60, $alpha: 1.0);
             border: none;
             color: rgba($color: #155ab4, $alpha: 1.0);

@@ -1,0 +1,79 @@
+.content{
+  font-family: 'Open Sans',Arial,Helvetica,sans-serif;
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  background-color: grayscale($color: #eeeeee);
+  .form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;;
+    .profile-detail{
+      padding: 30px;
+      margin-bottom: 10px;
+      width: 100%;
+      border-radius: 10px;
+      background-color: white;
+      mat-form-field, .from, .to, .airline{
+        margin: 0 10px;
+      }
+    }
+
+    .result{
+      .sub-results{
+        padding: 30px;
+        margin-bottom: 10px;
+        width: 66vw;
+        border-radius: 10px;
+        background-color: white;
+        min-width: 65%;
+        header{
+          color: black;
+          font-size: 17px;
+          font-weight: 2px;
+          display: flex;
+          justify-content: space-between;
+        }
+
+        section{
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          min-width: 65%;
+          .left{
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            .departure, .arrival{
+              display: flex;
+              flex-direction: column;
+            }
+            .duration{
+              display: flex;
+              justify-content: center;
+              min-width: 100px;
+              border-bottom: 1px solid gray;
+              margin: 0 10px;
+            }
+            img{
+              transform: scale(0.5);
+            }
+          }
+        }
+        footer{
+          display: flex;
+          justify-content: space-evenly;
+        }
+      }
+    }
+  }
+}
+
+.delete-model{
+  footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

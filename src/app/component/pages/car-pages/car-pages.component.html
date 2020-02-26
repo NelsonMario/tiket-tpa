@@ -1,0 +1,204 @@
+<body>
+  <div class="preview-car">
+    <div class="location">
+      <div class="logo">
+        C
+      </div>
+
+      <div class="detail">
+        <div class="title">
+          {{location}}
+        </div>
+        <div class="description">
+          <div class="from">
+            {{fromDate}}
+          </div>
+          :
+          <div class="to">
+            {{toDate}}
+          </div>
+        </div>
+      </div>
+      <app-button title="UBAH PENCARIAN" width = 21 (click)="toggleOverlay($event)"></app-button>
+    </div>
+
+    <div class="search-car" *ngIf="!isHidden">
+      <div class="location">
+        <mat-label>Location</mat-label>
+        <mat-select [formControl]="locationForm" required>
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let location of locations" [value]="location">
+            {{location.city}}
+          </mat-option>
+        </mat-select>
+      </div>
+
+      <div class="schedule">
+        <div class="fromSchedule">
+          <mat-form-field>
+            <input matInput [matDatepicker]="startDate" placeholder="Tanggal Mulai" [(ngModel)] = "fromDate">
+            <input hidden [formControl] = "formattedStart" matinput [ngModel] = "fromDate | date:'yyyy-MM-dd'">
+            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+            <mat-datepicker #startDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="endSchedule">
+          <mat-form-field>
+            <input matInput [matDatepicker]="endDate" placeholder="Tanggal Selesai" [(ngModel)] = "toDate" >
+            <input  hidden [formControl] = "formattedEnd" matinput [ngModel] = "toDate | date:'yyyy-MM-dd'">
+            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+            <mat-datepicker #endDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <app-button title="MULAI PENCARIAN" width = 21 (click)="toggleOverlay($event)"></app-button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="filter" *ngIf="!buy">
+      <div class="rangePrice">
+        <div class="title">Range Price</div>
+        <mat-form-field class="minimumPrice">
+          <mat-label>Minimum Price</mat-label>
+          <input [formControl] = "minimumPrice" matInput placeholder="0">
+        </mat-form-field>
+        <mat-form-field class="maximumPrice">
+          <mat-label>Maximum Price</mat-label>
+          <input [formControl] = "maximumPrice" matInput placeholder="0">
+        </mat-form-field>
+      </div>
+      <div class="passenger">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Passenger
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div class="sub-passenger" *ngFor="let passenger of passengers; let i = index">
+            <div class="filter-desc">
+              {{passenger.name}}
+            </div>
+            <mat-checkbox [checked] = "passenger.active" [(ngModel)]="passenger.active" name= "{{i}}-name"></mat-checkbox>
+          </div>
+        </mat-expansion-panel>
+      </div>
+
+      <div class="brand">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Brand
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div class="sub-brand" *ngFor="let brand of brands; let i = index">
+            <div class="filter-desc">
+              {{brand.brand}}
+            </div>
+            <mat-checkbox [checked] = "brand.active" [(ngModel)]="brand.active" name= "{{i}}-name"></mat-checkbox>
+          </div>
+        </mat-expansion-panel>
+      </div>
+
+      <div class="model">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Model
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <div class="sub-model" *ngFor="let model of models; let i = index">
+            <div class="filter-desc">
+              {{model.model}}
+            </div>
+            <mat-checkbox [checked] = "model.active" [(ngModel)]="model.active" name= "{{i}}-name"></mat-checkbox>
+          </div>
+        </mat-expansion-panel>
+      </div>
+    </div>
+
+    <div class="wrapper-car" *ngIf="!buy">
+      <div class="car-results">
+        <div class="sub-results" *ngFor="let car of cars; let i = index">
+          <div class="car-result" *ngIf="filterValidation(i)">
+            <header>
+              <div class="name">Mulai dari</div>
+            </header>
+            <section>
+              <div class="left">
+                <img src="../../../../assets/airline/agya.jpg" alt="">
+                <div class="model">
+                  <div class="model-name">
+                    {{car.name}} {{car.model}}
+                  </div>
+                  <div class="model-description">
+                    {{car.passanger}}
+                  </div>
+                </div>
+              </div>
+              <div class="right">
+                {{car.price}}
+              </div>
+            </section>
+            <footer>
+              <app-button title="BELI" width="8" (click) = "setBuy($event)" id="{{i}}"></app-button>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wrapper-vendor"  *ngIf="buy">
+      <div class="vendor-results">
+        <div class="car-show">
+          <header>
+            <div class="title">
+              {{location}}
+            </div>
+            <div class="description">
+              <div class="date">
+                {{fromDate}} : {{toDate}}
+              </div>
+            </div>
+          </header>
+          <section>
+            <img src="../../../../assets/airline/agya.jpg" alt="">
+          </section>
+          <footer>
+            4 Seats
+          </footer>
+        </div>
+        <div class="sub-results" *ngFor="let vendor of vendors; let i = index">
+          <div class="vendor-result">
+            <header>
+              <div class="name">Mulai dari</div>
+            </header>
+            <section>
+              <div class="left">
+                <img src="../../../../assets/airline/agya.jpg" alt="">
+                <div class="model">
+                  <div class="model-name">
+                    {{vendor}}
+                  </div>
+                  <div class="model-description">
+                    {{vendor}}
+                  </div>
+                </div>
+              </div>
+              <div class="right">
+                {{vendor}}
+              </div>
+            </section>
+            <footer>
+              <app-button title="BELI" width="8" (click) = "navigateCheckout()"></app-button>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="overlay" [hidden] = "isHidden" (click)="toggleOverlay($event)"></div>
+</body>

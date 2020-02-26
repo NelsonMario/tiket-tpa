@@ -20,6 +20,8 @@ export class TrainReservationComponent implements OnInit {
   railroad$: Subscription
   fromStation = new FormControl('', [Validators.required]);
   toStation = new FormControl('', [Validators.required]);
+  fromSchedule : string = ""
+  toSchedule : string = ""
   formattedDeparture = new FormControl('', [Validators.required]);
   formattedArrival = new FormControl('', [Validators.required]);
 

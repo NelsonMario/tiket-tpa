@@ -1,0 +1,190 @@
+<div class="content">
+
+  <div class="form">
+    <div class="profile-detail">
+      <div class="airline">
+        <mat-label>Airline</mat-label>
+        <mat-select [formControl]="airline" required>
+          <mat-option *ngFor="let airline of airlines; let i = index" [value]="airline">
+            {{airline.name}}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="from">
+        <mat-label>From</mat-label>
+        <mat-select [formControl]="from" required>
+          <mat-option *ngFor="let airport of airports; let i = index" [value]="airport">
+            {{airport.name}}, {{airport.city}}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="to">
+        <mat-label>To</mat-label>
+        <mat-select [formControl]="to" required>
+          <mat-option *ngFor="let airport of airports; let i = index" [value]="airport">
+            {{airport.name}}, {{airport.city}}
+          </mat-option>
+        </mat-select>
+      </div>
+      <div class="schedule">
+        <div class="departure">
+          <mat-form-field>
+            <input matInput [matDatepicker]="departure" placeholder="Berangkat" [(ngModel)] = "fromSchedule">
+            <input hidden [formControl] = "formattedDeparture" matinput [ngModel] = "fromSchedule | date:'yyyy-MM-dd'">
+            <mat-datepicker-toggle matSuffix [for]="departure"></mat-datepicker-toggle>
+            <mat-datepicker #departure></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="arrival">
+          <mat-form-field >
+            <input matInput [matDatepicker]="arrival" placeholder="Tiba" [(ngModel)] = "toSchedule" >
+            <input  hidden [formControl] = "formattedArrival" matinput [ngModel] = "toSchedule | date:'yyyy-MM-dd'">
+            <mat-datepicker-toggle matSuffix [for]="arrival"></mat-datepicker-toggle>
+            <mat-datepicker #arrival></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <mat-form-field class="departure">
+        <mat-label>departure</mat-label>
+        <input [formControl] = "inputDeparture" matInput class="departure">
+      </mat-form-field>
+      <mat-form-field class="arrival">
+        <mat-label>Arrival</mat-label>
+        <input [formControl] = "inputArrival" matInput class="arrival">
+      </mat-form-field>
+      <mat-form-field class="duration">
+        <mat-label>Duration</mat-label>
+        <input [formControl] = "duration" matInput class="duration">
+      </mat-form-field>
+      <mat-form-field class="price">
+        <mat-label>Price</mat-label>
+        <input [formControl] = "price" matInput class="price">
+      </mat-form-field>
+      <mat-form-field class="tax">
+        <mat-label>tax</mat-label>
+        <input [formControl] = "tax" matInput class="tax">
+      </mat-form-field>
+      <mat-form-field class="service-charge">
+        <mat-label>ServiceCharge</mat-label>
+        <input [formControl] = "serviceCharge" matInput class="service-charge">
+      </mat-form-field>
+      <app-button title="InsertData" width = 15 (click)="insertData()"></app-button>
+    </div>
+
+    <div class="result">
+      <div class="sub-results" *ngFor="let flight of flights; let i = index;">
+        <header>
+          <div class="name">{{flight.airline.name}}</div>
+        </header>
+        <section>
+          <div class="left">
+            <img src="../../../../assets/airline/citylink.png" alt="">
+            <div class="departure">
+              <div>
+                {{flight.from.cityCode}}
+              </div>
+              <div>
+                {{flight.departure | date:'HH:mm':'UTC'}}
+              </div>
+            </div>
+            <div class="duration">
+              <div>
+              {{flight.duration}}
+              </div>
+            </div>
+            <div class="arrival">
+              <div>
+                {{flight.to.cityCode}}
+              </div>
+              <div>
+                {{flight.arrival | date:'HH:mm':'UTC'}}
+              </div>
+            </div>
+          </div>
+          <div class="right">
+            {{flight.price}}
+          </div>
+        </section>
+        <footer id="{{i+1}}">
+          <mat-tab-group animationDuration>
+            <mat-tab label = "None"></mat-tab>
+            <mat-tab label = "Update">
+              <div class="profile-detail">
+                <div class="airline">
+                  <mat-label>Airline</mat-label>
+                  <mat-select [formControl]="updateAirline" required>
+                    <mat-option *ngFor="let airline of airlines; let i = index" [value]="airline">
+                      {{airline.name}}
+                    </mat-option>
+                  </mat-select>
+                </div>
+                <div class="from">
+                  <mat-label>From</mat-label>
+                  <mat-select [formControl]="updateFrom" required>
+                    <mat-option *ngFor="let airport of airports; let i = index" [value]="airport">
+                      {{airport.name}}, {{airport.city}}
+                    </mat-option>
+                  </mat-select>
+                </div>
+                <div class="to">
+                  <mat-label>To</mat-label>
+                  <mat-select [formControl]="updateTo" required>
+                    <mat-option *ngFor="let airport of airports; let i = index" [value]="airport">
+                      {{airport.name}}, {{airport.city}}
+                    </mat-option>
+                  </mat-select>
+                </div>
+                <div class="schedule">
+                  <div class="departure">
+                    <mat-form-field>
+                      <input matInput [matDatepicker]="departure" placeholder="Berangkat" [(ngModel)] = "updateFromSchedule">
+                      <input hidden [formControl] = "updateFormattedDeparture" matinput [ngModel] = "updateFromSchedule | date:'yyyy-MM-dd'">
+                      <mat-datepicker-toggle matSuffix [for]="departure"></mat-datepicker-toggle>
+                      <mat-datepicker #departure></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div class="arrival">
+                    <mat-form-field >
+                        <input matInput [matDatepicker]="arrival" placeholder="Tiba" [(ngModel)] = "updateToSchedule" >
+                        <input  hidden [formControl] = "updateFormattedArrival" matinput [ngModel] = "updateToSchedule | date:'yyyy-MM-dd'">
+                        <mat-datepicker-toggle matSuffix [for]="arrival"></mat-datepicker-toggle>
+                        <mat-datepicker #arrival></mat-datepicker>
+                      </mat-form-field>
+                  </div>
+                </div>
+                <mat-form-field class="departure">
+                  <mat-label>departure</mat-label>
+                  <input [formControl] = "inputUpdateDeparture" matInput class="departure">
+                </mat-form-field>
+                <mat-form-field class="arrival">
+                  <mat-label>Arrival</mat-label>
+                  <input [formControl] = "inputUpdateArrival" matInput class="arrival">
+                </mat-form-field>
+                <mat-form-field class="duration">
+                  <mat-label>Duration</mat-label>
+                  <input [formControl] = "updateDuration" matInput class="duration">
+                </mat-form-field>
+                <mat-form-field class="price">
+                  <mat-label>Price</mat-label>
+                  <input [formControl] = "updatePrice" matInput class="price">
+                </mat-form-field>
+                <mat-form-field class="tax">
+                  <mat-label>tax</mat-label>
+                  <input [formControl] = "updateTax" matInput class="tax">
+                </mat-form-field>
+                <mat-form-field class="service-charge">
+                  <mat-label>ServiceCharge</mat-label>
+                  <input [formControl] = "updateServiceCharge" matInput class="service-charge">
+                </mat-form-field>
+                <app-button title="UpdateData" width = 15 (click)="updateData((flight.id))"></app-button>
+              </div>
+            </mat-tab>
+            <mat-tab label = "Delete">
+              <app-button title="DeleteData" width = 15 (click)="deleteDataClick((flight.id))"></app-button>
+            </mat-tab>
+          </mat-tab-group>
+        </footer>
+      </div>
+    </div>
+  </div>
+</div>

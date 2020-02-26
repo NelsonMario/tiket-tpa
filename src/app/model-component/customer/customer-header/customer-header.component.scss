@@ -9,8 +9,9 @@ header{
     justify-content: space-around;
     align-items: center;
     padding: 30px;
-    min-width: 30%;
+    min-width: 20%;
     #left-side{
+      min-width: 20%;
         display: flex;
         align-items: center;
         div{
@@ -25,7 +26,7 @@ header{
     }
     #right-side{
         display: flex;
-
+        min-width: 20%;
         div{
             padding: 10px 15px;
             cursor: pointer;
@@ -42,4 +43,42 @@ header{
             }
         }
     }
+}
+
+@media only screen and (max-width: 500px) {
+  header{
+    display: flex;
+    flex-direction: column;
+    #left-side, #right-side{
+      display: flex;
+      flex-direction: column;
+    }
+    #left-side{
+      div{
+        display: none;
+      }
+    }
+    #left-side:hover{
+      div{
+        display: block;
+      }
+    }
+  }
+}
+
+.wa-chat{
+  position: fixed;
+  display: flex;
+  justify-content: space-around;
+  color: white;
+  bottom: 55px;
+  right: 30px;
+  z-index: 500;
+  min-height: 2px;
+  background-color: #4caf50;
+  min-width: 2%;
+  padding: 10px 16px;
+  border-radius: 25px;
+  -webkit-box-shadow: 0 10px 20px 0 rgba(53,64,90,.2);
+  box-shadow: 0 10px 20px 0 rgba(53,64,90,.2)
 }

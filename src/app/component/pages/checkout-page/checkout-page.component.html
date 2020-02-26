@@ -1,0 +1,125 @@
+<body>
+  <div class="login" *ngIf="!isLogin">
+      <div id="title">
+          <label for="">Log in/Daftar</label>
+      </div>
+
+      <div id="desc">
+          <p>Perjalanan serumu dimulai di sini.</p>
+      </div>
+
+      <form class="loginForm">
+        <mat-form-field class="Email or Phone">
+          <mat-label>Email Or Phone</mat-label>
+          <input [formControl] = "emailOrPhone" matInput class="emailOrPhone">
+        </mat-form-field>
+
+        <mat-form-field class="Password">
+          <mat-label>password</mat-label>
+          <input [formControl] = "password" matInput type = "password" class="password">
+        </mat-form-field>
+      </form>
+
+      <app-button (click)="login()" title="LANJUTKAN" width = 15></app-button>
+
+      <div>
+          <div class="line">
+              <hr>
+          </div>
+          <div>
+              atau dengan
+          </div>
+          <div class="line">
+              <hr>
+          </div>
+      </div>
+
+      <div id="socmed">
+          <div id="google" >
+              <img src="../../../assets/Login/google.svg" alt="">
+              <p>Google</p>
+          </div>
+          <hr>
+          <div id="facebook" >
+              <img src="../../../assets/Login/facebook.svg" alt="">
+              <p>Facebook</p>
+          </div>
+      </div>
+
+      <div>
+          Dengan mendaftar kamu menyetujui <a href="">Kebijakan Privasi</a> dan <a href="">Syarat & Ketentuan</a> kami.
+      </div>
+
+      <div class="line">
+          <hr>
+      </div>
+  </div>
+  <div class="content"*ngIf="isLogin">
+    <div class="detail">
+      <div class="orderer-detail"  *ngIf="isLogin">
+        <div class="ordered-detail-title">Detail Pemesan</div>
+        <header>
+          <mat-form-field class="title">
+            <mat-label>Title</mat-label>
+            <input [formControl] = "title" matInput class="title">
+          </mat-form-field>
+          <mat-form-field class="name">
+            <mat-label>Full Name</mat-label>
+            <input [formControl] = "name" matInput class="name">
+          </mat-form-field>
+        </header>
+        <section>
+          <mat-form-field class="email">
+            <mat-label>Email</mat-label>
+            <input [formControl] = "email" matInput class="email">
+          </mat-form-field>
+        </section>
+        <footer>
+          <div class="country-code-select">
+            <mat-label>Country Code</mat-label>
+            <mat-select (selectionChange)="selected($event)">
+              <mat-option [value] = "countryCode.calling_code" *ngFor="let countryCode of (countryCode$ | async)">
+                {{countryCode.country}}
+              </mat-option>
+            </mat-select>
+          </div>
+          <mat-form-field class="phoneNumber">
+            <mat-label>PhoneNumber</mat-label>
+            <input [formControl] = "phoneNumber" matInput class="phoneNumber">
+          </mat-form-field>
+        </footer>
+      </div>
+
+      <div class="ordererDetail" *ngIf="isLogin">
+        <div class="passenger-detail-title">Detail Penumpang</div>
+        <mat-form-field class="title">
+          <mat-label>Title</mat-label>
+          <input [formControl] = "passengerTitle" matInput class="title">
+        </mat-form-field>
+        <mat-form-field class="name">
+          <mat-label>Full Name</mat-label>
+          <input [formControl] = "fullName" matInput class="name">
+        </mat-form-field>
+        <mat-form-field class="phoneNumber">
+          <mat-label>Nomor KTP/SIM/Lainnya</mat-label>
+          <input [formControl] = "identity" matInput class="identity">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="result">
+      <div class="car">
+        <header>
+          {{car.name}} {{car.model}}
+          <img src="../../../../assets/airline/agya.jpg" alt="">
+        </header>
+        <section>
+          Passenger : {{car.passanger}}
+        </section>
+        <footer>
+          Price : {{car.price}}
+        </footer>
+      </div>
+    </div>
+  </div>
+</body>

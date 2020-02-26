@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NgForm} from '@angular/forms'
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,6 +15,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule} from '@angular/material/select'
 import { MatCheckboxModule } from '@angular/material/checkbox'
 import { MatInputModule } from '@angular/material/input'
+import {MatExpansionModule} from '@angular/material/expansion';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './component/login/login.component';
@@ -53,6 +54,14 @@ import { TrainReservationComponent } from './component/reservation/reservation-t
 import { FlightPageComponent } from './component/pages/flight-page/flight-page.component';
 import { TrainPageComponent } from './component/pages/train-page/train-page.component';
 import { ProfilePageComponent } from './component/pages/profile-page/profile-page/profile-page.component';
+import { Plugins } from 'protractor/built/plugins';
+import { CarPagesComponent } from './component/pages/car-pages/car-pages.component';
+import { CheckoutPageComponent } from './component/pages/checkout-page/checkout-page.component';
+import { AdminHeaderComponent } from './model-component/admin/admin-header/admin-header.component';
+import { AdminSectionComponent } from './model-component/admin/admin-section/admin-section.component';
+import { AdminFlightComponent } from './component/admin-pages/flight/admin-flight/admin-flight.component';
+import { HotelPagesComponent } from './component/pages/hotel-pages/hotel-pages.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 let gapiClientConfig: NgGapiClientConfig = {
   client_id: "602076487631-28k1qh3apnsm4510llsq5reejkq4qtlt.apps.googleusercontent.com",
@@ -86,8 +95,14 @@ let gapiClientConfig: NgGapiClientConfig = {
     RegisterComponent,
     FlightPageComponent,
     TrainPageComponent,
-    ProfilePageComponent
-
+    ProfilePageComponent,
+    CarPagesComponent,
+    CheckoutPageComponent,
+    AdminComponent,
+    AdminHeaderComponent,
+    AdminSectionComponent,
+    AdminFlightComponent,
+    HotelPagesComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -111,6 +126,8 @@ let gapiClientConfig: NgGapiClientConfig = {
     MatTabsModule,
     MatButtonToggleModule,
     BrowserAnimationsModule,
+    MatExpansionModule,
+    MatSnackBarModule,
 
     RouterModule.forRoot([{
       path: 'redirect',
@@ -128,6 +145,10 @@ let gapiClientConfig: NgGapiClientConfig = {
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
+    NO_ERRORS_SCHEMA
+  ]
 })
 export class AppModule { }

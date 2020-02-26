@@ -1,0 +1,101 @@
+<body>
+  <div class="preview-hotel">
+    <div class="location">
+      <div class="logo">
+        H
+      </div>
+
+      <div class="detail">
+        <div class="title">
+          {{location}}
+        </div>
+        <div class="description">
+          <div class="from">
+            {{fromDate}}
+          </div>
+          :
+          <div class="to">
+            {{toDate}}
+          </div>
+        </div>
+      </div>
+      <app-button title="UBAH PENCARIAN" width = 21 (click)="toggleOverlay($event)"></app-button>
+    </div>
+
+    <div class="search-hotel" *ngIf="!isHidden">
+      <div class="location">
+        <mat-label>Location</mat-label>
+        <mat-select [formControl]="locationForm" required>
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let location of locations" [value]="location">
+            {{location.city}}
+          </mat-option>
+        </mat-select>
+      </div>
+
+      <div class="schedule">
+        <div class="fromSchedule">
+          <mat-form-field>
+            <input matInput [matDatepicker]="startDate" placeholder="Tanggal Mulai" [(ngModel)] = "fromDate">
+            <input hidden [formControl] = "formattedStart" matinput [ngModel] = "fromDate | date:'yyyy-MM-dd'">
+            <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+            <mat-datepicker #startDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="endSchedule">
+          <mat-form-field>
+            <input matInput [matDatepicker]="endDate" placeholder="Tanggal Selesai" [(ngModel)] = "toDate" >
+            <input  hidden [formControl] = "formattedEnd" matinput [ngModel] = "toDate | date:'yyyy-MM-dd'">
+            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+            <mat-datepicker #endDate></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <app-button title="MULAI PENCARIAN" width = 21 (click)="toggleOverlay($event)"></app-button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="filter" *ngIf="!buy">
+      <app-button title="Open Map" width = 21 (click)="setOpenMap()"></app-button>
+    </div>
+    <div id="map"></div>
+
+    <div class="wrapper-hotel" *ngIf="!buy">
+      <div class="hotel-results">
+        <div class="sub-results" *ngFor="let hotel of hotels; let i = index">
+          <div class="hotel-result" *ngIf="filterValidation(i)">
+            <header>
+              <div class="name">Mulai dari</div>
+            </header>
+            <section>
+              <div class="left">
+                <img src="../../../../assets/airline/hotel.jpg" alt="">
+                <div class="model">
+                  <div class="model-name">
+                    {{hotel.name}}
+                  </div>
+                  <div class="model-description">
+                    <div class="hotel-facilites" *ngFor="let hotelFacility of hotel.hotelFacility;">
+                      <button mat-button matTooltip = {{hotelFacility.facility.name}}>O</button>
+                    </div>
+                    {{hotel.rating}}
+                  </div>
+                </div>
+              </div>
+              <div class="right">
+                {{hotel.price}} Stars
+              </div>
+            </section>
+            <footer>
+              <app-button title="BELI" width="8" (click) = "setBuy($event)" id="{{i}}"></app-button>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div id="overlay" [hidden] = "isHidden" (click)="toggleOverlay($event)"></div>
+</body>

@@ -1,8 +1,8 @@
 #button{
     margin: 20px;
-
+    min-width: 5%;
     button{
-        width: 100%;
+        min-width: 5%;
         background-color: rgba($color: #ffef60, $alpha: 1.0);
         border: none;
         color: rgba($color: #155ab4, $alpha: 1.0);

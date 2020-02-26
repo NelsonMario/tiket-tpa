@@ -20,7 +20,6 @@ export class CustomerHeaderComponent implements OnInit {
   constructor(public dialog:MatDialog, public graphqlService: graphqlService, public flightService: FlightService, public router: Router) { }
 
   ngOnInit() {
-    console.log(this.user)
   }
 
   openRegisterDialog(){
