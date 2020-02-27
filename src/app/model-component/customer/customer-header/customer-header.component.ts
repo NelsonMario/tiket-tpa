@@ -16,7 +16,6 @@ import { Router } from '@angular/router';
 export class CustomerHeaderComponent implements OnInit {
 
   user: User = JSON.parse(localStorage.getItem('currentUser'))
-
   constructor(public dialog:MatDialog, public graphqlService: graphqlService, public flightService: FlightService, public router: Router) { }
 
   ngOnInit() {

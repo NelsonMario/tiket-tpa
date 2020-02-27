@@ -6,6 +6,7 @@ import { GetHttpService } from 'src/app/service/get-http/get-http.service';
 import { User } from 'src/app/models/user';
 import { graphqlService } from 'src/app/service/graphql/graphql.service';
 import { async } from '@angular/core/testing';
+import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -20,8 +21,9 @@ export class RegisterComponent implements OnInit {
   firstName: string = "";
   lastName: string = "";
   phoneNumber: string = "";
-  password: string = "";
-
+  // password: string = "";
+  password = new FormControl()
+  shown = ""
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private getHttpService: GetHttpService,
               private graphql: graphqlService) {
@@ -72,7 +74,7 @@ export class RegisterComponent implements OnInit {
     this.user.firstName = this.firstName.replace(/\s/g, "");
     this.user.lastName = this.lastName.replace(/\s/g, "");
     this.user.phoneNumber = "+" + this.countryCode + this.phoneNumber.replace(/\s/g, "");
-    this.user.password = this.password.replace(/\s/g, "");
+    this.user.password = this.password.value
 
     if(!this.checkLength(this.user.phoneNumber, 14, 14))console.log("phone")
     if(!this.checkLength(this.user.firstName, 5, 10))console.log("first")
@@ -91,5 +93,8 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  setShown(){
+    this.shown = this.shown ==  "password" ? "text" : "password"
+  }
 
 }

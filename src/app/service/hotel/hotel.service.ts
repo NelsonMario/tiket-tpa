@@ -10,6 +10,7 @@ export class HotelService {
   fromDate : string
   toDate : string
   location: string
+  hotel: any
 
   constructor() { }
 

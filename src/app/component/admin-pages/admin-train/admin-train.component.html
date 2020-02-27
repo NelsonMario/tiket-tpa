@@ -5,27 +5,27 @@
 
     <div class="form">
       <div class="profile-detail">
-        <div class="airline">
-          <mat-label>Airline</mat-label>
-          <mat-select [formControl]="airline" required>
-            <mat-option *ngFor="let airline of airlines; let i = index" [value]="airline">
-              {{airline.name}}
+        <div class="train">
+          <mat-label>train</mat-label>
+          <mat-select [formControl]="train" required>
+            <mat-option *ngFor="let train of trains; let i = index" [value]="train">
+              {{train.name}}
             </mat-option>
           </mat-select>
         </div>
         <div class="from">
           <mat-label>From</mat-label>
           <mat-select [formControl]="from" required>
-            <mat-option *ngFor="let airport of airports; let i = index" [value]="airport">
-              {{airport.name}}, {{airport.city}}
+            <mat-option *ngFor="let station of stations; let i = index" [value]="station">
+              {{station.name}}, {{station.city}}
             </mat-option>
           </mat-select>
         </div>
         <div class="to">
           <mat-label>To</mat-label>
           <mat-select [formControl]="to" required>
-            <mat-option *ngFor="let airport of airports; let i = index" [value]="airport">
-              {{airport.name}}, {{airport.city}}
+            <mat-option *ngFor="let station of stations; let i = index" [value]="station">
+              {{station.name}}, {{station.city}}
             </mat-option>
           </mat-select>
         </div>
@@ -75,37 +75,37 @@
       </div>
 
       <div class="result">
-        <div class="sub-results" *ngFor="let flight of flights; let i = index;">
+        <div class="sub-results" *ngFor="let railroad of railroads; let i = index;">
           <header>
-            <div class="name">{{flight.airline.name}}</div>
+            <div class="name">{{railroad.train.name}}</div>
           </header>
           <section>
             <div class="left">
               <img src="../../../../assets/airline/citylink.png" alt="">
               <div class="departure">
                 <div>
-                  {{flight.from.cityCode}}
+                  {{railroad.from.cityCode}}
                 </div>
                 <div>
-                  {{flight.departure | date:'HH:mm':'UTC'}}
+                  {{railroad.departure | date:'HH:mm':'UTC'}}
                 </div>
               </div>
               <div class="duration">
                 <div>
-                {{flight.duration}}
+                {{railroad.duration}}
                 </div>
               </div>
               <div class="arrival">
                 <div>
-                  {{flight.to.cityCode}}
+                  {{railroad.to.cityCode}}
                 </div>
                 <div>
-                  {{flight.arrival | date:'HH:mm':'UTC'}}
+                  {{railroad.arrival | date:'HH:mm':'UTC'}}
                 </div>
               </div>
             </div>
             <div class="right">
-              {{flight.price}}
+              {{railroad.price}}
             </div>
           </section>
           <footer id="{{i+1}}">
@@ -113,27 +113,27 @@
               <mat-tab label = "None"></mat-tab>
               <mat-tab label = "Update">
                 <div class="profile-detail">
-                  <div class="airline">
-                    <mat-label>Airline</mat-label>
-                    <mat-select [formControl]="updateAirline" required>
-                      <mat-option *ngFor="let airline of airlines; let i = index" [value]="airline">
-                        {{airline.name}}
+                  <div class="train">
+                    <mat-label>train</mat-label>
+                    <mat-select [formControl]="updateTrain" required>
+                      <mat-option *ngFor="let train of trains; let i = index" [value]="train">
+                        {{train.name}}
                       </mat-option>
                     </mat-select>
                   </div>
                   <div class="from">
                     <mat-label>From</mat-label>
                     <mat-select [formControl]="updateFrom" required>
-                      <mat-option *ngFor="let airport of airports; let i = index" [value]="airport">
-                        {{airport.name}}, {{airport.city}}
+                      <mat-option *ngFor="let station of stations; let i = index" [value]="station">
+                        {{station.name}}, {{station.city}}
                       </mat-option>
                     </mat-select>
                   </div>
                   <div class="to">
                     <mat-label>To</mat-label>
                     <mat-select [formControl]="updateTo" required>
-                      <mat-option *ngFor="let airport of airports; let i = index" [value]="airport">
-                        {{airport.name}}, {{airport.city}}
+                      <mat-option *ngFor="let station of stations; let i = index" [value]="station">
+                        {{station.name}}, {{station.city}}
                       </mat-option>
                     </mat-select>
                   </div>
@@ -179,11 +179,11 @@
                     <mat-label>ServiceCharge</mat-label>
                     <input [formControl] = "updateServiceCharge" matInput class="service-charge">
                   </mat-form-field>
-                  <app-button title="UpdateData" width = 15 (click)="updateData((flight.id))"></app-button>
+                  <app-button title="UpdateData" width = 15 (click)="updateData((railroad.id))"></app-button>
                 </div>
               </mat-tab>
               <mat-tab label = "Delete">
-                <app-button title="DeleteData" width = 15 (click)="deleteDataClick((flight.id))"></app-button>
+                <app-button title="DeleteData" width = 15 (click)="deleteDataClick((railroad.id))"></app-button>
               </mat-tab>
             </mat-tab-group>
           </footer>

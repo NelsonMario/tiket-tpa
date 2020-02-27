@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   public foundSheet: any;
   public emailOrPhone = new FormControl('')
   public password = new FormControl('');
-
+  public shown = "password"
 
   constructor(
     // private userService: GoogleLoginService,
@@ -114,5 +114,8 @@ export class LoginComponent implements OnInit {
         }
       })
 
-  }
+    }
+    setShown(){
+      this.shown = this.shown ==  "password" ? "text" : "password"
+    }
 }

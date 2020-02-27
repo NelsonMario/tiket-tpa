@@ -27,6 +27,19 @@ export class graphqlService {
     })
   }
 
+  getAllFacility(): Observable<any>{
+    return this.apollo.query<any>({
+      query: gql`
+        query {
+          facilities{
+            id
+            name
+          }
+        }
+      `
+    })
+  }
+
   getUserByEmailOrPhone(input: string): Observable<any>{
     return this.apollo.query<any>({
       query: gql`
@@ -74,6 +87,37 @@ export class graphqlService {
 
   }
 
+  insertRailroad(trainRefer, from, to, arrival, departure, duration, price, tax, serviceCharge){
+    return this.apollo.mutate<any>({
+      mutation:gql`
+      mutation insertRailroad($trainRefer: Int!, $fromRefer: Int!, $toRefer: Int!, $depature: DateTime!, $arrival: DateTime!, $duration: Int!, $price: Int!, $tax: Int!, $serviceCharge: Int!){
+        insertRailroad(trainRefer: $trainRefer, fromRefer: $fromRefer, toRefer: $toRefer, departure: $depature, arrival: $arrival, duration: $duration, price: $price, tax: $tax, serviceCharge: $serviceCharge){
+          trainRefer
+          fromRefer
+          toRefer
+          departure
+          arrival
+          duration
+          price
+          serviceCharge
+          tax
+        }
+      }
+    `,
+    variables:{
+      "trainRefer": trainRefer,
+      "arrival": arrival,
+      "depature": departure,
+      "duration": duration,
+      "fromRefer": from,
+      "serviceCharge": serviceCharge,
+      "price": price,
+      "tax": tax,
+      "toRefer": to
+    }
+    })
+  }
+
   insertFlight(airlineRefer, from, to, arrival, departure, duration, price, tax, serviceCharge): Observable<any>{
     return this.apollo.mutate<any>({
       mutation:gql`
@@ -104,6 +148,46 @@ export class graphqlService {
     }
     })
 
+  }
+
+  updateRailroad(id, trainRefer, from, to, arrival, departure, duration, price, tax, serviceCharge): Observable<any>{
+    return this.apollo.mutate<any>({
+      mutation:gql`
+      mutation updateRailroad($id: Int!, $train_refer:Int!, $fromRefer: Int!, $toRefer: Int!, $arrival: DateTime!, $departure: DateTime!, $duration: Int!, $price: Int!, $tax: Int!, $serviceCharge: Int!){
+        updateRailroad(id: $id, train_refer: $train_refer, from_refer: $fromRefer, to_refer:$toRefer, arrival:$arrival, departure:$departure, duration:$duration, price: $price, tax: $tax, service_charge: $serviceCharge){
+          id
+        }
+      }
+    `,
+    variables:{
+      "id": id,
+      "train_refer": trainRefer,
+      "arrival": arrival,
+      "departure": departure,
+      "duration": duration,
+      "fromRefer": from,
+      "serviceCharge": serviceCharge,
+      "price": price,
+      "tax": tax,
+      "toRefer": to
+    }
+    })
+
+  }
+
+  removeRailroad(id){
+    return this.apollo.mutate<any>({
+      mutation: gql`
+      mutation($id: Int!){
+        removeRailroad(id: $id){
+          id
+        }
+      }
+      `,
+      variables:{
+        "id": id
+      }
+    })
   }
 
   updateFlight(id, airlineRefer, from, to, arrival, departure, duration, price, tax, serviceCharge): Observable<any>{
@@ -175,6 +259,35 @@ export class graphqlService {
     })
   }
 
+  getAllHotel(): Observable<any>{
+    return this.apollo.query<any>({
+      query: gql`
+        query{
+          hotels{
+            id
+            name
+            rating
+            hotelLat
+            hotelLng
+            type
+            hotelFacility{
+              facility{
+                name
+              }
+            }
+            location{
+              id
+              city
+              country
+              lat
+              lng
+            }
+          }
+        }
+      `
+    })
+  }
+
   getAllAirport(): Observable<any>{
     return this.apollo.query<any>({
       query: gql`
@@ -187,7 +300,25 @@ export class graphqlService {
     })
   }
 
-
+  insertHotel(name, rating, type, locationRefer, hotelLat, hotelLng): Observable<any>{
+    return this.apollo.mutate<any>({
+      mutation:gql`
+      mutation insertFlight($name: String!, $rating: Int!, $type: String!, $locationRefer: Int!, $hotelLat: Float!, $hotelLng: Float!){
+        insertHotel(name: $name, rating: $rating, type: $type, locationRefer: $locationRefer, hotelLat: $hotelLat , hotelLng: $hotelLng){
+          name
+        }
+      }
+    `,
+    variables:{
+      "name": name,
+      "rating": rating,
+      "type": type,
+      "locationRefer": locationRefer,
+      "hotelLat": hotelLat,
+      "hotelLng": hotelLng,
+      }
+    })
+  }
 
   getAirlines(): Observable<any>{
     return this.apollo.query<any>({
@@ -386,7 +517,7 @@ export class graphqlService {
       query{
         railroads{
           id
-          station{
+          train{
             id
             name
           }
@@ -539,6 +670,24 @@ export class graphqlService {
     })
   }
 
+  getAllRealStation(): Observable<any>{
+    return this.apollo.query<any>({
+      query: gql`
+        query {
+          stations{
+            id
+            code
+            name
+            city
+            cityCode
+            province
+            country
+          }
+        }
+      `
+    })
+  }
+
   getCarByLocation(location): Observable<any>{
     return this.apollo.query<any>({
       query: gql`
@@ -575,16 +724,29 @@ export class graphqlService {
       query: gql`
       query{
         location{
+          id
           city
           country
           lat
           lng
-        }
+          }
         }
       `
     })
   }
 
+  getAllTrain(){
+    return this.apollo.query<any>({
+      query: gql`
+      query{
+        trains{
+          id
+          name
+          }
+        }
+      `
+    })
+  }
 
   getNearestHotelByLocation(location): Observable<any>{
     return this.apollo.query<any>({
@@ -593,6 +755,8 @@ export class graphqlService {
         nearestHotels(location: $location){
           name
           rating
+          hotelLat
+          hotelLng
           location{
             id
             city
@@ -645,6 +809,7 @@ export class graphqlService {
           location{
             id
             city
+            country
             lat
             lng
           }
@@ -678,6 +843,38 @@ export class graphqlService {
       `,
       variables: {
         "location": location
+      }
+    })
+  }
+
+  removeHotel(id){
+    return this.apollo.mutate<any>({
+      mutation: gql`
+      mutation($id: Int!){
+        removeHotel(id: $id){
+          id
+        }
+      }
+      `,
+      variables:{
+        "id": id
+      }
+    })
+  }
+
+  updateHotel(id, name, rating){
+    return this.apollo.mutate<any>({
+      mutation: gql`
+      mutation($id: Int!, $name: String!, $rating: Int!){
+        updateHotel(id: $id, name: $name, rating: $rating){
+          id
+        }
+      }
+      `,
+      variables:{
+        "id": id,
+        "name": name,
+        "rating": rating
       }
     })
   }

@@ -1,0 +1,78 @@
+<body>
+  <div class="carousel" *ngIf="isCarouselShown">
+    <div class="carousel-container">
+      <div class="image"  *ngFor="let image of images; index as sliderId" (click)="setShown()">
+        <img src="../../../assets/home-imageslider/{{image.name}}" alt="">
+      </div>
+    </div>
+  </div>
+  <div class="thumbnail" >
+    <img src="../../../../assets/airline/hotel.jpg" alt="" srcset="">
+    <img src="../../../../assets/airline/hotel2.jpg" alt="" srcset="">
+    <img src="../../../../assets/airline/hotel3.jpg" alt="" srcset="" (click)="setShown()">
+  </div>
+
+  <div class="hotel-results">
+    <div class="hotel-result">
+      <header>
+        {{hotel.location.country}} > {{hotel.location.city}} >
+      </header>
+      <section>
+        <div class="left">
+          <app-button title="Open Map" width = 21 (click)="setOpenMap()" *ngIf="!openMap"></app-button>
+
+          <div class="model">
+            <div class="model-name">
+              <h2>{{hotel.name}}</h2> <h3>{{hotel.rating}}</h3> Star
+            </div>
+            <div class="model-map">
+              <div id="map"></div>
+            </div>
+            <div class="model-price">
+              {{hotel.hotelRoom[0].room.price}}
+            </div>
+          </div>
+        </div>
+        <div class="right">
+          <div class="hotel-facility" *ngFor="let facility of hotel.hotelFacility">
+            <button mat-button matTooltip = {{facility.facility.name}}><i class="fa fa-building-o" aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </section>
+      <footer>
+        <div class="hotel-results">
+          <h1>Room</h1>
+          <div class="sub-results" *ngFor="let room of hotel.hotelRoom; let i = index">
+            <div class="hotel-result">
+              <header>
+                <div class="left">
+                  <img src="../../../../assets/airline/hotel.jpg" alt="">
+                  <div class="model">
+                    <div class="model-name">
+                      {{room.room.name}}
+                    </div>
+                    <div class="model-description">
+                      <div class="room-facilites" *ngFor="let roomFacility of room.room.roomFacility;">
+                        <button mat-button matTooltip = {{roomFacility.facility.name}}><i class="fa fa-building-o" aria-hidden="true"></i></button>
+                      </div>
+                      <div class="another-info">
+                        <h4>Max Guest  : {{room.room.maxGuest}}</h4>
+                        <h4>Size : {{room.room.size}} </h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="right">
+                  {{room.room.price}}
+                </div>
+              </header>
+              <footer>
+                <app-button title="BELI" width="8" id="{{i}}" style="z-index: 4;"></app-button>
+              </footer>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</body>

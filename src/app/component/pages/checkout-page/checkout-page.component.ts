@@ -9,6 +9,7 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { RailroadService } from 'src/app/service/railroad/railroad.service';
 import { CarService } from 'src/app/service/car/car.service';
 import { CheckoutCarService } from 'src/app/service/checkout-car/checkout-car.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout-page',
@@ -34,7 +35,11 @@ export class CheckoutPageComponent implements OnInit {
   countryCode$: Observable<CountryByCallingPhone[]>;
   car : any
 
-  constructor(private getHttpService : GetHttpService, private graphql: graphqlService, private checkout: CheckoutCarService) {
+  minute = 0
+  second = 5
+  interval : NodeJS.Timer
+
+  constructor(private getHttpService : GetHttpService, private graphql: graphqlService, private checkout: CheckoutCarService, private router: Router) {
     this.car = checkout.getCar();
     console.log(checkout.getCar())
   }
@@ -42,7 +47,20 @@ export class CheckoutPageComponent implements OnInit {
   ngOnInit(): void {
     this.countryCode$ = this.getHttpService.getCountryCode("https://raw.githubusercontent.com/samayo/country-json/master/src/country-by-calling-code.json");
     this.checkUser()
+
+    this.interval = setInterval(() => {
+      if(this.minute == 0 && this.second == 0){
+        clearInterval(this.interval)
+        this.router.navigate([''])
+      }
+      if(this.second == 0){
+        this.minute--
+        this.second = 60
+      }
+      this.second--
+    }, 1000)
   }
+
 
   selected(event){
     this.countryCode = event.value;

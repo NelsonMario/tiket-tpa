@@ -56,8 +56,21 @@
   </div>
   <div class="content">
     <div class="filter" *ngIf="!buy">
-      <app-button title="Open Map" width = 21 (click)="setOpenMap()"></app-button>
+      <app-button title="Open Map" width = 21 (click)="setOpenMap()" *ngIf="!openMap"></app-button>
+      <app-button title="Order" width = 21 *ngIf="openMap"></app-button>
+      <div class="rangePrice">
+        <div class="title">Range Price</div>
+        <mat-form-field class="minimumPrice">
+          <mat-label>Minimum Price</mat-label>
+          <input [formControl] = "minimumPrice" matInput placeholder="0">
+        </mat-form-field>
+        <mat-form-field class="maximumPrice">
+          <mat-label>Maximum Price</mat-label>
+          <input [formControl] = "maximumPrice" matInput placeholder="0">
+        </mat-form-field>
+      </div>
     </div>
+
     <div id="map"></div>
 
     <div class="wrapper-hotel" *ngIf="!buy">
@@ -76,18 +89,24 @@
                   </div>
                   <div class="model-description">
                     <div class="hotel-facilites" *ngFor="let hotelFacility of hotel.hotelFacility;">
-                      <button mat-button matTooltip = {{hotelFacility.facility.name}}>O</button>
+                      <button mat-button matTooltip = {{hotelFacility.facility.name}}><i class="fa fa-building-o" aria-hidden="true"></i></button>
                     </div>
-                    {{hotel.rating}}
+                  </div>
+                  <div class="stars">
+                    <div class="star" *ngFor="let star of count(5); let i = index">
+                      <div class="shining-star" *ngIf="hotel.rating > i">
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="right">
-                {{hotel.price}} Stars
+                {{hotel.hotelRoom[0].room.price}}
               </div>
             </section>
             <footer>
-              <app-button title="BELI" width="8" (click) = "setBuy($event)" id="{{i}}"></app-button>
+              <app-button title="BELI" width="8" (click) = "redirectToDetailPage($event)" id="{{i}}" style="z-index: 4;"></app-button>
             </footer>
           </div>
         </div>

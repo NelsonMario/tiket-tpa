@@ -139,6 +139,10 @@ body{
       }
     }
     .detail{
+      .passenger-detail{
+        display: flex;
+        flex-direction: column;
+      }
       .ordered-detail{
         background-color: white;
         min-width: 30%;

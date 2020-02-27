@@ -84,10 +84,17 @@ body{
   .content{
     display: flex;
     justify-content: space-between;
+    position: relative;
     .filter{
       z-index: 2;
     }
+    .displayHotel{
+      display: flex;
+      justify-content: flex-end;
+      z-index: 2;
+    }
     #map{
+      display: none;
       position: absolute;
       width: 100vw;
       height: 100vh;
@@ -144,6 +151,10 @@ body{
                 .model{
                   display: flex;
                   flex-direction: column;
+                  .stars{
+                    display: flex;
+                  }
+
                 }
                 img{
                   transform: scale(0.5);

@@ -15,8 +15,10 @@
 
       <mat-form-field class="Password">
         <mat-label>password</mat-label>
-        <input [formControl] = "password" matInput type = "password" class="password">
+        <input [formControl] = "password" matInput type = {{shown}} class="password">
       </mat-form-field>
+
+      <button mat-button (click)="setShown()">Show</button>
     </form>
 
     <app-button (click)="login()" title="LANJUTKAN" width = 15></app-button>

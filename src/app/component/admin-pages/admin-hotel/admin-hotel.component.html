@@ -1,0 +1,108 @@
+<body>
+  <mat-spinner *ngIf="loaded"></mat-spinner>
+
+  <div class="content" *ngIf="!loaded">
+
+    <div class="form">
+      <div class="profile-detail">
+        <div class="airline">
+          <mat-label>Location</mat-label>
+          <mat-select [formControl]="location" required>
+            <mat-option *ngFor="let location of locations; let i = index" [value]="location">
+              {{location.city}}
+            </mat-option>
+          </mat-select>
+        </div>
+        <mat-form-field class="hotelName">
+          <mat-label>Hotel Name</mat-label>
+          <input [formControl] = "hotelName" matInput class="hotelName">
+        </mat-form-field>
+        <mat-form-field class="rating">
+          <mat-label>Rating</mat-label>
+          <input [formControl] = "rating" matInput class="Rating">
+        </mat-form-field>
+        <mat-form-field class="type">
+          <mat-label>Type</mat-label>
+          <input [formControl] = "type" matInput class="type">
+        </mat-form-field>
+        <mat-form-field class="hotelLat">
+          <mat-label>Latitude</mat-label>
+          <input [formControl] = "hotelLat" matInput class="hotelLat">
+        </mat-form-field>
+        <mat-form-field class="hotelLng">
+          <mat-label>Longitude</mat-label>
+          <input [formControl] = "hotelLng" matInput class="hotelLng">
+        </mat-form-field>
+        <app-button title="InsertData" width = 15 (click)="insertData()"></app-button>
+      </div>
+
+      <div class="result">
+        <div class="sub-results" *ngFor="let hotel of hotels; let i = index;">
+          <header>
+            <div class="name">{{hotel.name}}</div>
+          </header>
+          <section>
+            <div class="left">
+              <img src="../../../../assets/airline/citylink.png" alt="">
+              <div class="description">
+                <div>
+                  Rating : {{hotel.rating}} Star
+                </div>
+                <div>
+                  Type : {{hotel.type}}
+                </div>
+                <div>
+                  Latitude : {{hotel.hotelLat}}
+                </div>
+                <div>
+                  Longitude : {{hotel.hotelLng}}
+                </div>
+              </div>
+            </div>
+            <footer>
+              Facility : [
+              <div class="facility" *ngFor="let facility of hotel.hotelFacility">
+                {{facility.facility.name}}
+              </div>
+              ]
+            </footer>
+          </section>
+          <footer id="{{i+1}}">
+            <mat-tab-group animationDuration>
+              <mat-tab label = "None">
+                <div class="facility">
+                  <mat-label>Facility</mat-label>
+                  <mat-select [formControl]="insertFacility" required>
+                    <mat-option *ngFor="let facility of facilities; let i = index" [value]="insertFacility">
+                      {{facility.name}}
+                    </mat-option>
+                  </mat-select>
+                </div>
+              </mat-tab>
+              <mat-tab label = "Update">
+                <div class="profile-detail">
+                  <mat-form-field class="hotelName">
+                    <mat-label>Hotel Name</mat-label>
+                    <input [formControl] = "updateHotelName" matInput class="updateHotelName">
+                  </mat-form-field>
+                  <mat-form-field class="rating">
+                    <mat-label>Rating</mat-label>
+                    <input [formControl] = "updateRating" matInput class="updateRating">
+                  </mat-form-field>
+                  <mat-form-field class="type">
+                    <mat-label>Type</mat-label>
+                    <input [formControl] = "updateType" matInput class="updateType">
+                  </mat-form-field>
+                  <app-button title="UpdateData" width = 15 (click)="updateData((hotel.id))"></app-button>
+                </div>
+              </mat-tab>
+              <mat-tab label = "Delete">
+                <app-button title="DeleteData" width = 15 (click)="deleteDataClick((hotel.id))"></app-button>
+              </mat-tab>
+            </mat-tab-group>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

@@ -20,7 +20,12 @@
       </div>
         <app-input-placeholder desc="Phone Number" width = 10 (returnedString)="getPhoneNumber($event)"></app-input-placeholder>
     </div>
-    <app-input-placeholder desc="Password" (returnedString)="getPassword($event)" width=21></app-input-placeholder>
+    <mat-form-field class="Password">
+      <mat-label>password</mat-label>
+      <input [formControl] = "password" matInput type = {{shown}} class="password">
+    </mat-form-field>
+    <!-- <app-input-placeholder desc="Password" (returnedString)="getPassword($event)" width=21></app-input-placeholder> -->
+    <button mat-button (click)="setShown()">Show</button>
     <div class="desc">Min. 7 Karakter dengan kombinasi antara angka, simbol, & huruf kapital.</div>
     <app-button (click)="register()" title = "Create Account" width = 15></app-button>
 </section>

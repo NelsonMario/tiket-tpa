@@ -12,6 +12,10 @@ import { componentFactoryName } from '@angular/compiler';
 import { AdminFlightComponent } from './component/admin-pages/flight/admin-flight/admin-flight.component';
 import { AdminSectionComponent } from './model-component/admin/admin-section/admin-section.component';
 import { HotelPagesComponent } from './component/pages/hotel-pages/hotel-pages.component';
+import { ChatPageComponent } from './component/pages/chat-page/chat-page.component';
+import { AdminHotelComponent } from './component/admin-pages/admin-hotel/admin-hotel.component';
+import { HotelDetailComponent } from './component/pages/hotel-detail/hotel-detail.component';
+import { AdminTrainComponent } from './component/admin-pages/admin-train/admin-train.component';
 
 
 const routes: Routes = [
@@ -55,6 +59,14 @@ const routes: Routes = [
       outlet: "customer-page"},
     ]
   },
+  {path: 'detail-hotel',
+    component: CustomerComponent,
+    children: [
+      {path: '',
+      component: HotelDetailComponent,
+      outlet: "customer-page"},
+    ]
+  },
   {path: 'profile',
     component: CustomerComponent,
     children: [
@@ -92,7 +104,40 @@ const routes: Routes = [
         outlet: "admin-page"
       },
     ]
-  }
+  },
+  {
+    path: 'admin-hotel',
+    component: AdminComponent,
+    children: [
+      {
+        path: '',
+        component: AdminHotelComponent,
+        outlet: "admin-page"
+      },
+    ]
+  },
+  {
+    path: 'admin-train',
+    component: AdminComponent,
+    children: [
+      {
+        path: '',
+        component: AdminTrainComponent,
+        outlet: "admin-page"
+      },
+    ]
+  },
+  {
+    path: 'chats',
+    component: CustomerComponent,
+    children: [
+      {
+        path: '',
+        component: ChatPageComponent,
+        outlet: "customer-page"
+      },
+    ]
+  },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

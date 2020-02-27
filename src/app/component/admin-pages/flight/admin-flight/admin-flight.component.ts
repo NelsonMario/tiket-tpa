@@ -15,6 +15,8 @@ import { async } from '@angular/core/testing';
 })
 export class AdminFlightComponent implements OnInit {
 
+  loaded = true
+
   airline = new FormControl()
   from = new FormControl()
   to = new FormControl()
@@ -51,9 +53,17 @@ export class AdminFlightComponent implements OnInit {
   airports : Airport[] = []
   airline$ : Subscription
   airlines : Airport[] = []
+
+  flightPagination: Flight[] = []
+
   constructor(private graphql: graphqlService, private _snackBar: MatSnackBar) {
     this.flight$ = graphql.getAllFlight().subscribe(async query => {
       this.flights = query.data.flights
+      await
+      console.log("")
+      this.flightPagination = this.flights
+      console.log(this.flightPagination)
+      this.loaded = !this.loaded
     })
     this.airport$ = graphql.getAirports().subscribe(async query =>{
       this.airports = query.data.airports
@@ -63,9 +73,11 @@ export class AdminFlightComponent implements OnInit {
     this.airline$ = graphql.getAirlines().subscribe(async query =>{
       this.airlines = query.data.airlines
     })
+
   }
 
   ngOnInit(): void {
+    console.log(this.flightPagination)
   }
 
   insertData(){
@@ -92,13 +104,17 @@ export class AdminFlightComponent implements OnInit {
   }
 
   updateData(id){
-    this.graphql.updateFlight(id, this.updateAirline.value.id, this.updateFrom.value.id, this.updateTo.value.id, this.updateFormattedArrival.value+"T"+this.inputUpdateArrival.value+"Z", this.updateFormattedDeparture.value+"T"+this.inputUpdateDeparture.value+"Z", parseInt(this.updateDuration.value), parseInt(this.updatePrice.value), parseInt(this.updateTax.value), parseInt(this.updateServiceCharge.value)).subscribe(async query => {
-      await this._snackBar.open("update successfully", "close", {
-        duration: 2000,
+    try {
+      this.graphql.updateFlight(id, this.updateAirline.value.id, this.updateFrom.value.id, this.updateTo.value.id, this.updateFormattedArrival.value+"T"+this.inputUpdateArrival.value+"Z", this.updateFormattedDeparture.value+"T"+this.inputUpdateDeparture.value+"Z", parseInt(this.updateDuration.value), parseInt(this.updatePrice.value), parseInt(this.updateTax.value), parseInt(this.updateServiceCharge.value)).subscribe(async query => {
+        await this._snackBar.open("update successfully", "close", {
+          duration: 2000,
+        })
       })
-    })
-    setInterval(function(){window.location.reload()}, 2000);
-    this.popUpOpen = false
+      setInterval(function(){window.location.reload()}, 2000);
+    } catch (error) {
+      alert("There is no data")
+    }
+
   }
 
   ngOnDestroy(): void {

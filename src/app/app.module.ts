@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NgForm} from '@angular/forms'
-import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -10,6 +9,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatLabel } from '@angular/material/form-field';
 import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
+import { MaterialModule} from './material/material.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSelectModule} from '@angular/material/select'
@@ -28,7 +28,6 @@ import { CarouselComponent } from './component/carousel/carousel.component';
 import { ReservationComponent } from './component/reservation/reservation.component';
 import { ReservationNavBarComponent } from './component/reservation/reservation-nav-bar/reservation-nav-bar.component';
 import { RentCarReservationComponent } from './component/reservation/reservation-type/rent-car-reservation/rent-car-reservation.component';
-
 import {
   GoogleApiModule,
   GoogleApiService,
@@ -62,6 +61,10 @@ import { AdminSectionComponent } from './model-component/admin/admin-section/adm
 import { AdminFlightComponent } from './component/admin-pages/flight/admin-flight/admin-flight.component';
 import { HotelPagesComponent } from './component/pages/hotel-pages/hotel-pages.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ChatPageComponent } from './component/pages/chat-page/chat-page.component';
+import { AdminHotelComponent } from './component/admin-pages/admin-hotel/admin-hotel.component';
+import { HotelDetailComponent } from './component/pages/hotel-detail/hotel-detail.component';
+import { AdminTrainComponent } from './component/admin-pages/admin-train/admin-train.component';
 
 let gapiClientConfig: NgGapiClientConfig = {
   client_id: "602076487631-28k1qh3apnsm4510llsq5reejkq4qtlt.apps.googleusercontent.com",
@@ -102,7 +105,11 @@ let gapiClientConfig: NgGapiClientConfig = {
     AdminHeaderComponent,
     AdminSectionComponent,
     AdminFlightComponent,
-    HotelPagesComponent
+    HotelPagesComponent,
+    ChatPageComponent,
+    AdminHotelComponent,
+    HotelDetailComponent,
+    AdminTrainComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -112,6 +119,7 @@ let gapiClientConfig: NgGapiClientConfig = {
 
     BrowserModule,
     AppRoutingModule,
+
 
     //material
     MatDialogModule,
@@ -128,6 +136,7 @@ let gapiClientConfig: NgGapiClientConfig = {
     BrowserAnimationsModule,
     MatExpansionModule,
     MatSnackBarModule,
+    MaterialModule,
 
     RouterModule.forRoot([{
       path: 'redirect',
@@ -146,9 +155,5 @@ let gapiClientConfig: NgGapiClientConfig = {
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
   ],
   bootstrap: [AppComponent],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA,
-    NO_ERRORS_SCHEMA
-  ]
 })
 export class AppModule { }

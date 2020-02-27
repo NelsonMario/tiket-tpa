@@ -49,19 +49,12 @@ body{
               display: flex;
               align-items: center;
               justify-content: space-around;
-              .departure, .arrival{
-                display: flex;
-                flex-direction: column;
-              }
-              .duration{
-                display: flex;
-                justify-content: center;
-                min-width: 100px;
-                border-bottom: 1px solid gray;
-                margin: 0 10px;
-              }
               img{
                 transform: scale(0.5);
+              }
+              .description{
+                display: flex;
+                flex-direction: column;
               }
             }
           }
