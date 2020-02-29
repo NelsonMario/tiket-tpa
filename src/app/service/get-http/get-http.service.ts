@@ -15,4 +15,9 @@ export class GetHttpService {
   getCountryCode(string): Observable<CountryByCallingPhone[]>{
     return this.http.get<CountryByCallingPhone[]>(string);
   }
+
+  getValidNumber(string): Observable<any>{
+    return this.http.get<any>(string);
+  }
+
 }

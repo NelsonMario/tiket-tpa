@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { query } from '@angular/animations';
 import { async } from '@angular/core/testing';
 import { parse } from 'path';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-hotel',
@@ -38,7 +39,14 @@ export class AdminHotelComponent implements OnInit {
   facilities : any[] = []
 
 
-  constructor(private graphql: graphqlService, private _snackBar: MatSnackBar) {
+  constructor(private graphql: graphqlService, private _snackBar: MatSnackBar, private route: Router) {
+
+    if(localStorage.getItem("currentUser") == null)
+      route.navigate([''])
+    else{
+      if(JSON.parse(localStorage.getItem("currentUser"))[0].email != "admin@admin.com")
+        route.navigate([''])
+    }
     // this.flight$ = graphql.getAllFlight().subscribe(async query => {
     //   this.flights = query.data.flights
     //   await
@@ -123,9 +131,8 @@ export class AdminHotelComponent implements OnInit {
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.
-    // this.airline$.unsubscribe()
-    // this.airport$.unsubscribe()
-    // this.flight$.unsubscribe()
+    this.hotel$.unsubscribe()
+    this.facility$.unsubscribe()
   }
 
 }

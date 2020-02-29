@@ -99,6 +99,21 @@
             </div>
           </mat-expansion-panel>
       </div>
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Sort
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <button mat-button (click)="priceSort()">Harga Terendah</button>
+        <button mat-button >Keberangkatan paling Awal</button>
+        <button mat-button>Keberangkatan paling Akhir</button>
+        <button mat-button>Kedatangan paling Awal</button>
+        <button mat-button>Kedatangan paling Akhir</button>
+        <button mat-button (click)="durationSort()">Durasi</button>
+      </mat-expansion-panel>
     </div>
 
     <div class="wrapper-railroad">

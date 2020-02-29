@@ -5,6 +5,7 @@ import gql from 'graphql-tag'
 import { variable } from '@angular/compiler/src/output/output_ast';
 import { query } from '@angular/animations';
 import { identifierModuleUrl } from '@angular/compiler';
+import { FetchType } from 'apollo-client';
 
 @Injectable({
   providedIn: 'root'
@@ -876,6 +877,181 @@ export class graphqlService {
         "name": name,
         "rating": rating
       }
+    })
+  }
+
+  insertBlog(userId, title, value, image, thumbnail, viewer): Observable<any>{
+    return this.apollo.mutate<any>({
+      mutation:gql`
+      mutation insertBlog($userId:Int!, $title:String!, $value:String!, $image:String!, $thumbnail:String!, $viewer:Int!){
+        insertBlog(userId:$userId, title:$title, value:$value, image:$image, thumbnail:$thumbnail, viewer: $viewer){
+        userId
+        title
+        value
+        image
+        thumbnail
+    }
+  }
+    `,
+    variables: {
+      "image": image,
+      "thumbnail": thumbnail,
+      "title": title,
+      "userId": userId,
+      "value": value,
+      "viewer": viewer
+    },
+    fetchPolicy: 'no-cache'
+    })
+  }
+
+  getAllBlogs(){
+    return this.apollo.query<any>({
+      query: gql`
+      query{
+        blogs{
+          id
+          userId
+          title
+          value
+          image
+          thumbnail
+        }
+      }
+      `,
+      fetchPolicy: 'no-cache'
+    })
+  }
+
+  getBlogById(id){
+    return this.apollo.query<any>({
+      query: gql`
+      query blogById($id: Int!){
+        blogById(id: $id){
+          id
+          userId
+          title
+          value
+          image
+          thumbnail
+        }
+      }
+      `,
+      variables:{
+        "id" : id
+      },
+      fetchPolicy: 'no-cache'
+    })
+  }
+
+  updateBlog(id, title, thumbnail, value){
+    return this.apollo.mutate<any>({
+      mutation: gql`
+      mutation updateBlog($id: Int!, $title: String!, $thumbnail: String!, $value: String!){
+        updateBlog(id:$id, title:$title, thumbnail:$thumbnail, value:$value){
+          id
+        }
+      }
+      `,
+      variables:{
+        "id": id,
+        "title": title,
+        "thumbnail": thumbnail,
+        "value": value
+      }
+    })
+  }
+
+  removeBlog(id){
+    return this.apollo.mutate<any>({
+      mutation: gql`
+      mutation($id: Int!){
+        removeBlog(id: $id){
+          id
+        }
+      }
+      `,
+      variables:{
+        "id": id
+      }
+    })
+  }
+
+  getAllEvent(){
+    return this.apollo.query<any>({
+      query: gql`
+      query{
+        events(){
+          id
+          name
+          location{
+            id
+            city
+            country
+          }
+          eventDetail{
+            name
+          }
+          eventLng
+          eventLat
+          }
+        }
+      `,
+      fetchPolicy: 'no-cache'
+    })
+  }
+
+  getNearestEvent(location){
+    return this.apollo.query<any>({
+      query: gql`
+      query nearestEvent($location: String!){
+        nearestEvent(location: $location){
+          id
+          name
+          location{
+            id
+            city
+            country
+          }
+          eventDetail{
+            name
+          }
+          eventLng
+          eventLat
+          }
+        }
+      `,
+      variables:{
+        "location" : location
+      },
+      fetchPolicy: 'no-cache'
+    })
+  }
+
+  getEventByCategory(category){
+    return this.apollo.query<any>({
+      query: gql`
+      query eventByCategory($category: String!){
+        eventsByCategory(category: $category){
+          id
+          name
+          location{
+            id
+            city
+            country
+          }
+          eventDetail{
+            name
+          }
+          eventLng
+          eventLat
+          }
+        }
+      `,
+      variables:{
+        "category" : category
+      },
+      fetchPolicy: 'no-cache'
     })
   }
 }

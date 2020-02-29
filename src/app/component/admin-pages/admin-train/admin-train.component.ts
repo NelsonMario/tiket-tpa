@@ -6,6 +6,8 @@ import { Station } from 'src/app/models/station';
 import { Train } from 'src/app/models/train';
 import { graphqlService } from 'src/app/service/graphql/graphql.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-admin-train',
@@ -53,7 +55,15 @@ export class AdminTrainComponent implements OnInit {
   train$ : Subscription
   trains : Train[] = []
 
-  constructor(private graphql: graphqlService, private _snackBar: MatSnackBar) {
+  constructor(private graphql: graphqlService, private _snackBar: MatSnackBar, private route: Router) {
+
+    if(localStorage.getItem("currentUser") == null)
+      route.navigate([''])
+    else{
+      if(JSON.parse(localStorage.getItem("currentUser"))[0].email != "admin@admin.com")
+        route.navigate([''])
+    }
+
     this.railroad$ = graphql.getAllRailroad().subscribe(async query => {
       this.railroads = query.data.railroads
       await

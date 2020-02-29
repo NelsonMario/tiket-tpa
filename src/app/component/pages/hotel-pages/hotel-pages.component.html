@@ -69,8 +69,21 @@
           <input [formControl] = "maximumPrice" matInput placeholder="0">
         </mat-form-field>
       </div>
-    </div>
 
+
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Sort
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <button mat-button (click)="cheapPriceSort()">Harga Terendah</button>
+        <button mat-button (click)="expensivePriceSort()">Harga Tertinggi</button>
+        <button mat-button (click)="starSort()">Bintang Tertinggi</button>
+        <button mat-button (click)="ratingSort()">Rating Tertinggi</button>
+      </mat-expansion-panel>
+    </div>
     <div id="map"></div>
 
     <div class="wrapper-hotel" *ngIf="!buy">

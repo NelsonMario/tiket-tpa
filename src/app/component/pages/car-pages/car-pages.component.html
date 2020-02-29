@@ -99,6 +99,17 @@
             <mat-checkbox [checked] = "brand.active" [(ngModel)]="brand.active" name= "{{i}}-name"></mat-checkbox>
           </div>
         </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Sort
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <button mat-button (click)="cheapPriceSort()">Harga Terendah</button>
+          <button mat-button (click)="expensivePriceSort()">Harga Tertinggi</button>
+        </mat-expansion-panel>
       </div>
 
       <div class="model">

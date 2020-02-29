@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-// import { GoogleAuthService } from 'ng-gapi';
-// import { GoogleLoginService } from '../../service/google/google-login.service';
-// import { SheetResourceService } from '../../service/google/sheet-resource.service';
-// import { GoogleApiService } from 'ng-gapi';
-// import {ActivatedRoute} from '@angular/router';
+import { GoogleAuthService } from 'ng-gapi';
+import { GoogleLoginService } from '../../service/google/google-login.service';
+import { SheetResourceService } from '../../service/google/sheet-resource.service';
+import { GoogleApiService } from 'ng-gapi';
+import {ActivatedRoute} from '@angular/router';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { graphqlService } from '../../service/graphql/graphql.service'
-// import { async } from '@angular/core/testing';
-// import { query } from '@angular/animations';
+import { async } from '@angular/core/testing';
+import { query } from '@angular/animations';
 import { User } from 'src/app/models/user';
-// import { tokenName } from '@angular/compiler';
+import { tokenName } from '@angular/compiler';
 import { FormControl } from '@angular/forms';
 
 declare const FB: any;
@@ -31,8 +31,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     // private userService: GoogleLoginService,
-    // private sheetResource: SheetResourceService,
-    // private route: ActivatedRoute,
+    private route: ActivatedRoute,
     // private authService: GoogleAuthService,
     // private gapiService: GoogleApiService,
     private dialogReference: MatDialogRef<any>,
@@ -43,28 +42,28 @@ export class LoginComponent implements OnInit {
     };
 
     ngOnInit() {
-      // this.route.fragment.subscribe((fragment) => {
-      //   console.log(fragment)
-      // });
+      this.route.fragment.subscribe((fragment) => {
+        console.log(fragment)
+      });
 
-    //   (window as any).fbAsyncInit = function() {
-    //     FB.init({
-    //       appId      : '993831117683156',
-    //       cookie     : true,
-    //       xfbml      : true,
-    //       version    : 'v3.1'
-    //     });
-    //     FB.AppEvents.logPageView();
-    //   };
+      (window as any).fbAsyncInit = function() {
+        FB.init({
+          appId      : '993831117683156',
+          cookie     : true,
+          xfbml      : true,
+          version    : 'v3.1'
+        });
+        FB.AppEvents.logPageView();
+      };
 
-    //   (function(d, s, id){
-    //     var js, fjs = d.getElementsByTagName(s)[0];
-    //     if (d.getElementById(id)) {return;}
-    //     js = d.createElement(s); js.id = id;
-    //     js.src = "https://connect.facebook.net/en_US/sdk.js";
-    //     fjs.parentNode.insertBefore(js, fjs);
-    //   }(document, 'script', 'facebook-jssdk'));
-    // }
+      (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+    }
 
     // public isLoggedIn(): boolean {
     //   return this.userService.isUserSignedIn();
@@ -75,25 +74,29 @@ export class LoginComponent implements OnInit {
     //   this.userService.signIn();
     // }
 
-    // public signInFacebook(){
-    //   console.log("submit login to facebook");
-    //   FB.login((response)=>
-    //     {
-    //       console.log('submitLogin',response);
-    //       if (response.authResponse)
-    //       {
-    //         console.log("Login Success");
-    //         FB.api('/me', function(response2){
-    //           console.log(response2)
-    //         }
-    //       );
-
-
-    //       }else
-    //       {
-    //         console.log('User login failed');
-    //       }
-    //   });
+    public signInFacebook(){
+      console.log("submit login to facebook");
+      FB.login((response)=>
+        {
+          console.log('submitLogin',response);
+          if (response.authResponse)
+          {
+            console.log("Login Success");
+            FB.api('/me', function(response2){
+              console.log(response2)
+              var userTemp : User[] = []
+              var user : User = new User()
+              user.firstName = response2['name']
+              user.email = user.firstName.replace(/\s+/g, '') + "@gmail.com";
+              userTemp.push(user)
+              localStorage.setItem('currentUser', JSON.stringify(userTemp))
+            }
+          );
+          }else
+          {
+            console.log('User login failed');
+          }
+      });
     }
 
     login(){

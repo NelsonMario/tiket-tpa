@@ -9,9 +9,9 @@ export class Flight {
   flightFacility: any [] = []
   from: Airport
   to: Airport
-  departure: String
-  arrival: String
-  duration: String
+  departure: number
+  arrival: number
+  duration: string
   price: number
   tax: number
   serviceCharge: number

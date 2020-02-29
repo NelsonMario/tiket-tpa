@@ -155,4 +155,12 @@ export class TrainPageComponent implements OnInit {
     this.isHidden = !this.isHidden;
     this.outputHidden.emit(this.isHidden)
   }
+
+  priceSort(){
+    this.railroads.sort(function(a, b){return a.price - b.price})
+  }
+
+  durationSort(){
+    this.railroads.sort(function(a, b){return parseInt(a.duration) -  parseInt(b.duration)})
+  }
 }

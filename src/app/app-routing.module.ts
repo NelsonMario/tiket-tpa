@@ -16,6 +16,10 @@ import { ChatPageComponent } from './component/pages/chat-page/chat-page.compone
 import { AdminHotelComponent } from './component/admin-pages/admin-hotel/admin-hotel.component';
 import { HotelDetailComponent } from './component/pages/hotel-detail/hotel-detail.component';
 import { AdminTrainComponent } from './component/admin-pages/admin-train/admin-train.component';
+import { TextEditorComponent } from './component/text-editor/text-editor.component';
+import { BlogPagesComponent } from './component/pages/blog-pages/blog-pages.component';
+import { DetailBlogComponent } from './component/pages/detail-blog/detail-blog.component';
+import { EventPageComponent } from './component/pages/event-page/event-page.component';
 
 
 const routes: Routes = [
@@ -51,6 +55,38 @@ const routes: Routes = [
       outlet: "customer-page"},
     ]
   },
+  {path: 'blog',
+    component: CustomerComponent,
+    children: [
+      {path: '',
+      component: BlogPagesComponent,
+      outlet: "customer-page"},
+    ]
+  },
+  {path: 'blog/:id',
+    component: CustomerComponent,
+    children: [
+      {path: '',
+      component: DetailBlogComponent,
+      outlet: "customer-page"},
+    ]
+  },
+  {path: 'text-editor',
+    component: CustomerComponent,
+    children: [
+      {path: '',
+      component: TextEditorComponent,
+      outlet: "customer-page"},
+    ]
+  },
+  {path: 'text-editor/:id',
+    component: CustomerComponent,
+    children: [
+      {path: '',
+      component: TextEditorComponent,
+      outlet: "customer-page"},
+    ]
+  },
   {path: 'search-hotel',
     component: CustomerComponent,
     children: [
@@ -80,6 +116,14 @@ const routes: Routes = [
     children: [
       {path: '',
       component: CheckoutPageComponent,
+      outlet: "customer-page"},
+    ]
+  },
+  {path: 'event',
+    component: CustomerComponent,
+    children: [
+      {path: '',
+      component: EventPageComponent,
       outlet: "customer-page"},
     ]
   },

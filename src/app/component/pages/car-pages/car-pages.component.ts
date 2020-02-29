@@ -189,4 +189,12 @@ export class CarPagesComponent implements OnInit {
     this.outputHidden.emit(this.outputHidden)
     console.log(this.isHidden)
   }
+
+  cheapPriceSort(){
+    this.cars.sort(function(a, b){return a.price - b.price})
+  }
+
+  expensivePriceSort(){
+    this.cars.sort(function(a, b){return b.price - a.price})
+  }
 }

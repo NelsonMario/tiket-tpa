@@ -7,6 +7,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { query } from '@angular/animations';
 import { async } from '@angular/core/testing';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-flight',
@@ -56,7 +57,15 @@ export class AdminFlightComponent implements OnInit {
 
   flightPagination: Flight[] = []
 
-  constructor(private graphql: graphqlService, private _snackBar: MatSnackBar) {
+  constructor(private graphql: graphqlService, private _snackBar: MatSnackBar, private route: Router) {
+    console.log(JSON.parse(localStorage.getItem("currentUser"))[0].email)
+    if(localStorage.getItem("currentUser") == null)
+      route.navigate([''])
+    else{
+      if(JSON.parse(localStorage.getItem("currentUser"))[0].email != "admin@admin.com")
+        route.navigate([''])
+    }
+
     this.flight$ = graphql.getAllFlight().subscribe(async query => {
       this.flights = query.data.flights
       await

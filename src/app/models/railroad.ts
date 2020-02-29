@@ -8,8 +8,8 @@ export class Railroad {
   from: Station
   to: Station
   departure: String
-  arrival: String
-  duration: String
+  arrival: string
+  duration: string
   price: number
   tax: number
   serviceCharge: number

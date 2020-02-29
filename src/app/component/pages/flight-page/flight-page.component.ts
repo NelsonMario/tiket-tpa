@@ -271,4 +271,12 @@ export class FlightPageComponent implements OnInit {
     this.outputHidden.emit(this.outputHidden)
     console.log(this.isHidden)
   }
+
+  priceSort(){
+    this.flights.sort(function(a, b){return a.price - b.price})
+  }
+
+  durationSort(){
+    this.flights.sort(function(a, b){return parseInt(a.duration) -  parseInt(b.duration)})
+  }
 }

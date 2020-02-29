@@ -7,6 +7,7 @@ import { User } from 'src/app/models/user';
 import { graphqlService } from 'src/app/service/graphql/graphql.service';
 import { async } from '@angular/core/testing';
 import { FormControl } from '@angular/forms';
+import { validate } from 'graphql';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -15,6 +16,7 @@ import { FormControl } from '@angular/forms';
 export class RegisterComponent implements OnInit {
 
   countryCode$: Observable<CountryByCallingPhone[]>;
+  validateNumber$: Observable<any>;
   user: User = new User();
   countryCode:string = "";
   email:string = "";
@@ -24,10 +26,12 @@ export class RegisterComponent implements OnInit {
   // password: string = "";
   password = new FormControl()
   shown = ""
+  validNumber : any
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private getHttpService: GetHttpService,
               private graphql: graphqlService) {
   }
+
 
   ngOnInit() {
     this.countryCode$ = this.getHttpService.getCountryCode("https://raw.githubusercontent.com/samayo/country-json/master/src/country-by-calling-code.json");
@@ -76,13 +80,19 @@ export class RegisterComponent implements OnInit {
     this.user.phoneNumber = "+" + this.countryCode + this.phoneNumber.replace(/\s/g, "");
     this.user.password = this.password.value
 
-    if(!this.checkLength(this.user.phoneNumber, 14, 14))console.log("phone")
-    if(!this.checkLength(this.user.firstName, 5, 10))console.log("first")
-    if(!this.checkLength(this.user.lastName, 5, 10))console.log("last")
-    if(!this.checkLength(this.user.password, 5, 10))console.log("password")
-    if(this.emailValidation(this.user.email))console.log("email")
+    this.getHttpService.getValidNumber("http://apilayer.net/api/validate?access_key=456fb23c31b6966dfda380f8f928e5fd&number="+this.user.phoneNumber+"&country_code=&format=1").map((data) => JSON.stringify(data)).subscribe((data) => {
+      this.validNumber = JSON.parse(data).valid
+      return this.validNumber
+    })
 
-    if(this.emailValidation(this.user.email) || !this.checkLength(this.user.phoneNumber, 14, 14) || !this.checkLength(this.user.firstName, 5, 10) || !this.checkLength(this.user.lastName, 5, 10) || !this.checkLength(this.user.password, 5, 10)) console.log("Registration Failed")
+
+    if(!this.validNumber)alert("Phone Format Wrong")
+    if(!this.checkLength(this.user.firstName, 5, 10))alert("First Name must be 5 - 10 Chara")
+    if(!this.checkLength(this.user.lastName, 5, 10))alert("First Name must be 5 - 10 Chara")
+    if(!this.checkLength(this.user.password, 5, 10))alert("First Name must be 5 - 10 Chara")
+    if(this.emailValidation(this.user.email))alert("Email Format Wrong")
+
+    if(this.emailValidation(this.user.email) || !this.checkLength(this.user.phoneNumber, 14, 14) || !this.checkLength(this.user.firstName, 5, 10) || !this.checkLength(this.user.lastName, 5, 10) || !this.checkLength(this.user.password, 5, 10)) alert("Registration Failed")
     else{
       this.graphql.insertRegisterUser(this.user.email, this.user.firstName,
         this.user.lastName, this.user.password, this.user.phoneNumber).subscribe(async query=>{

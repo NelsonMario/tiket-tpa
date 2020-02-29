@@ -1,0 +1,52 @@
+a{
+  text-decoration: none;
+}
+
+body{
+  font-family: 'OpenSans',Arial,Helvetica,sans-serif;
+  display: flex;
+  justify-content: center;
+  .share-button{
+    .facebook{
+      margin-right: 2%;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 10px;
+      background-color:rgb(81, 48, 228);
+      a{
+        font-size: 12px;
+
+        color: white;
+      }
+    }
+    .twitter{
+      margin-right: 2%;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 10px;
+      background-color:rgb(144, 216, 210);
+      a{
+        font-size: 12px;
+
+        color: white;
+      }
+    }
+    .whatsapp{
+      margin-right: 2%;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 10px;
+      background-color:rgb(63, 119, 37);
+      a{
+        font-size: 12px;
+        color: white;
+      }
+    }
+  }
+  .left{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+}

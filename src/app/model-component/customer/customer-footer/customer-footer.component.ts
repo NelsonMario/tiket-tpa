@@ -15,7 +15,7 @@ export class CustomerFooterComponent implements OnInit {
     /*
     * Company List
     */
-    this.company.push({name: 'Blog', url: 'https://blog.tiket.com/'});
+    this.company.push({name: 'Blog', url: 'localhost:4200/blog'});
     this.company.push({name: 'Karir', url: 'https://www.tiket.com/careers/'});
     this.company.push({name: 'Corporate', url: 'https://www.tiket.com/corporate'});
     this.company.push({name: 'Partner', url: 'https://www.tiket.com/partner'});

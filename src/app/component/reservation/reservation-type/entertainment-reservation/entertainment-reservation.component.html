@@ -2,54 +2,29 @@
   <header>
     <div class="left-section">
       <div class="logo">
-        E
+        A
       </div>
-      <p>Cari Sewa mobil Murah di Sini</p>
+      <p>Cari Sewa atraksi Murah di Sini</p>
     </div>
     <div class="right-section">
       <p>Pencarian Terakhir ></p>
     </div>
   </header>
-  <section>
-    <div class="location">
-      <div class="title">Lokasi Sewa</div>
-      <div class="content">
-        <div class="logo">
 
-        </div>
-        <b>Mau sewa di mana?</b>
-      </div>
-    </div>
-    <div class="date">
-      <div class="start">
-        <div class="title">Tanggal Mulai</div>
-        <div class="content">??</div>
-      </div>
-      <div class="diff">
-        ??
-      </div>
-      <div class="end">
-        <div class="title">Tanggal Selesai</div>
-        <div class="content">??</div>
-      </div>
-    </div>
-    <div class="car-total">
-      <div class="title">
-        Jumlah Mobil
-      </div>
-      <div class="count">
-        ??
-      </div>
-    </div>
-    <div class="driver">
-      <p>Sewa mobil tanpa supir</p>
-      <mat-checkbox></mat-checkbox>
-    </div>
+  <section>
+
+    <mat-tab-group dynamicHeight style="max-width: 30%;">
+      <mat-tab label="{{displayLocation[i]}}" *ngFor="let location of displayLocation;let i = index">
+          <div class="container" style="display: flex; max-width: 70%; flex-wrap: wrap;">
+              <div class="sub-container" *ngFor="let city of displayCity" >
+                <button mat-button *ngIf="city.country == location">{{city.city}}</button>
+              </div>
+          </div>
+      </mat-tab>
+    </mat-tab-group>
   </section>
+
   <footer>
-    <div class="note">
-      Durasi satu hari sewa adalah 12 jam.
-    </div>
-    <app-button title="Cari mobil"></app-button>
+    <app-button title="Cari Atraksi"></app-button>
   </footer>
 </body>

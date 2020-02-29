@@ -114,4 +114,21 @@ export class HotelPagesComponent implements OnInit {
     this.displayHotel = event.layer.hotel
     alert("Hotel Name : " + this.displayHotel.name + "\n" + "Hotel Rating : " +this.displayHotel.rating + "Stars")
   }
+
+
+  cheapPriceSort(){
+    this.hotels.sort(function(a, b){return a.hotelRoom[0].room.price - b.hotelRoom[0].room.price})
+  }
+
+  expensivePriceSort(){
+    this.hotels.sort(function(a, b){return b.hotelRoom[0].room.price - a.hotelRoom[0].room.price})
+  }
+
+  ratingSort(){
+    this.hotels.sort(function(a, b){return a.rating - b.rating})
+  }
+
+  starSort(){
+    this.hotels.sort(function(a, b){return a.rating - b.rating})
+  }
 }

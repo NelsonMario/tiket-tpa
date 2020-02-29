@@ -4,6 +4,8 @@ import { Subscription } from 'rxjs';
 import { graphqlService } from 'src/app/service/graphql/graphql.service';
 import { HotelService } from 'src/app/service/hotel/hotel.service';
 import * as L from 'leaflet'
+import { User } from 'src/app/models/user';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-hotel-detail',
   templateUrl: './hotel-detail.component.html',
@@ -26,8 +28,7 @@ export class HotelDetailComponent implements OnInit {
   nearestHotel$ : Subscription
   nearestHotel : any
 
-  constructor(private graphqlService: graphqlService, private hotelService: HotelService) {
-    this.hotel = this.hotelService.hotel
+  constructor(private graphqlService: graphqlService, private hotelService: HotelService, private userService: User, private route: Router) {
   }
 
   ngOnInit() {

@@ -47,7 +47,9 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    min-width: 30%;
     img{
+      min-width: 30%;
       border-radius: 10px;
     }
     img:nth-child(3){

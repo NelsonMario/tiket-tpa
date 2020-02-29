@@ -65,6 +65,11 @@ import { ChatPageComponent } from './component/pages/chat-page/chat-page.compone
 import { AdminHotelComponent } from './component/admin-pages/admin-hotel/admin-hotel.component';
 import { HotelDetailComponent } from './component/pages/hotel-detail/hotel-detail.component';
 import { AdminTrainComponent } from './component/admin-pages/admin-train/admin-train.component';
+import { TextEditorComponent } from './component/text-editor/text-editor.component';
+import { BlogPagesComponent } from './component/pages/blog-pages/blog-pages.component';
+import { DetailBlogComponent } from './component/pages/detail-blog/detail-blog.component';
+import { EventPageComponent } from './component/pages/event-page/event-page.component';
+import { EventSearchPageComponent } from './component/pages/event-search-page/event-search-page.component';
 
 let gapiClientConfig: NgGapiClientConfig = {
   client_id: "602076487631-28k1qh3apnsm4510llsq5reejkq4qtlt.apps.googleusercontent.com",
@@ -109,7 +114,12 @@ let gapiClientConfig: NgGapiClientConfig = {
     ChatPageComponent,
     AdminHotelComponent,
     HotelDetailComponent,
-    AdminTrainComponent
+    AdminTrainComponent,
+    TextEditorComponent,
+    BlogPagesComponent,
+    DetailBlogComponent,
+    EventPageComponent,
+    EventSearchPageComponent
   ],
   entryComponents: [
     LoginComponent,
