@@ -51,12 +51,12 @@
           </mat-form-field>
         </div>
       </div>
-      <app-button title="MULAI PENCARIAN" width = 21 (click)="toggleOverlay($event)"></app-button>
+      <app-button title="MULAI PENCARIAN" width = 21 (click)="searchHotel()"></app-button>
     </div>
   </div>
   <div class="content">
     <div class="filter" *ngIf="!buy">
-      <app-button title="Open Map" width = 21 (click)="setOpenMap()" *ngIf="!openMap"></app-button>
+      <app-button title="Open Map" width = 21 (click)="setOpenMap()"></app-button>
       <app-button title="Order" width = 21 *ngIf="openMap"></app-button>
       <div class="rangePrice">
         <div class="title">Range Price</div>
@@ -83,13 +83,14 @@
         <button mat-button (click)="starSort()">Bintang Tertinggi</button>
         <button mat-button (click)="ratingSort()">Rating Tertinggi</button>
       </mat-expansion-panel>
+
     </div>
     <div id="map"></div>
 
     <div class="wrapper-hotel" *ngIf="!buy">
       <div class="hotel-results">
         <div class="sub-results" *ngFor="let hotel of hotels; let i = index">
-          <div class="hotel-result" *ngIf="filterValidation(i)">
+          <div class="hotel-result" *ngIf="filterValidation(i)" >
             <header>
               <div class="name">Mulai dari</div>
             </header>
@@ -115,11 +116,12 @@
                 </div>
               </div>
               <div class="right">
+                Rating : {{hotel.rating}}
                 {{hotel.hotelRoom[0].room.price}}
               </div>
             </section>
             <footer>
-              <app-button title="BELI" width="8" (click) = "redirectToDetailPage($event)" id="{{i}}" style="z-index: 4;"></app-button>
+              <app-button title="BELI" width="8" (click) = "redirectToDetailPage($event)" id="{{hotel.id}}" style="z-index: 4;"></app-button>
             </footer>
           </div>
         </div>

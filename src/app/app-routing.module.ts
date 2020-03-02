@@ -14,12 +14,19 @@ import { AdminSectionComponent } from './model-component/admin/admin-section/adm
 import { HotelPagesComponent } from './component/pages/hotel-pages/hotel-pages.component';
 import { ChatPageComponent } from './component/pages/chat-page/chat-page.component';
 import { AdminHotelComponent } from './component/admin-pages/admin-hotel/admin-hotel.component';
-import { HotelDetailComponent } from './component/pages/hotel-detail/hotel-detail.component';
 import { AdminTrainComponent } from './component/admin-pages/admin-train/admin-train.component';
 import { TextEditorComponent } from './component/text-editor/text-editor.component';
 import { BlogPagesComponent } from './component/pages/blog-pages/blog-pages.component';
 import { DetailBlogComponent } from './component/pages/detail-blog/detail-blog.component';
 import { EventPageComponent } from './component/pages/event-page/event-page.component';
+import { EventSearchPageComponent } from './component/pages/event-search-page/event-search-page.component';
+import { DetailHotelComponent } from './component/pages/detail-hotel/detail-hotel.component';
+import { AdminEventComponent } from './component/admin-pages/admin-event/admin-event.component';
+import { EventEditorComponent } from './component/event-editor/event-editor.component';
+import { PromoComponent } from './component/pages/promo/promo.component';
+import { PromoDetailComponent } from './component/pages/promo-detail/promo-detail.component';
+import { PayComponent } from './component/pages/pay/pay.component';
+import { EventDetailPageComponent } from './pages/event-detail-page/event-detail-page.component';
 
 
 const routes: Routes = [
@@ -95,11 +102,27 @@ const routes: Routes = [
       outlet: "customer-page"},
     ]
   },
-  {path: 'detail-hotel',
+  {path: 'search-hotel/:id',
     component: CustomerComponent,
     children: [
       {path: '',
-      component: HotelDetailComponent,
+      component: DetailHotelComponent,
+      outlet: "customer-page"},
+    ]
+  },
+  {path: 'promo',
+    component: CustomerComponent,
+    children: [
+      {path: '',
+      component: PromoComponent,
+      outlet: "customer-page"},
+    ]
+  },
+  {path: 'promo/:id',
+    component: CustomerComponent,
+    children: [
+      {path: '',
+      component: PromoDetailComponent,
       outlet: "customer-page"},
     ]
   },
@@ -127,6 +150,23 @@ const routes: Routes = [
       outlet: "customer-page"},
     ]
   },
+  {path: 'event-search',
+    component: CustomerComponent,
+    children: [
+      {path: '',
+      component: EventSearchPageComponent,
+      outlet: "customer-page"},
+    ]
+  },
+  {
+    path: 'event-search/:id',
+    component: CustomerComponent,
+    children: [
+      {path: '',
+      component: EventDetailPageComponent,
+      outlet: "customer-page"},
+    ]
+  },
   {
     path: 'admin',
     component: AdminComponent,
@@ -134,6 +174,28 @@ const routes: Routes = [
       {
         path: '',
         component: AdminSectionComponent,
+        outlet: "admin-page"
+      },
+    ]
+  },
+  {
+    path: 'admin-event',
+    component: AdminComponent,
+    children: [
+      {
+        path: '',
+        component: AdminEventComponent,
+        outlet: "admin-page"
+      },
+    ]
+  },
+  {
+    path: 'event-editor/:id',
+    component: AdminComponent,
+    children: [
+      {
+        path: '',
+        component: EventEditorComponent,
         outlet: "admin-page"
       },
     ]
@@ -178,6 +240,17 @@ const routes: Routes = [
       {
         path: '',
         component: ChatPageComponent,
+        outlet: "customer-page"
+      },
+    ]
+  },
+  {
+    path: 'pay',
+    component: CustomerComponent,
+    children: [
+      {
+        path: '',
+        component: PayComponent,
         outlet: "customer-page"
       },
     ]

@@ -24,6 +24,7 @@ export class CarPagesComponent implements OnInit {
   formattedStart = new FormControl();
   formattedEnd = new FormControl();
   cars : any[] = []
+  realCars : any[] = []
   @Output('')outputHidden = new EventEmitter
   buy = false;
   orderedCar = 0
@@ -33,6 +34,8 @@ export class CarPagesComponent implements OnInit {
 
   models: any[] = []
   modelsTemp: any[] = []
+
+  showData = 5
 
   passengers: any[] = [
     {name: "< 5 Penumpang", active: false, minPassenger: 0, maxPassenger: 4},
@@ -48,8 +51,9 @@ export class CarPagesComponent implements OnInit {
     this.location = this.carService.location
     this.fromDate = this.carService.fromDate
     this.toDate = this.carService.toDate
-    this.cars = this.carService.cars
-    this.cars.forEach(elements => {
+    this.realCars = this.carService.cars
+    this.loadData()
+    this.realCars.forEach(elements => {
       this.models.push(elements.model)
     })
     this.modelsTemp = this.models.filter((modelTemp, i, arr) => arr.findIndex(a=>a==modelTemp)==i)
@@ -61,7 +65,7 @@ export class CarPagesComponent implements OnInit {
       })
     })
 
-    this.cars.forEach(elements => {
+    this.realCars.forEach(elements => {
       this.brands.push(elements.name)
     })
 
@@ -75,6 +79,24 @@ export class CarPagesComponent implements OnInit {
     })
 
     this.vendors = this.carService.getVendor()
+
+
+    window.onscroll = this.scroll
+  }
+
+  scroll = (event): void => {
+    if(window.scrollY + window.innerHeight >= document.body.scrollHeight) {
+      this.showData += 5
+      if(this.realCars.length >= this.showData) {
+        for (let index = this.showData-5; index < this.showData; index++) {
+          this.cars.push(this.realCars[index])
+        }
+      } else {
+        for (let index = this.showData-5; index < this.realCars.length; index++) {
+          this.cars.push(this.realCars[index])
+        }
+      }
+    }
   }
 
   filterValidation(index){
@@ -197,4 +219,19 @@ export class CarPagesComponent implements OnInit {
   expensivePriceSort(){
     this.cars.sort(function(a, b){return b.price - a.price})
   }
+
+  public loadData() {
+    if(this.realCars.length >= this.showData) {
+      for (let index = 0; index < this.showData; index++) {
+        this.cars.push(this.realCars[index])
+      }
+    }
+    else {
+      for (let index = 0; index < this.realCars.length; index++) {
+        this.cars.push(this.realCars[index])
+      }
+    }
+  }
+
+
 }

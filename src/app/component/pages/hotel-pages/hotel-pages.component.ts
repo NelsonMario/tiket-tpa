@@ -4,6 +4,9 @@ import { FormControl } from '@angular/forms';
 import { HotelService } from 'src/app/service/hotel/hotel.service';
 import * as L from 'leaflet'
 import { Router } from '@angular/router';
+import { Subscription, Observable } from 'rxjs';
+import { graphqlService } from 'src/app/service/graphql/graphql.service';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-hotel-pages',
   templateUrl: './hotel-pages.component.html',
@@ -38,13 +41,40 @@ export class HotelPagesComponent implements OnInit {
 
   cssMap = document.getElementById("map")
 
-  constructor(private hotelService: HotelService, private locationService: LocationService, private route: Router) {
+  tempHotel : any
+  tempCount : any
+  pollingData:any
+  dataCount:any
+
+  hotel$ : Subscription
+  constructor(private hotelService: HotelService, private locationService: LocationService, private route: Router, private graphqlService: graphqlService, private http:HttpClient) {
+        this.locations = this.locationService.getLocation()
     this.location = this.hotelService.location
     this.fromDate = this.hotelService.fromDate
     this.toDate = this.hotelService.toDate
-    this.locations = this.locationService.getLocation()
-    this.hotels = hotelService.hotels
-    this.maximumPrice.setValue(100000000)
+    this.hotels = this.hotelService.hotels
+    this.maximumPrice.setValue(1000)
+
+
+  this.hotel$ = this.graphqlService.getAllHotel().subscribe(async query => {
+    this.tempHotel = query.data.hotels;
+    await
+    console.log(this.tempHotel)
+    this.tempCount = this.tempHotel.length
+    }
+  );
+
+  this.pollingData = Observable.interval(5000).switchMap(() => this.http.get('http://localhost:8080/?query=%7B%0A%09hotels%7B%0A%20%20%20%20id%0A%20%20%20%20name%0A%20%20%7D%0A%7D')).map((data) => JSON.stringify(data['data']['hotels']))
+    .subscribe((data) => {
+      let hotelData = JSON.parse(data)
+      this.dataCount = hotelData['length']
+      console.log(this.dataCount + " " + this.tempCount)
+      if(this.tempCount != this.dataCount){
+        alert("New Hotel Has Publish")
+        this.tempCount = this.dataCount
+        return this.tempCount, window.location.reload()
+      }
+    });
   }
 
 
@@ -64,6 +94,8 @@ export class HotelPagesComponent implements OnInit {
 
   ngOnInit(): void {
 
+
+    console.log(this.hotels)
   }
 
   toggleOverlay(event){
@@ -76,7 +108,7 @@ export class HotelPagesComponent implements OnInit {
 
   redirectToDetailPage(event){
     this.hotelService.hotel = this.hotels[event.path[2].id]
-    this.route.navigate(['detail-hotel'])
+    this.route.navigate(['search-hotel', event.path[2].id])
   }
 
   count(i){
@@ -85,8 +117,8 @@ export class HotelPagesComponent implements OnInit {
 
   setOpenMap(){
     this.openMap = !this.openMap
-
-
+    console.log(this.hotels)
+    document.getElementById("map").style.display = "block"
     if(this.openMap){
       this.map = L.map('map', {
         center: [106.8223, -6.1818],
@@ -103,10 +135,12 @@ export class HotelPagesComponent implements OnInit {
 
       this.hotels.forEach(element => {
         marker = L.marker([element.hotelLat, element.hotelLng]).addTo(markersLayer)
-        .bindPopup(element.name + "\n" + element.hotel.hotelRoom[0].room.price);
+        .bindPopup(element.name + "\n" + element.hotelRoom[0].room.price);
         marker.hotel = element
       })
 
+    }else{
+      document.getElementById("map").style.display = "none"
     }
   }
 
@@ -130,5 +164,24 @@ export class HotelPagesComponent implements OnInit {
 
   starSort(){
     this.hotels.sort(function(a, b){return a.rating - b.rating})
+  }
+
+  searchHotel(){
+    this.hotel$ = this.graphqlService.getHotelByLocation(this.locationForm.value.city).subscribe(async query => {
+      this.hotels = query.data.hotelByLocation
+      await
+      console.log(this.locationForm.value.city)
+      this.hotelService.hotels = this.hotels
+      this.hotelService.location = this.locationForm.value.city
+      this.hotelService.fromDate = this.formattedStart.value
+      this.hotelService.toDate = this.formattedEnd.value
+      window.location.href = window.location.href
+    })
+  }
+
+  ngOnDestroy(): void {
+    //Called once, before the instance is destroyed.
+    //Add 'implements OnDestroy' to the class.
+    // this.hotel$.unsubscribe()
   }
 }

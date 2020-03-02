@@ -63,13 +63,19 @@ import { HotelPagesComponent } from './component/pages/hotel-pages/hotel-pages.c
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ChatPageComponent } from './component/pages/chat-page/chat-page.component';
 import { AdminHotelComponent } from './component/admin-pages/admin-hotel/admin-hotel.component';
-import { HotelDetailComponent } from './component/pages/hotel-detail/hotel-detail.component';
 import { AdminTrainComponent } from './component/admin-pages/admin-train/admin-train.component';
-import { TextEditorComponent } from './component/text-editor/text-editor.component';
-import { BlogPagesComponent } from './component/pages/blog-pages/blog-pages.component';
-import { DetailBlogComponent } from './component/pages/detail-blog/detail-blog.component';
 import { EventPageComponent } from './component/pages/event-page/event-page.component';
+import { TextEditorComponent } from './component/text-editor/text-editor.component';
+import { DetailBlogComponent } from './component/pages/detail-blog/detail-blog.component';
+import { BlogPagesComponent } from './component/pages/blog-pages/blog-pages.component';
 import { EventSearchPageComponent } from './component/pages/event-search-page/event-search-page.component';
+import { DetailHotelComponent } from './component/pages/detail-hotel/detail-hotel.component';
+import { AdminEventComponent } from './component/admin-pages/admin-event/admin-event.component';
+import { EventEditorComponent } from './component/event-editor/event-editor.component';
+import { PromoComponent } from './component/pages/promo/promo.component';
+import { PromoDetailComponent } from './component/pages/promo-detail/promo-detail.component';
+import { PayComponent } from './component/pages/pay/pay.component';
+import { EventDetailPageComponent } from './pages/event-detail-page/event-detail-page.component';
 
 let gapiClientConfig: NgGapiClientConfig = {
   client_id: "602076487631-28k1qh3apnsm4510llsq5reejkq4qtlt.apps.googleusercontent.com",
@@ -113,13 +119,21 @@ let gapiClientConfig: NgGapiClientConfig = {
     HotelPagesComponent,
     ChatPageComponent,
     AdminHotelComponent,
-    HotelDetailComponent,
     AdminTrainComponent,
-    TextEditorComponent,
-    BlogPagesComponent,
-    DetailBlogComponent,
     EventPageComponent,
-    EventSearchPageComponent
+    TextEditorComponent,
+    DetailBlogComponent,
+    BlogPagesComponent,
+    EventSearchPageComponent,
+    ChatPageComponent,
+    DetailHotelComponent,
+    AdminEventComponent,
+    EventEditorComponent,
+    PromoComponent,
+    PromoDetailComponent,
+    PayComponent,
+    EventDetailPageComponent
+
   ],
   entryComponents: [
     LoginComponent,
@@ -162,7 +176,7 @@ let gapiClientConfig: NgGapiClientConfig = {
     ReactiveFormsModule
   ],
   providers: [
-    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
   ],
   bootstrap: [AppComponent],
 })

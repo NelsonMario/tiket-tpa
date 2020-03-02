@@ -1,5 +1,102 @@
 <section>
+
   <header>
-    <img src="../../../../assets/airline/bali.jpg" alt="">
+    <img src="../../../../assets/airline/bali.jpg" alt="" style="min-width: 20%; max-width: 100%;">
   </header>
+  <div class="content">
+
+    <div class="left">
+      <div class="filter">
+        <div class="rangePrice">
+          <div class="title">Range Price</div>
+          <mat-form-field class="minimumPrice">
+            <mat-label>Minimum Price</mat-label>
+            <input matInput placeholder="0" [formControl] = "minimumPrice">
+          </mat-form-field>
+          <mat-form-field class="maximumPrice">
+            <mat-label>Maximum Price</mat-label>
+            <input matInput placeholder="0" [formControl] = "maximumPrice">
+          </mat-form-field>
+        </div>
+        <div class="date">
+          <div class="title">Tanggal Perjalanan</div>
+          <mat-form-field class="start">
+            <mat-label>Start</mat-label>
+            <input matInput placeholder="0">
+          </mat-form-field>
+          <mat-form-field class="end">
+            <mat-label>End</mat-label>
+            <input matInput placeholder="0">
+          </mat-form-field>
+        </div>
+
+        <div class="Category">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Category
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="sub-category" *ngFor="let category of categories; let i = index">
+              <div class="filter-desc">
+                {{category.name}}
+              </div>
+              <mat-checkbox [checked] = "category.active" [(ngModel)]="category.active" name= "{{i}}-name"></mat-checkbox>
+            </div>
+
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Sort
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <button mat-button (click)="cheapPriceSort()">Harga Terendah</button>
+            <button mat-button (click)="expensivePriceSort()">Harga Tertinggi</button>
+          </mat-expansion-panel>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="container" style="max-width: 45%; max-height: 45%;">
+        <mat-card class="example-card" *ngFor="let event of events;let i = index" style="max-width: 45%; max-height: 45%;">
+          <div class="example" *ngIf="filterValidation(i)">
+            <mat-card-header>
+                <mat-card-title>{{event.name}}</mat-card-title>
+                <mat-card-subtitle>{{event.location.country}}</mat-card-subtitle>
+                <mat-card-subtitle>{{event.category}}</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+                alt="Photo of a Shiba Inu">
+            <mat-card-actions>
+                <div class="price">{{event.eventDetail[0].price}}</div>
+                <button mat-button (click)="order(i)">Order</button>
+            </mat-card-actions>
+          </div>
+        </mat-card>
+      </div>
+
+
+      <div class="recommend">
+        <h3>Recommended Nearest Events</h3>
+        <mat-card class="example-card" *ngFor="let event of nearestEvents;let i = index" style="max-width: 35%; max-height: 35%;">
+            <mat-card-header>
+                <mat-card-title>{{event.name}}</mat-card-title>
+                <mat-card-subtitle>{{event.location.country}}</mat-card-subtitle>
+            </mat-card-header>
+            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+                alt="Photo of a Shiba Inu">
+            <mat-card-actions>
+                <div class="price">{{event.eventDetail[0].price}}</div>
+                <button mat-button>VIEW</button>
+            </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+
 </section>

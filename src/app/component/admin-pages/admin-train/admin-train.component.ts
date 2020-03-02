@@ -55,6 +55,9 @@ export class AdminTrainComponent implements OnInit {
   train$ : Subscription
   trains : Train[] = []
 
+
+  realRailroad : any[] = []
+  pageCount : any[] = []
   constructor(private graphql: graphqlService, private _snackBar: MatSnackBar, private route: Router) {
 
     if(localStorage.getItem("currentUser") == null)
@@ -65,9 +68,10 @@ export class AdminTrainComponent implements OnInit {
     }
 
     this.railroad$ = graphql.getAllRailroad().subscribe(async query => {
-      this.railroads = query.data.railroads
+      this.realRailroad = query.data.railroads
       await
-      console.log(this.railroads)
+      console.log(this.realRailroad)
+      this.pushToPagination()
       this.loaded = !this.loaded
     })
     this.station$ = graphql.getAllRealStation().subscribe(async query =>{
@@ -129,5 +133,20 @@ export class AdminTrainComponent implements OnInit {
     this.station$.unsubscribe()
     this.railroad$.unsubscribe()
   }
+
+  pushToPagination() {
+    for (let i = 0; i < this.realRailroad.length; i++) {
+      if(i < 5) this.railroads.push(this.realRailroad[i])
+      if(i % 5 == 0) this.pageCount.push(1 + (i/5))
+    }
+  }
+
+  changePage(currPage) {
+    this.railroads = []
+    for (let i = currPage * 5; i < (currPage+1) * 5 && i < this.realRailroad.length; i++) {
+      this.railroads.push(this.realRailroad[i])
+      }
+    }
+
 
 }

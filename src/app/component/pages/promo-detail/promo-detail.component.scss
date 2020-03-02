@@ -1,0 +1,28 @@
+
+.share-button{
+  button{
+    margin: 15px;
+    a{
+      text-decoration: none;
+      color: gray;
+      font-size: 15px;
+    }
+  }
+}
+
+body{
+  display: flex;
+  justify-content: space-between;
+  .left{
+    .share-button{
+      display: flex;
+    }
+  }
+  .right{
+    .example-card{
+      max-width: 35%;
+      max-height: 35%;
+    }
+  }
+
+}

@@ -160,3 +160,13 @@ body{
     }
   }
 }
+
+.overlay{
+  display: none;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba($color: #00000009, $alpha: 1.0);
+}

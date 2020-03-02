@@ -1,0 +1,137 @@
+<body>
+  <mat-form-field class="title">
+    <mat-label>name</mat-label>
+    <input [formControl] = "name" matInput  class="title">
+  </mat-form-field>
+  <div class="location">
+    <mat-label>Location</mat-label>
+    <mat-select [formControl]="location" required>
+      <mat-option *ngFor="let location of locations; let i = index" [value]="location">
+        {{location.city}}
+      </mat-option>
+    </mat-select>
+  </div>
+  <div class="schedule">
+    <div class="startDate">
+      <mat-form-field>
+        <input matInput [matDatepicker]="departure" placeholder="Berangkat" [(ngModel)] = "fromSchedule">
+        <input hidden [formControl] = "formattedStartDate" matinput [ngModel] = "fromSchedule | date:'yyyy-MM-dd'">
+        <mat-datepicker-toggle matSuffix [for]="departure"></mat-datepicker-toggle>
+        <mat-datepicker #departure></mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="endDate">
+      <mat-form-field >
+        <input matInput [matDatepicker]="arrival" placeholder="Tiba" [(ngModel)] = "toSchedule" >
+        <input  hidden [formControl] = "formattedEndDate" matinput [ngModel] = "toSchedule | date:'yyyy-MM-dd'">
+        <mat-datepicker-toggle matSuffix [for]="arrival"></mat-datepicker-toggle>
+        <mat-datepicker #arrival></mat-datepicker>
+      </mat-form-field>
+    </div>
+  </div>
+  <mat-form-field class="departure">
+    <mat-label>Mulai</mat-label>
+    <input [formControl] = "inputStartDate" matInput class="departure">
+  </mat-form-field>
+  <mat-form-field class="arrival">
+    <mat-label>Selesai</mat-label>
+    <input [formControl] = "inputEndDate" matInput class="arrival">
+  </mat-form-field>
+  <mat-form-field class="category">
+    <mat-label>Kategori</mat-label>
+    <input [formControl] = "inputCategory" matInput class="category">
+  </mat-form-field>
+  <div class="text-editor">
+    <div class="toolbar">
+      <ul class="tool-list">
+        <li class="tool">
+          <button
+            type="button"
+            data-command='justifyLeft'
+            class="tool--btn">
+            <i class=' fas fa-align-left'></i>
+          </button>
+        </li>
+        <li class="tool">
+          <button
+            type="button"
+            data-command='justifyCenter'
+            class="tool--btn">
+            <i class=' fas fa-align-center'></i>
+          </button>
+        </li>
+        <li class="tool">
+          <button
+            type="button"
+            data-command="bold"
+            class="tool--btn">
+            <i class=' fas fa-bold'></i>
+          </button>
+        </li>
+        <li class="tool">
+          <button
+            type="button"
+            data-command="italic"
+            class="tool--btn">
+            <i class=' fas fa-italic'></i>
+          </button>
+        </li>
+        <li class="tool">
+          <button
+            type="button"
+            data-command="underline"
+            class="tool--btn">
+            <i class=' fas fa-underline'></i>
+          </button>
+        </li>
+        <li class="tool">
+          <button
+            type="button"
+            data-command="insertOrderedList"
+            class="tool--btn">
+            <i class=' fas fa-list-ol'></i>
+          </button>
+        </li>
+        <li class="tool">
+          <button
+            type="button"
+            data-command="insertUnorderedList"
+            class="tool--btn">
+            <i class=' fas fa-list-ul'></i>
+          </button>
+        </li>
+        <li class="tool">
+          <button
+            type="button"
+            data-command="createlink"
+            class="tool--btn">
+            <i class=' fas fa-link'></i>
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <div id="output" contenteditable="true"></div>
+  </div>
+  <div class="detail-event" *ngIf="this.user[0].email == &quot;admin@admin.com&quot;">
+    <h3>Detail Event</h3>
+    <div class="event">
+      <mat-label>Event</mat-label>
+      <mat-select [formControl]="inputEvent" required>
+        <mat-option *ngFor="let event of events; let i = index" [value]="location">
+          {{event.name}}, {{event.location.country}}
+        </mat-option>
+      </mat-select>
+    </div>
+    <mat-form-field class="name">
+      <mat-label>Name</mat-label>
+      <input [formControl] = "inputEventDetailName" matInput class="name">
+    </mat-form-field>
+    <mat-form-field class="price">
+      <mat-label>Harga</mat-label>
+      <input [formControl] = "inputPrice" matInput class="rice">
+    </mat-form-field>
+  </div>
+  <button id="submit" mat-raised-button color="accent" (click)="submit()" mat-button *ngIf="this.user[0].email == &quot;admin@admin.com&quot;">Submit</button>
+  <button id="submit" mat-raised-button color="accent" (click)="update()" mat-button *ngIf="this.user[0].email == &quot;admin@admin.com&quot;">Update</button>
+</body>

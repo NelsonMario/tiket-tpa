@@ -38,13 +38,14 @@ body{
             font-weight: 2px;
             display: flex;
             justify-content: space-between;
+            min-width: 50%;
           }
 
           section{
             display: flex;
             justify-content: space-between;
             align-items: center;
-            min-width: 65%;
+            min-width: 50%;
             .left{
               display: flex;
               align-items: center;
@@ -68,6 +69,7 @@ body{
           footer{
             display: flex;
             justify-content: space-evenly;
+            min-width: 50%;
           }
         }
       }

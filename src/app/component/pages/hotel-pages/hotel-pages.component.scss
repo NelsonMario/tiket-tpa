@@ -89,9 +89,10 @@ body{
       z-index: 2;
     }
     .displayHotel{
+      background-color: white;
       display: flex;
       justify-content: flex-end;
-      z-index: 2;
+      z-index: 4;
     }
     #map{
       display: none;
@@ -100,6 +101,7 @@ body{
       height: 100vh;
       z-index: 1;
     }
+
     .wrapper-hotel{
       min-width: 65%;
       .vendor-results{
@@ -127,7 +129,8 @@ body{
           .hotel-result, .vendor-result{
             padding: 30px;
             margin-bottom: 10px;
-            width: 66vw;
+            min-width: 30%;
+            max-width: 80%;
             border-radius: 10px;
             background-color: white;
             min-width: 65%;

@@ -1,0 +1,16 @@
+<div class="container">
+  <mat-card class="example-card" *ngFor="let promo of promos;let i = index">
+      <mat-card-header>
+          <mat-card-title>{{promo.name}}</mat-card-title>
+
+      </mat-card-header>
+      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+          alt="Photo of a Shiba Inu">
+      <mat-card-actions>
+        <mat-card-subtitle>{{promo.startDate}} ~ {{promo.endDate}}</mat-card-subtitle>
+        <mat-card-subtitle>{{promo.description}}</mat-card-subtitle>
+        <button mat-button (click)="goToDetail(promo.id)">VIEW</button>
+          <!-- <button mat-button>SHARE</button> -->
+      </mat-card-actions>
+  </mat-card>
+</div>

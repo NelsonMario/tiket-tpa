@@ -17,7 +17,7 @@
       <mat-tab label="{{displayLocation[i]}}" *ngFor="let location of displayLocation;let i = index">
           <div class="container" style="display: flex; max-width: 70%; flex-wrap: wrap;">
               <div class="sub-container" *ngFor="let city of displayCity" >
-                <button mat-button *ngIf="city.country == location">{{city.city}}</button>
+                <button mat-button *ngIf="city.country == location" id="{{city.city}}" (click)="click($event)">{{city.city}}</button>
               </div>
           </div>
       </mat-tab>

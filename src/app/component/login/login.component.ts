@@ -30,14 +30,14 @@ export class LoginComponent implements OnInit {
   public shown = "password"
 
   constructor(
-    // private userService: GoogleLoginService,
+    private userService: GoogleLoginService,
     private route: ActivatedRoute,
-    // private authService: GoogleAuthService,
-    // private gapiService: GoogleApiService,
+    private authService: GoogleAuthService,
+    private gapiService: GoogleApiService,
     private dialogReference: MatDialogRef<any>,
     private myAuthService: AuthService,
     private graphql: graphqlService) {
-    // this.gapiService.onLoad().subscribe();
+    this.gapiService.onLoad().subscribe();
 
     };
 
@@ -65,14 +65,14 @@ export class LoginComponent implements OnInit {
       }(document, 'script', 'facebook-jssdk'));
     }
 
-    // public isLoggedIn(): boolean {
-    //   return this.userService.isUserSignedIn();
-    // }
+    public isLoggedIn(): boolean {
+      return this.userService.isUserSignedIn();
+    }
 
 
-    // public signInGoogle() {
-    //   this.userService.signIn();
-    // }
+    public signInGoogle() {
+      this.userService.signIn();
+    }
 
     public signInFacebook(){
       console.log("submit login to facebook");

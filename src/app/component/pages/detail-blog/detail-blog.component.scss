@@ -5,7 +5,7 @@ a{
 body{
   font-family: 'OpenSans',Arial,Helvetica,sans-serif;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   .share-button{
     .facebook{
       margin-right: 2%;
@@ -45,8 +45,15 @@ body{
   }
   .left{
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
+  }
+
+  .right{
+    .trending-blog{
+      header{
+        max-width: 35%;
+        max-height: 35%;
+      }
+    }
   }
 }

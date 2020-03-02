@@ -1,1 +1,34 @@
-<button (click)="send()" >Kirim</button>
+<div class="chat-room">
+  <div class="message" *ngFor="let chat of chats; let i = index" >
+    <div class="image" *ngIf="chat.type == &quot;image&quot;">
+      <img src="{{chat.message}}" alt="">
+      <a href="{{chat.message}}" download="">download</a>
+    </div>
+    <div class="sub-m" *ngIf="chat.type == &quot;message&quot; && chat.starred == fStarred">
+      {{chat.message}}
+      <div class="starred" *ngIf="chat.starred">
+        *
+      </div>
+      <div class="starred" *ngIf="chat.archived">
+        `
+      </div>
+    </div>
+    <a  (click)="setStarred(i)">Starred </a>
+    <a  (click)="setArchived(i)">Archived</a>
+  </div>
+</div>
+<input type="text" mat-input [formControl] = chatForm>
+<input type="file" mat-input [formControl] = fileForm id="file-form">
+<mat-expansion-panel>
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Filter
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <button mat-button (click)="filterDefault()">Default</button>
+  <button mat-button (click)="filterArchived()">Archived</button>
+  <button mat-button (click)="filterStarred()">Starred</button>
+</mat-expansion-panel>
+<button (click)="send()" mat-button>Send</button>
+<button (click)="sendImage()" mat-button>Send Image</button>

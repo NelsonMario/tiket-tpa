@@ -2,7 +2,11 @@ a{
     text-decoration: none;
     color: rgba($color: #555151, $alpha: 1.0)
 }
-
+.sub-nav-bar{
+  color: white;
+  background-color: gray;
+  width: 100vw;
+}
 header{
     font-family: 'Open Sans',Arial,Helvetica,sans-serif;
     display: flex;

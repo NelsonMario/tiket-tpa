@@ -38,7 +38,8 @@ export class AdminHotelComponent implements OnInit {
   facility$ : Subscription
   facilities : any[] = []
 
-
+  realHotel : any[] = []
+  pageCount : any[] = []
   constructor(private graphql: graphqlService, private _snackBar: MatSnackBar, private route: Router) {
 
     if(localStorage.getItem("currentUser") == null)
@@ -70,9 +71,10 @@ export class AdminHotelComponent implements OnInit {
         console.log(this.locations)
       })
       this.hotel$ = graphql.getAllHotel().subscribe(async query => {
-        this.hotels = query.data.hotels
+        this.realHotel = query.data.hotels
         await
-        console.log(this.hotels)
+        console.log(this.realHotel)
+        this.pushToPagination()
         this.loaded = !this.loaded
       })
       this.facility$ = graphql.getAllFacility().subscribe(async query => {
@@ -135,4 +137,17 @@ export class AdminHotelComponent implements OnInit {
     this.facility$.unsubscribe()
   }
 
+  pushToPagination() {
+    for (let i = 0; i < this.realHotel.length; i++) {
+      if(i < 5) this.hotels.push(this.realHotel[i])
+      if(i % 5 == 0) this.pageCount.push(1 + (i/5))
+    }
+  }
+
+  changePage(currPage) {
+    this.hotels = []
+    for (let i = currPage * 5; i < (currPage+1) * 5 && i < this.realHotel.length; i++) {
+      this.hotels.push(this.realHotel[i])
+      }
+    }
 }

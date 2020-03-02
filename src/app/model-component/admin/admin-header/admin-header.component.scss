@@ -43,3 +43,24 @@ header{
       }
   }
 }
+
+@media only screen and (max-width: 500px) {
+  header{
+    display: flex;
+    flex-direction: column;
+    #left-side, #right-side{
+      display: flex;
+      flex-direction: column;
+    }
+    #left-side{
+      div{
+        display: none;
+      }
+    }
+    #left-side:hover{
+      div{
+        display: block;
+      }
+    }
+  }
+}

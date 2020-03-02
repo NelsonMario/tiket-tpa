@@ -15,7 +15,7 @@
   <div class="hotel-results">
     <div class="hotel-result">
       <header>
-        {{hotel.location.country}} > {{hotel.location.city}} >
+        {{hotel[0].location.country}} > {{hotel[0].location.city}} >
       </header>
       <section>
         <div class="left">
@@ -23,18 +23,18 @@
 
           <div class="model">
             <div class="model-name">
-              <h2>{{hotel.name}}</h2> <h3>{{hotel.rating}}</h3> Star
+              <h2>{{hotel[0].name}}</h2> <h3>{{hotel[0].rating}}</h3> Star
             </div>
             <div class="model-map">
               <div id="map"></div>
             </div>
             <div class="model-price">
-              {{hotel.hotelRoom[0].room.price}}
+              {{hotel[0].hotelRoom[0].room.price}}
             </div>
           </div>
         </div>
         <div class="right">
-          <div class="hotel-facility" *ngFor="let facility of hotel.hotelFacility">
+          <div class="hotel-facility" *ngFor="let facility of hotel[0].hotelFacility">
             <button mat-button matTooltip = {{facility.facility.name}}><i class="fa fa-building-o" aria-hidden="true"></i></button>
           </div>
         </div>
@@ -42,7 +42,7 @@
       <footer>
         <div class="hotel-results">
           <h1>Room</h1>
-          <div class="sub-results" *ngFor="let room of hotel.hotelRoom; let i = index">
+          <div class="sub-results" *ngFor="let room of hotel[0].hotelRoom; let i = index">
             <div class="hotel-result">
               <header>
                 <div class="left">
@@ -73,6 +73,21 @@
           </div>
         </div>
       </footer>
+      <button mat-button (click)="email()">Email</button>
+      <button mat-button (click)="copy()">Copy</button>
+      <button mat-button (click)="facebook()">Facebook</button>
+      <h1>Review Hotel</h1>
+      <div class="container">
+        <mat-card class="example-card" *ngFor="let review of reviewDisplay;let i = index">
+            <mat-card-header>
+                <mat-card-title>{{review.comment}}</mat-card-title>
+                <mat-card-subtitle>{{review.reviewer}}</mat-card-subtitle>
+            </mat-card-header>
+        </mat-card>
+      </div>
+      <div class="button">
+        <button mat-button *ngFor="let item of pageCount" (click)="changePage(item-1)">{{item}}</button>
+      </div>
     </div>
   </div>
 </body>

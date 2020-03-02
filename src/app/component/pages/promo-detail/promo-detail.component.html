@@ -1,0 +1,47 @@
+<body>
+
+  <div class="left">
+    <div class="container">
+      <mat-card class="example-card">
+          <mat-card-header>
+              <mat-card-title>{{promo[0].name}}</mat-card-title>
+
+          </mat-card-header>
+          <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+              alt="Photo of a Shiba Inu">
+          <mat-card-actions>
+            <mat-card-subtitle>{{promo[0].startDate}} ~ {{promo[0].endDate}}</mat-card-subtitle>
+            <mat-card-subtitle><h3>{{promo[0].description}}</h3></mat-card-subtitle>
+              <!-- <button mat-button>SHARE</button> -->
+          </mat-card-actions>
+      </mat-card>
+    </div>
+    <div id="share"></div>
+    <mat-card class="example-card" *ngFor="let promo of promo[0].promoDetail" style="margin: 10px 0;">
+      <mat-card-header>
+          <mat-card-title>Discround {{promo.disc}} %</mat-card-title>
+      </mat-card-header>
+        <mat-card-subtitle>{{promo.promoCode}}</mat-card-subtitle>
+          <!-- <button mat-button>SHARE</button> -->
+    </mat-card>
+  </div>
+  <div class="right">
+    <div class="title"><h3>Promo Lainnya</h3></div>
+    <div class="other-promo" *ngFor="let op of otherPromo">
+      <mat-card class="example-card">
+        <mat-card-header>
+            <mat-card-title>{{op.name}}</mat-card-title>
+
+        </mat-card-header>
+        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+            alt="Photo of a Shiba Inu">
+        <mat-card-actions>
+          <mat-card-subtitle>{{op.startDate}} ~ {{op.endDate}}</mat-card-subtitle>
+          <mat-card-subtitle>{{op.description}}</mat-card-subtitle>
+          <button mat-button (click)="goToDetail(op.id)">VIEW</button>
+            <!-- <button mat-button>SHARE</button> -->
+        </mat-card-actions>
+    </mat-card>
+    </div>
+  </div>
+</body>

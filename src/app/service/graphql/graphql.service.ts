@@ -285,10 +285,62 @@ export class graphqlService {
             }
           }
         }
-      `
+      `,
+      errorPolicy: 'ignore',
+      fetchPolicy: 'no-cache'
     })
   }
-
+  hotelById(id){
+    return this.apollo.query<any>({
+      query: gql`
+      query hotelById($id : Int!){
+        hotel(id: $id){
+          id
+          name
+          rating
+          hotelLat
+          hotelLng
+          type
+          hotelFacility{
+            facility{
+              name
+            }
+          }
+          hotelRoom{
+            room{
+              id
+              checkIn
+              checkOut
+              maxGuest
+              bed
+              roomFacility{
+                id
+                facilityType
+                facility{
+                  id
+                  name
+                }
+              }
+              size
+              price
+            }
+          }
+          location{
+            id
+            city
+            country
+            lat
+            lng
+          }
+        }
+      }
+      `,variables:{
+        "id": id
+      },
+      errorPolicy: 'ignore',
+      fetchPolicy: 'no-cache'
+    })
+  }
   getAllAirport(): Observable<any>{
     return this.apollo.query<any>({
       query: gql`
@@ -317,7 +369,9 @@ export class graphqlService {
       "locationRefer": locationRefer,
       "hotelLat": hotelLat,
       "hotelLng": hotelLng,
-      }
+      },
+      errorPolicy: 'ignore',
+      fetchPolicy: 'no-cache'
     })
   }
 
@@ -794,7 +848,9 @@ export class graphqlService {
       `,
       variables: {
         "location": location
-      }
+      },
+      errorPolicy: 'ignore',
+      fetchPolicy: 'no-cache'
     })
   }
 
@@ -803,6 +859,7 @@ export class graphqlService {
       query: gql`
       query getHotelByLocation($location: String!){
         hotelByLocation(location: $location){
+          id
           name
           rating
           hotelLat
@@ -844,7 +901,9 @@ export class graphqlService {
       `,
       variables: {
         "location": location
-      }
+      },
+      errorPolicy: 'ignore',
+      fetchPolicy: 'no-cache'
     })
   }
 
@@ -859,7 +918,9 @@ export class graphqlService {
       `,
       variables:{
         "id": id
-      }
+      },
+      errorPolicy: 'ignore',
+      fetchPolicy: 'no-cache'
     })
   }
 
@@ -916,6 +977,7 @@ export class graphqlService {
           value
           image
           thumbnail
+          viewer
         }
       }
       `,
@@ -934,6 +996,7 @@ export class graphqlService {
           value
           image
           thumbnail
+          viewer
         }
       }
       `,
@@ -962,6 +1025,24 @@ export class graphqlService {
     })
   }
 
+  increaseViewer(id, viewer){
+    return this.apollo.mutate<any>({
+      mutation: gql`
+      mutation increaseViewer($id: Int!, $viewer: Int!){
+        increaseViewer(id: $id, viewer:$viewer){
+          viewer
+        }
+      }
+      `,
+      variables:{
+        "id": id,
+        "viewer": viewer
+      },
+      fetchPolicy: 'no-cache',
+      errorPolicy: 'none'
+    })
+  }
+
   removeBlog(id){
     return this.apollo.mutate<any>({
       mutation: gql`
@@ -981,7 +1062,7 @@ export class graphqlService {
     return this.apollo.query<any>({
       query: gql`
       query{
-        events(){
+        events{
           id
           name
           location{
@@ -994,6 +1075,7 @@ export class graphqlService {
           }
           eventLng
           eventLat
+          category
           }
         }
       `,
@@ -1001,6 +1083,35 @@ export class graphqlService {
     })
   }
 
+  getEventByLocation(location){
+    return this.apollo.query<any>({
+      query: gql`
+      query eventByLocation($location: String!){
+        eventByLocation(location: $location){
+          id
+          name
+          location{
+            id
+            city
+            country
+          }
+          eventDetail{
+            id
+            price
+            name
+          }
+          eventLng
+          eventLat
+          category
+          }
+        }
+      `,
+      variables:{
+        "location" : location
+      },
+      fetchPolicy: 'no-cache'
+    })
+  }
   getNearestEvent(location){
     return this.apollo.query<any>({
       query: gql`
@@ -1014,10 +1125,13 @@ export class graphqlService {
             country
           }
           eventDetail{
+            id
+            price
             name
           }
           eventLng
           eventLat
+          category
           }
         }
       `,
@@ -1041,10 +1155,13 @@ export class graphqlService {
             country
           }
           eventDetail{
+            id
+            price
             name
           }
           eventLng
           eventLat
+          category
           }
         }
       `,
@@ -1054,4 +1171,124 @@ export class graphqlService {
       fetchPolicy: 'no-cache'
     })
   }
+
+  insertEvent(name, locationRefer, startDate, endDate, eventLat, eventLng, category, desc): Observable<any>{
+    return this.apollo.mutate<any>({
+      mutation:gql`
+      mutation insertEvent($name: String!, $locationRefer: Int!, $startDate: DateTime!, $endDate: DateTime!, $eventLat: Float!, $eventLng: Float!, $category: String!, $desc: String!){
+        insertEvent(name: $name, locationRefer: $locationRefer, startDate: $startDate, endDate: $endDate, eventLat: $eventLat, eventLng: $eventLng, category: $category, description: $desc){
+          name
+        }
+      }
+    `,
+    variables:{
+      "name": name,
+      "locationRefer": locationRefer,
+      "startDate": startDate,
+      "endDate": endDate,
+      "eventLat": eventLat,
+      "eventLng": eventLng,
+      "category": category,
+      "desc": desc
+    }
+    })
+
+  }
+
+  updateEvent(id,name, locationRefer, startDate, endDate): Observable<any>{
+    return this.apollo.mutate<any>({
+      mutation:gql`
+      mutation updateEvent($id: Int!, $name: String!, $locationRefer: Int!, $startDate: DateTime!, $endDate: DateTime!){
+        updateEvent(id: $id, name: $name, locationRefer: $locationRefer, startDate: $startDate, endDate: $endDate){
+          name
+        }
+      }
+    `,
+    variables:{
+      "id": id,
+      "name": name,
+      "locationRefer": locationRefer,
+      "startDate": startDate,
+      "endDate": endDate,
+    }
+    })
+  }
+
+  removeEvent(id){
+    return this.apollo.mutate<any>({
+      mutation: gql`
+      mutation($id: Int!){
+        removeEvent(id: $id){
+          id
+        }
+      }
+      `,
+      variables:{
+        "id": id
+      }
+    })
+  }
+
+  insertEventDetail(eventRefer, name, price){
+    return this.apollo.mutate<any>({
+      mutation: gql`
+      mutation inputDetailEvent($eventRefer: Int!, $name: String!, $price: Int!){
+        insertEventDetail(eventRefer: $eventRefer, name: $name, price: $price){
+          name
+        }
+      }
+      `,
+      variables:{
+        "eventRefer": eventRefer,
+        "name": name,
+        "price": price
+      }
+    })
+  }
+  getAllPromo(){
+    return this.apollo.query<any>({
+      query: gql`
+      query   {
+        promos{
+          name
+          id
+          startDate
+          endDate
+          description
+          promoDetail{
+            id
+            promoCode
+            disc
+          }
+        }
+      }
+      `,
+      fetchPolicy: 'no-cache'
+    })
+  }
+
+  getPromoById(id){
+    return this.apollo.query<any>({
+      query: gql`
+      query promoById($id: Int!){
+        promo(id: $id){
+          id
+          name
+          startDate
+          endDate
+          description
+          promoDetail{
+            id
+            promoCode
+            disc
+          }
+        }
+      }
+      `,variables:{
+        "id": id
+      },
+      fetchPolicy: 'no-cache'
+    })
+  }
+
 }

@@ -1,27 +1,32 @@
 <body>
   <div class="share-button" *ngIf="blog != null">
-    <div class="facebook">
-      <a class="mashicon-facebook mash-medium mash-nomargin mashsb-noshadow" href="https://www.facebook.com/sharer.php?u=localhost:4200/blog/{{blog[0].id}}" target="_top" rel="nofollow">Share</a>
-    </div>
     <div class="twitter">
       <a class="mashicon-facebook mash-medium mash-nomargin mashsb-noshadow" href="https://twitter.com/intent/tweet?text={{blog[0].title}};url=localhost:4200/blog/{{blog[0].id}}" target="_top" rel="nofollow">Tweet</a>
     </div>
-    <div class="whatsapp">
-      <a class="mashicon-facebook mash-medium mash-nomargin mashsb-noshadow" href="https://api.whatsapp.com/send?text=localhost:4200/blog/{{blog[0].id}}" target="_top" rel="nofollow">Whatsapp</a>
-    </div>
+    <button mat-button (click)="whatsapp()">Whatsapp</button>
+    <button mat-button (click)="facebook()">Facebook</button>
   </div>
 
   <div class="left">
     <header>
       <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
-                    alt="Photo of a Shiba Inu">
+      alt="Photo of a Shiba Inu">
       <div class="title"><h2>{{blog[0].title}}</h2></div>
+      <mat-label>Viewer {{blog[0].viewer}}</mat-label>
     </header>
     <section>
       <h4>{{blog[0].value}}</h4>
     </section>
   </div>
   <div class="right">
-
+    <div class="trending-blog" *ngFor="let item of trendingBlog">
+      <header>
+        <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+        alt="Photo of a Shiba Inu" style="max-width: 50%;
+        max-height: 50%;">
+        <div class="title"><h2>{{item.title}}</h2></div>
+        <mat-label>Viewer {{item.viewer}}</mat-label>
+      </header>
+    </div>
   </div>
 </body>

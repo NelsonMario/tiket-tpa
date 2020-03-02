@@ -55,7 +55,8 @@ export class AdminFlightComponent implements OnInit {
   airline$ : Subscription
   airlines : Airport[] = []
 
-  flightPagination: Flight[] = []
+  realFlight: any[] = []
+  pageCount: any[] = []
 
   constructor(private graphql: graphqlService, private _snackBar: MatSnackBar, private route: Router) {
     console.log(JSON.parse(localStorage.getItem("currentUser"))[0].email)
@@ -67,11 +68,11 @@ export class AdminFlightComponent implements OnInit {
     }
 
     this.flight$ = graphql.getAllFlight().subscribe(async query => {
-      this.flights = query.data.flights
+      this.realFlight = query.data.flights
       await
       console.log("")
-      this.flightPagination = this.flights
-      console.log(this.flightPagination)
+      console.log(this.realFlight)
+      this.pushToPagination()
       this.loaded = !this.loaded
     })
     this.airport$ = graphql.getAirports().subscribe(async query =>{
@@ -86,7 +87,6 @@ export class AdminFlightComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.flightPagination)
   }
 
   insertData(){
@@ -133,4 +133,18 @@ export class AdminFlightComponent implements OnInit {
     this.airport$.unsubscribe()
     this.flight$.unsubscribe()
   }
+
+  pushToPagination() {
+    for (let i = 0; i < this.realFlight.length; i++) {
+      if(i < 5) this.flights.push(this.realFlight[i])
+      if(i % 5 == 0) this.pageCount.push(1 + (i/5))
+    }
+  }
+
+  changePage(currPage) {
+    this.flights = []
+    for (let i = currPage * 5; i < (currPage+1) * 5 && i < this.realFlight.length; i++) {
+      this.flights.push(this.realFlight[i])
+      }
+    }
 }

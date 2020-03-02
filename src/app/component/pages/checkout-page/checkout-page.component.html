@@ -1,4 +1,5 @@
 <body>
+  {{minute}}:{{second}}
   <div class="login" *ngIf="!isLogin">
       <div id="title">
           <label for="">Log in/Daftar</label>
@@ -55,7 +56,7 @@
       </div>
   </div>
   <div class="content"*ngIf="isLogin">
-    {{minute}}:{{second}}
+
     <div class="detail">
       <div class="ordered-detail"  *ngIf="isLogin">
         <div class="ordered-detail-title">Detail Pemesan</div>
@@ -76,18 +77,18 @@
           </mat-form-field>
         </section>
         <footer>
-          <div class="country-code-select">
-            <mat-label>Country Code</mat-label>
-            <mat-select (selectionChange)="selected($event)">
-              <mat-option [value] = "countryCode.calling_code" *ngFor="let countryCode of (countryCode$ | async)">
-                {{countryCode.country}}
-              </mat-option>
-            </mat-select>
-          </div>
           <mat-form-field class="phoneNumber">
             <mat-label>PhoneNumber</mat-label>
             <input [formControl] = "phoneNumber" matInput class="phoneNumber">
           </mat-form-field>
+          <div class="country-code-select">
+            <mat-label>Country Code</mat-label>
+            <mat-select (selectionChange)="selected($event)">
+              <mat-option [value] = "region" *ngFor="let region of regions">
+                <img src="https://www.countryflags.io/{{region.code}}/flat/24.png"> {{region.name}}
+              </mat-option>
+            </mat-select>
+          </div>
         </footer>
       </div>
 
@@ -115,12 +116,20 @@
           <img src="../../../../assets/airline/agya.jpg" alt="">
         </header>
         <section>
+          From : {{from}}
+          To : {{to}}
           Passenger : {{car.passanger}}
         </section>
         <footer>
+          Vendor : {{car.vendorCar[0].vendor.name}}
           Price : {{car.price}}
+          <button mat-button (click)="continue()">Lanjutkan ke Pembayaran</button>
         </footer>
       </div>
     </div>
+
   </div>
 </body>
+<div id="overlay">
+  <mat-spinner *ngIf="loaded" id="spinner"></mat-spinner>
+</div>

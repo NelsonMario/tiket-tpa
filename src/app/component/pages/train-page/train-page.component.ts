@@ -5,6 +5,9 @@ import { Railroad } from 'src/app/models/railroad';
 import { FormControl, Validators } from '@angular/forms';
 import { RailroadService } from 'src/app/service/railroad/railroad.service';
 import { StationService } from 'src/app/service/station/station.service';
+import { Subscription, Observable } from 'rxjs';
+import { graphqlService } from 'src/app/service/graphql/graphql.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-train-page',
@@ -39,7 +42,13 @@ export class TrainPageComponent implements OnInit {
   buy : boolean = false
   @Output() outputHidden = new EventEmitter;
 
-  constructor(private railroadService: RailroadService, private stationService: StationService) {
+
+  railroad$ : Subscription
+  tempRailroad : any
+  tempCount : any
+  pollingData:any
+  dataCount:any
+  constructor(private railroadService: RailroadService, private stationService: StationService, private graphqlService:graphqlService, private http: HttpClient) {
     this.railroads = railroadService.railroad
     this.from = railroadService.from
     this.to = railroadService.to
@@ -55,6 +64,26 @@ export class TrainPageComponent implements OnInit {
         checked: false
       })
     })
+
+    this.railroad$ = this.graphqlService.getAllRailroad().subscribe(async query => {
+      this.tempRailroad = query.data.railroads;
+      await
+      console.log(this.tempRailroad['length'])
+      this.tempCount = this.tempRailroad.length
+    }
+    );
+
+    this.pollingData = Observable.interval(5000).switchMap(() => this.http.get('http://localhost:8080/?query=%7B%0A%09railroads%7B%0A%20%20%20%20id%0A%20%20%7D%0A%7D')).map((data) => JSON.stringify(data['data']['railroads']))
+      .subscribe((data) => {
+        let railroadData = JSON.parse(data)
+        this.dataCount = railroadData['length']
+        console.log(this.dataCount + " " + this.tempCount)
+        if(this.tempCount != this.dataCount){
+          alert("New Railroad Has Publish")
+          this.tempCount = this.dataCount
+          return this.tempCount
+        }
+      });
   }
 
   ngOnInit() {

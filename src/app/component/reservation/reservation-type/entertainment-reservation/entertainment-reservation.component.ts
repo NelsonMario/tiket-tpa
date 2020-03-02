@@ -3,6 +3,8 @@ import { Subscription } from 'rxjs';
 import { FormControl, Validators } from '@angular/forms';
 import { graphqlService } from 'src/app/service/graphql/graphql.service';
 import { LocationService } from 'src/app/service/location/location.service';
+import { EventService } from 'src/app/service/event/event.service';
+import {Router } from '@angular/router';
 
 @Component({
   selector: 'app-entertainment-reservation',
@@ -21,7 +23,9 @@ export class EntertainmentReservationComponent implements OnInit {
   locationTemp: any[] = []
   displayCity : any [] = []
   cityTemp : any [] = []
-  constructor(private graphql: graphqlService, private locationService: LocationService) { }
+
+  event$ : Subscription
+  constructor(private graphql: graphqlService, private locationService: LocationService, private eventService: EventService, private routes: Router) { }
 
   ngOnInit(): void {
     this.location$ = this.graphql.getAllLocation().subscribe(async query => {
@@ -46,6 +50,16 @@ export class EntertainmentReservationComponent implements OnInit {
         })
       })
 
+    })
+  }
+
+  click(event){
+    this.event$ = this.graphql.getEventByLocation(event.path[1].id).subscribe(async query => {
+      this.eventService.event = query.data.eventByLocation
+      await
+      console.log(query.data.eventByLocation)
+      console.log(this.eventService.event)
+      this.routes.navigate(['event-search'])
     })
   }
 

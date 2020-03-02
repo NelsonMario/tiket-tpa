@@ -7,8 +7,9 @@ import { FormControl, Validators } from '@angular/forms';
 import { Filter } from 'src/app/models/filter';
 import { graphqlService } from 'src/app/service/graphql/graphql.service';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { Airline } from 'src/app/models/airline';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-flight-page',
@@ -58,8 +59,21 @@ export class FlightPageComponent implements OnInit {
   fromSchedule: string = ""
   toSchedule: string = ""
 
-  constructor(private flightService: FlightService, private airportService: AirportService, private graphqlService: graphqlService, private router: Router) {
-    this.flights = flightService.flights
+  realFlights : any[] = []
+  showData = 5
+  flight$ : Subscription
+  tempFlight : any[] = []
+  tempCount = 0
+  dataCount = 0
+  pollingData : any
+
+  hotels$: Subscription
+  tempHotel: any
+
+  constructor(private flightService: FlightService, private airportService: AirportService, private graphqlService: graphqlService, private router: Router,  private http: HttpClient) {
+    this.realFlights = flightService.flights
+    this.loadData()
+    console.log(this.realFlights)
     this.from = flightService.from
     this.to = flightService.to
 
@@ -96,6 +110,58 @@ export class FlightPageComponent implements OnInit {
         active: false
       })
     });
+
+  this.flight$ = this.graphqlService.getAllFlight().subscribe(async query => {
+    this.tempFlight = query.data.flights;
+    await
+    console.log(query.data.flights)
+    console.log(this.tempFlight['length'])
+    this.tempCount = this.tempFlight['length']
+    }
+  );
+
+  this.pollingData = Observable.interval(5000).switchMap(() => this.http.get('http://localhost:8080/?query=%7B%0A%09flights%7B%0A%20%20%20%20id%0A%20%20%7D%0A%7D')).map((data) => JSON.stringify(data['data']['flights']))
+    .subscribe((data) => {
+      let flightData = JSON.parse(data)
+      this.dataCount = flightData['length']
+      console.log(this.dataCount + " " + this.tempCount)
+      if(this.tempCount != this.dataCount){
+        alert("New Flight Has Publish")
+        this.tempCount = this.dataCount
+        return this.tempCount
+      }
+    });
+
+    window.onscroll = this.scroll
+
+  }
+
+  scroll = (event): void => {
+    if(window.scrollY + window.innerHeight >= document.body.scrollHeight) {
+      this.showData += 5
+      if(this.realFlights.length >= this.showData) {
+        for (let index = this.showData-5; index < this.showData; index++) {
+          this.flights.push(this.realFlights[index])
+        }
+      } else {
+        for (let index = this.showData-5; index < this.realFlights.length; index++) {
+          this.flights.push(this.realFlights[index])
+        }
+      }
+    }
+  }
+
+  public loadData() {
+    if(this.realFlights.length >= this.showData) {
+      for (let index = 0; index < this.showData; index++) {
+        this.flights.push(this.realFlights[index])
+      }
+    }
+    else {
+      for (let index = 0; index < this.realFlights.length; index++) {
+        this.flights.push(this.realFlights[index])
+      }
+    }
   }
 
   searchFlight(){

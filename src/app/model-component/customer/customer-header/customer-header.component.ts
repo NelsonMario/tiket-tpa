@@ -64,4 +64,12 @@ export class CustomerHeaderComponent implements OnInit {
   //   if(this.flightService.departureFlights.length != 0 && this.flightService.departureFlights.length == 3)
   //     this.flight$.unsubscribe();
   }
+
+  redirectBlog(){
+    this.router.navigate(['blog'])
+  }
+
+  redirectSupport(){
+    this.router.navigate(['chats'])
+  }
 }
