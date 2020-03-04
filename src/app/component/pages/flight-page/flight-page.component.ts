@@ -120,7 +120,7 @@ export class FlightPageComponent implements OnInit {
     }
   );
 
-  this.pollingData = Observable.interval(5000).switchMap(() => this.http.get('http://localhost:8080/?query=%7B%0A%09flights%7B%0A%20%20%20%20id%0A%20%20%7D%0A%7D')).map((data) => JSON.stringify(data['data']['flights']))
+  this.pollingData = Observable.interval(5000).switchMap(() => this.http.get('http://localhost:8080/api/success?query=%7B%0A%09flights%7B%0A%20%20%20%20id%0A%20%20%7D%0A%7D')).map((data) => JSON.stringify(data['data']['flights']))
     .subscribe((data) => {
       let flightData = JSON.parse(data)
       this.dataCount = flightData['length']
@@ -345,4 +345,5 @@ export class FlightPageComponent implements OnInit {
   durationSort(){
     this.flights.sort(function(a, b){return parseInt(a.duration) -  parseInt(b.duration)})
   }
+
 }

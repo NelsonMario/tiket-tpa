@@ -27,6 +27,10 @@ export class AdminEventComponent implements OnInit {
   realEvent: any[]=[]
   pageCount: any[] =[]
   loaded = true
+
+  showData = 5
+  infiniteEvent: any[] = []
+
   constructor(private grahpqlService: graphqlService, private router: Router, private http: HttpClient, private _snackBar: MatSnackBar, private route: Router) {
     if(localStorage.getItem("currentUser") == null)
       route.navigate([''])
@@ -50,13 +54,14 @@ export class AdminEventComponent implements OnInit {
           this.realEvent = query.data.events;
           await
           this.pushToPagination()
+          this.loadData()
           console.log(this.realEvent['length'])
           this.tempCount = this.realEvent.length
           this.loaded = false
         }
       );
 
-      this.pollingData = Observable.interval(5000).switchMap(() => this.http.get('http://localhost:8080/?query=%7B%0A%09events%7B%0A%20%20%20%20id%0A%20%20%20%20name%0A%20%20%7D%0A%7D')).map((data) => JSON.stringify(data['data']['events']))
+      this.pollingData = Observable.interval(5000).switchMap(() => this.http.get('http://localhost:8080/api/success?query=%7B%0A%09events%7B%0A%20%20%20%20id%0A%20%20%20%20name%0A%20%20%7D%0A%7D')).map((data) => JSON.stringify(data['data']['events']))
         .subscribe((data) => {
           let eventsData = JSON.parse(data)
           this.dataCount = eventsData['length']
@@ -67,6 +72,8 @@ export class AdminEventComponent implements OnInit {
             return this.tempCount,  window.location.reload()
           }
         });
+
+        window.onscroll = this.scroll
     }
 
     count(n) {
@@ -107,6 +114,34 @@ export class AdminEventComponent implements OnInit {
     this.events = []
     for (let i = currPage * 5; i < (currPage+1) * 5 && i < this.realEvent.length; i++) {
       this.events.push(this.realEvent[i])
+      }
+    }
+
+    scroll = (event): void => {
+      if(window.scrollY + window.innerHeight + 3 >= document.body.scrollHeight) {
+        this.showData += 5
+        if(this.realEvent.length >= this.showData) {
+          for (let index = this.showData-5; index < this.showData; index++) {
+            this.infiniteEvent.push(this.realEvent[index])
+          }
+        } else {
+          for (let index = this.showData-5; index < this.realEvent.length; index++) {
+            this.infiniteEvent.push(this.realEvent[index])
+          }
+        }
+      }
+    }
+
+    public loadData() {
+      if(this.realEvent.length >= this.showData) {
+        for (let index = 0; index < this.showData; index++) {
+          this.infiniteEvent.push(this.realEvent[index])
+        }
+      }
+      else {
+        for (let index = 0; index < this.realEvent.length; index++) {
+          this.infiniteEvent.push(this.realEvent[index])
+        }
       }
     }
 }

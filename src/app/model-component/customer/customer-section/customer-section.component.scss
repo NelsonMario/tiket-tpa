@@ -43,6 +43,13 @@ body{
   }
 }
 
+@media only screen and (max-width: 500px) {
+  .res-hotel{
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 #overlay{
   position: absolute;
   transition: ease-in-out 2s;

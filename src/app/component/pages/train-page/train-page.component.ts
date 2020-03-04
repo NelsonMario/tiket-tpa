@@ -73,7 +73,7 @@ export class TrainPageComponent implements OnInit {
     }
     );
 
-    this.pollingData = Observable.interval(5000).switchMap(() => this.http.get('http://localhost:8080/?query=%7B%0A%09railroads%7B%0A%20%20%20%20id%0A%20%20%7D%0A%7D')).map((data) => JSON.stringify(data['data']['railroads']))
+    this.pollingData = Observable.interval(5000).switchMap(() => this.http.get('http://localhost:8080/api/success?query=%7B%0A%09railroads%7B%0A%20%20%20%20id%0A%20%20%7D%0A%7D')).map((data) => JSON.stringify(data['data']['railroads']))
       .subscribe((data) => {
         let railroadData = JSON.parse(data)
         this.dataCount = railroadData['length']
@@ -84,6 +84,8 @@ export class TrainPageComponent implements OnInit {
           return this.tempCount
         }
       });
+
+      console.log(this.railroads)
   }
 
   ngOnInit() {
@@ -191,5 +193,17 @@ export class TrainPageComponent implements OnInit {
 
   durationSort(){
     this.railroads.sort(function(a, b){return parseInt(a.duration) -  parseInt(b.duration)})
+  }
+
+  classSort (){
+    this.railroads.sort(function(a, b){
+      return  a.class.localeCompare(b.class)
+    })
+  }
+
+  typeSort(){
+    this.railroads.sort(function(a, b){
+      return a.train.name.localeCompare(b.train.name)
+    })
   }
 }

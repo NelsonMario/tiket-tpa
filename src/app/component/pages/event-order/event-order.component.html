@@ -1,0 +1,119 @@
+<body style="display: flex; justify-content: center;">
+  <div class="left">
+    <mat-card style="display: flex; justify-content: center;">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            <h3>{{event[0].name}}</h3>
+          </mat-panel-title>
+          <mat-panel-description>
+            <h4>{{event[0].location.city}}, {{event[0].location.country}}</h4>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div>
+          <img src="../../../../assets/airline/bali.jpg" alt="" style="max-width: 25%; max-height: max-width: 25%;">
+        </div>
+        <div>
+          Category : {{event[0].category}}
+        </div>
+        <div>
+          Start Date : {{event[0].startDate}}
+        </div>
+      </mat-expansion-panel>
+    </mat-card>
+    <mat-card class="order"  *ngIf="user">
+      <div class="ordered-detail-title">Detail Pemesan</div>
+      <header>
+        <mat-form-field class="title">
+          <mat-label>Title</mat-label>
+          <input [formControl] = "title" matInput class="title">
+        </mat-form-field>
+        <mat-form-field class="name">
+          <mat-label>Full Name</mat-label>
+          <input [formControl] = "name" matInput class="name">
+        </mat-form-field>
+      </header>
+      <section>
+        <mat-form-field class="email">
+          <mat-label>Email</mat-label>
+          <input [formControl] = "email" matInput class="email">
+        </mat-form-field>
+      </section>
+      <footer>
+        <mat-form-field class="phoneNumber">
+          <mat-label>PhoneNumber</mat-label>
+          <input [formControl] = "phoneNumber" matInput class="phoneNumber">
+        </mat-form-field>
+        <div class="country-code-select">
+          <mat-label>Country Code</mat-label>
+          <mat-select (selectionChange)="selected($event)">
+            <mat-option [value] = "region" *ngFor="let region of regions">
+              <img src="https://www.countryflags.io/{{region.code}}/flat/24.png"> {{region.name}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </footer>
+    </mat-card>
+    <mat-card class="picker"  *ngIf="user">
+      <mat-slide-toggle [(ngModel)]="fulfillPicker" (click)="autoFulfill()">Sama dengan pemesan</mat-slide-toggle>
+      <div class="ordered-detail-title">Detail Pengambil</div>
+      <header>
+        <mat-form-field class="title">
+          <mat-label>Title</mat-label>
+          <input [formControl] = "pickerTitle" matInput class="title">
+        </mat-form-field>
+        <mat-form-field class="name">
+          <mat-label>Full Name</mat-label>
+          <input [formControl] = "pickerName" matInput class="name">
+        </mat-form-field>
+      </header>
+      <section>
+        <mat-form-field class="email">
+          <mat-label>Email</mat-label>
+          <input [formControl] = "pickerEmail" matInput class="email">
+        </mat-form-field>
+      </section>
+      <footer>
+        <mat-form-field class="phoneNumber">
+          <mat-label>PhoneNumber</mat-label>
+          <input [formControl] = "pickerPhoneNumber" matInput class="phoneNumber">
+        </mat-form-field>
+        <div class="country-code-select">
+          <mat-label>Country Code</mat-label>
+          <mat-select (selectionChange)="selected($event)">
+            <mat-option [value] = "region" *ngFor="let region of regions">
+              <img src="https://www.countryflags.io/{{region.code}}/flat/24.png"> {{region.name}}
+            </mat-option>
+          </mat-select>
+        </div>
+      </footer>
+    </mat-card>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Bank
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div class="bank-name" *ngFor="let bank of banks">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{bank.name}}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          {{bank.desc}}
+          <button mat-button>Next</button>
+        </mat-expansion-panel>
+      </div>
+    </mat-expansion-panel>
+  </div>
+  <div class="right">
+    <mat-card>
+      <div class="title">Explore, {{event[0].name}}, {{event[0].location.city}}, {{event[0].location.country}}</div>
+      <div class="price">
+        Total Pembayaran: {{event[0].eventDetail[0].price}}
+      </div>
+    </mat-card>
+  </div>
+</body>

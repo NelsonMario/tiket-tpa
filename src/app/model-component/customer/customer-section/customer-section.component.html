@@ -4,6 +4,7 @@
   <div class="content">
     <img src="../../../assets/Login/login-register-illustration.webp" alt="">
     <div class="title"><b style="font-size: 30px; color: gray;">Recommended Nearest hotel</b></div>
+    <mat-spinner *ngIf="loaded"></mat-spinner>
     <div class="res-hotel">
       <div class="recommended-hotel" *ngFor="let hotel of nearestHotels">
         <header>

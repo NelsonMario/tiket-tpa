@@ -14,12 +14,15 @@ export class CustomerSectionComponent implements OnInit {
 
   nearestHotels: any[] = []
   nearestHotel$: Subscription
-
+  loaded = true
   constructor(private  graphql: graphqlService) { }
 
   ngOnInit() {
     this.nearestHotel$ = this.graphql.getNearestHotelByLocation("Jakarta").subscribe(async query =>{
       this.nearestHotels = query.data.nearestHotels
+      await
+      console.log("")
+      this.loaded = false
     })
   }
 

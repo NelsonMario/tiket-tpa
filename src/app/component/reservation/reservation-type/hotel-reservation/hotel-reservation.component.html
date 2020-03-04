@@ -33,13 +33,21 @@
       </div>
       <div class="end">
         <mat-form-field >
-            <input matInput [matDatepicker]="endDate" placeholder="Tanggal Selesai" [(ngModel)] = "toSchedule" >
-            <input  hidden [formControl] = "formattedEnd" matinput [ngModel] = "toSchedule | date:'yyyy-MM-dd'">
-            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
-            <mat-datepicker #endDate></mat-datepicker>
-          </mat-form-field>
+          <input matInput [matDatepicker]="endDate" placeholder="Tanggal Selesai" [(ngModel)] = "toSchedule" >
+          <input  hidden [formControl] = "formattedEnd" matinput [ngModel] = "toSchedule | date:'yyyy-MM-dd'">
+          <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+          <mat-datepicker #endDate></mat-datepicker>
+        </mat-form-field>
       </div>
     </div>
+    <mat-form-field class="night">
+      <mat-label>Night</mat-label>
+      <input [formControl] = "night" matInput class="night">
+    </mat-form-field>
+    <mat-form-field class="person">
+      <mat-label>person</mat-label>
+      <input [formControl] = "person" matInput class="person">
+    </mat-form-field>
   </section>
 
   <footer>

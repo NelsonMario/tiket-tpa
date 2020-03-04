@@ -41,6 +41,13 @@
         <mat-label>postcode</mat-label>
         <input [formControl] = "postcode" matInput class="postcode">
       </mat-form-field>
+      <mat-form-field>
+        <mat-select [(value)]="languageSelected">
+          <mat-option value={{language[i]}} *ngFor="let item of language; let i = index">
+            {{item}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
       <app-button title="Update Data" width = 15 (click)="updateProfile()"></app-button>
     </div>
   </div>

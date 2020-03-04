@@ -1,4 +1,4 @@
-<body>
+<mat-card>
   <div class="carousel" *ngIf="isCarouselShown">
     <div class="carousel-container">
       <div class="image"  *ngFor="let image of images; index as sliderId" (click)="setShown()">
@@ -40,10 +40,44 @@
         </div>
       </section>
       <footer>
-        <div class="hotel-results">
+        <div class="roomValidation">
+          <div class="type">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Type
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <div class="category" *ngFor="let type of types; let i = index">
+                <div class="filter-desc">
+                  {{type.name}}
+                </div>
+                <mat-checkbox [checked] = "type.active" [(ngModel)]="type.active" name= "{{i}}-name"></mat-checkbox>
+              </div>
+            </mat-expansion-panel>
+          </div>
+          <div class="facility">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Facility
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <div class="category" *ngFor="let facility of facilities; let i = index">
+                <div class="filter-desc">
+                  {{facility.name}}
+                </div>
+                <mat-checkbox [checked] = "facility.active" [(ngModel)]="facility.active" name= "{{i}}-name"></mat-checkbox>
+              </div>
+            </mat-expansion-panel>
+          </div>
+        </div>
+        <div class="room-results">
           <h1>Room</h1>
           <div class="sub-results" *ngFor="let room of hotel[0].hotelRoom; let i = index">
-            <div class="hotel-result">
+            <div class="room-result" style="display: flex; justify-content: center; flex-direction: column;" *ngIf="roomValidation(i)">
               <header>
                 <div class="left">
                   <img src="../../../../assets/airline/hotel.jpg" alt="">
@@ -67,7 +101,7 @@
                 </div>
               </header>
               <footer>
-                <app-button title="BELI" width="8" id="{{i}}" style="z-index: 4;"></app-button>
+                <app-button title="BELI" width="8" id="{{i}}" style="z-index: 4;" (click)="navigateCheckout(i)"></app-button>
               </footer>
             </div>
           </div>
@@ -77,17 +111,76 @@
       <button mat-button (click)="copy()">Copy</button>
       <button mat-button (click)="facebook()">Facebook</button>
       <h1>Review Hotel</h1>
-      <div class="container">
-        <mat-card class="example-card" *ngFor="let review of reviewDisplay;let i = index">
-            <mat-card-header>
-                <mat-card-title>{{review.comment}}</mat-card-title>
-                <mat-card-subtitle>{{review.reviewer}}</mat-card-subtitle>
-            </mat-card-header>
+      <div class="review">
+        <div class="filter">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Category
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="category" *ngFor="let category of categories; let i = index">
+              <div class="filter-desc">
+                {{category.name}}
+              </div>
+              <mat-checkbox [checked] = "category.active" [(ngModel)]="category.active" name= "{{i}}-name"></mat-checkbox>
+            </div>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Rating
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="rating" *ngFor="let rating of reviewRating; let i = index">
+              <div class="filter-desc">
+                {{rating.number}}
+              </div>
+              <mat-checkbox [checked] = "rating.active" [(ngModel)]="rating.active" name= "{{i}}-name"></mat-checkbox>
+            </div>
+
+            <button mat-button (click)="ratingSort()">Sort Rating</button>
+          </mat-expansion-panel>
+
+
+        </div>
+        <div class="review-result">
+          <div class="container" style="display: flex; justify-content: center; flex-direction: column;">
+            <mat-card class="example-card" *ngFor="let review of reviewDisplay;let i = index">
+                <mat-card-header *ngIf="filterValidation(i)">
+                    <mat-card-title>{{review.caption}} {{review.review}}</mat-card-title>
+                    <mat-card-subtitle>{{review.description}}</mat-card-subtitle>
+                    <mat-card-subtitle>{{review.user}}, {{review.createdAt | date}}</mat-card-subtitle>
+                </mat-card-header>
+            </mat-card>
+          </div>
+        </div>
+        <div class="button">
+          <button mat-button *ngFor="let item of pageCount" (click)="changePage(item-1)">{{item}}</button>
+        </div>
+          <div class="summary">
+            <h3>Summary</h3>
+            <mat-card>
+              <div>Pelayanan : {{pelayanan.score/pelayanan.count}}</div>
+              <div>Kamar : {{kamar.score/kamar.count}}</div>
+              <div>Lokasi : {{lokasi.score/lokasi.count}}</div>
+              <div>Kebersihan : {{kebersihan.score/kebersihan.count}}</div>
+            </mat-card>
+          </div>
+      </div>
+      <mat-card style="display: flex; flex-direction: column;">
+        <h3>Nearest Hotel</h3>
+        <mat-card *ngFor="let item of nearestHotel" style="max-width: fit-content;">
+          <img src="../../../../assets/airline/hotel2.jpg" alt="" srcset="">
+          <mat-card-subtitle>
+            {{item.name}}
+            {{item.location.city}}
+          </mat-card-subtitle>
         </mat-card>
-      </div>
-      <div class="button">
-        <button mat-button *ngFor="let item of pageCount" (click)="changePage(item-1)">{{item}}</button>
-      </div>
+      </mat-card>
     </div>
   </div>
-</body>
+</mat-card>

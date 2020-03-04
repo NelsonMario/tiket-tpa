@@ -49,7 +49,7 @@ export class EventSearchPageComponent implements OnInit {
 
   scroll = (event): void => {
     console.log(window.scrollY + window.innerHeight+" "+document.body.scrollHeight)
-    if(window.scrollY + window.innerHeight + 3 >= document.body.scrollHeight) {
+    if(window.scrollY + window.innerHeight + 2 >= document.body.scrollHeight) {
       this.showData += 5
       if(this.realEvent.length >= this.showData) {
         for (let index = this.showData-5; index < this.showData; index++) {

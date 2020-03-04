@@ -47,8 +47,10 @@ export class HotelPagesComponent implements OnInit {
   dataCount:any
 
   hotel$ : Subscription
+
+  displayDetail : any = "false"
   constructor(private hotelService: HotelService, private locationService: LocationService, private route: Router, private graphqlService: graphqlService, private http:HttpClient) {
-        this.locations = this.locationService.getLocation()
+    this.locations = this.locationService.getLocation()
     this.location = this.hotelService.location
     this.fromDate = this.hotelService.fromDate
     this.toDate = this.hotelService.toDate
@@ -64,7 +66,7 @@ export class HotelPagesComponent implements OnInit {
     }
   );
 
-  this.pollingData = Observable.interval(5000).switchMap(() => this.http.get('http://localhost:8080/?query=%7B%0A%09hotels%7B%0A%20%20%20%20id%0A%20%20%20%20name%0A%20%20%7D%0A%7D')).map((data) => JSON.stringify(data['data']['hotels']))
+  this.pollingData = Observable.interval(5000).switchMap(() => this.http.get('http://localhost:8080/api/success?query=%7B%0A%09hotels%7B%0A%20%20%20%20id%0A%20%20%20%20name%0A%20%20%7D%0A%7D')).map((data) => JSON.stringify(data['data']['hotels']))
     .subscribe((data) => {
       let hotelData = JSON.parse(data)
       this.dataCount = hotelData['length']
@@ -147,6 +149,7 @@ export class HotelPagesComponent implements OnInit {
   groupClick(event) {
     this.displayHotel = event.layer.hotel
     alert("Hotel Name : " + this.displayHotel.name + "\n" + "Hotel Rating : " +this.displayHotel.rating + "Stars")
+    return this.displayDetail = "true"
   }
 
 
@@ -164,6 +167,10 @@ export class HotelPagesComponent implements OnInit {
 
   starSort(){
     this.hotels.sort(function(a, b){return a.rating - b.rating})
+  }
+
+  nameSort(){
+    this.hotels.sort(function(a, b){return a.name.localeCompare(b.name)})
   }
 
   searchHotel(){

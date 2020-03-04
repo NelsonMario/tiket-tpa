@@ -1,0 +1,153 @@
+<body>
+  <div class="burger" style="color: gray;">
+    home > {{event[0].category}}
+  </div>
+  <div class="thumbnail">
+    <mat-card class="example-card">
+      <mat-card-header>
+          <mat-card-title>{{event[0].name}}</mat-card-title>
+          <mat-card-subtitle>{{event[0].location.city}}</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+          alt="Photo of a Shiba Inu">
+      <mat-card-actions>
+        <mat-card-subtitle>{{event[0].description}}</mat-card-subtitle>
+      </mat-card-actions>
+    </mat-card>
+    <div id="map"></div>
+  </div>
+  <app-carousel style="transform: scale(0.75);"></app-carousel>
+  <div class="description">
+    <mat-tab-group dynamicHeight>
+      <mat-tab label="Deskripsi">
+          <div class="container">
+              <mat-card class="example-card">
+                  <mat-card-header>
+                  </mat-card-header>
+                  <mat-card-subtitle>
+                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. A perferendis porro eum! Nobis, vel consequatur. Molestiae, nisi fuga, harum praesentium laboriosam culpa placeat ipsa, sint corrupti porro accusamus laborum vero. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id, voluptatibus dolores! Perspiciatis explicabo, cupiditate itaque eveniet aliquam ex! Quas nostrum magnam nisi distinctio dicta esse fuga deserunt odio voluptatem eaque! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi assumenda perspiciatis provident voluptas ex, nihil dicta? Quis facere velit aliquam officia quibusdam, nihil repellat optio quia nisi? Repellat, consequatur quod. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga veniam suscipit id error quisquam eaque explicabo illum, mollitia commodi sequi enim soluta, magni ab voluptatem. Ut magnam expedita velit eveniet. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora nam rem, reprehenderit deserunt alias expedita nihil id vero culpa fugiat placeat accusamus, corrupti minima deleniti odit suscipit a dolor atque? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit laboriosam corporis repellendus recusandae delectus. Amet nemo dolore earum quibusdam? Fuga eligendi natus deserunt sapiente minima repellendus cumque tenetur amet nobis. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat voluptate optio eaque, quaerat, impedit nisi asperiores reiciendis ducimus perferendis eum minus. Quia omnis veniam veritatis, aspernatur corporis qui quos natus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia optio cupiditate, ipsam et, adipisci voluptatibus a, dolore sequi debitis facilis temporibus? Voluptatibus, iure ipsum cumque culpa similique tenetur voluptatum corporis? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laboriosam nihil eius aspernatur blanditiis cumque doloribus illum. Odit esse illo eveniet nisi consequuntur porro dicta necessitatibus non tenetur! Est, officiis earum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit eum expedita nam quia. Quibusdam, accusamus veniam voluptatibus aspernatur, tempore nulla sint, distinctio porro reprehenderit beatae excepturi quasi nesciunt repudiandae fugiat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam ex consequuntur, eligendi praesentium aperiam harum neque mollitia assumenda incidunt commodi dicta earum facere ipsum nisi magni, veniam quia, velit sint? Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam doloremque eaque temporibus dolorem tempora minima? Rerum voluptas id, velit dignissimos quia, culpa esse ex omnis iusto, natus veritatis blanditiis minus! Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, consequatur nobis libero omnis in voluptatum laudantium labore sed. Repudiandae neque porro vero delectus impedit debitis, odio aliquam autem blanditiis eum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima voluptate non necessitatibus iste accusantium accusamus. Reiciendis assumenda consectetur nam quam repellat ipsam quae placeat tenetur tempore minima. Necessitatibus, neque pariatur! Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, eveniet reprehenderit? Id, quasi beatae ipsam vel error delectus ab sit consectetur repellendus vero, voluptas unde voluptatum deleniti rerum quas dolorem! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt eius consequuntur assumenda quo eaque illo, vitae ad. Exercitationem numquam tenetur vero enim magni consequatur, dolorum ipsa repellat assumenda adipisci voluptas?
+                  </mat-card-subtitle>
+              </mat-card>
+          </div>
+      </mat-tab>
+      <mat-tab label="Syarat - Ketentuan">
+        <div class="container">
+          <mat-card class="example-card">
+              <mat-card-header>
+              </mat-card-header>
+              <mat-card-subtitle>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. A perferendis porro eum! Nobis, vel consequatur. Molestiae, nisi fuga, harum praesentium laboriosam culpa placeat ipsa, sint corrupti porro accusamus laborum vero. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id, voluptatibus dolores! Perspiciatis explicabo, cupiditate itaque eveniet aliquam ex! Quas nostrum magnam nisi distinctio dicta esse fuga deserunt odio voluptatem eaque! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi assumenda perspiciatis provident voluptas ex, nihil dicta? Quis facere velit aliquam officia quibusdam, nihil repellat optio quia nisi? Repellat, consequatur quod. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga veniam suscipit id error quisquam eaque explicabo illum, mollitia commodi sequi enim soluta, magni ab voluptatem. Ut magnam expedita velit eveniet. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora nam rem, reprehenderit deserunt alias expedita nihil id vero culpa fugiat placeat accusamus, corrupti minima deleniti odit suscipit a dolor atque? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit laboriosam corporis repellendus recusandae delectus. Amet nemo dolore earum quibusdam? Fuga eligendi natus deserunt sapiente minima repellendus cumque tenetur amet nobis. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat voluptate optio eaque, quaerat, impedit nisi asperiores reiciendis ducimus perferendis eum minus. Quia omnis veniam veritatis, aspernatur corporis qui quos natus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia optio cupiditate, ipsam et, adipisci voluptatibus a, dolore sequi debitis facilis temporibus? Voluptatibus, iure ipsum cumque culpa similique tenetur voluptatum corporis? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laboriosam nihil eius aspernatur blanditiis cumque doloribus illum. Odit esse illo eveniet nisi consequuntur porro dicta necessitatibus non tenetur! Est, officiis earum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit eum expedita nam quia. Quibusdam, accusamus veniam voluptatibus aspernatur, tempore nulla sint, distinctio porro reprehenderit beatae excepturi quasi nesciunt repudiandae fugiat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam ex consequuntur, eligendi praesentium aperiam harum neque mollitia assumenda incidunt commodi dicta earum facere ipsum nisi magni, veniam quia, velit sint? Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam doloremque eaque temporibus dolorem tempora minima? Rerum voluptas id, velit dignissimos quia, culpa esse ex omnis iusto, natus veritatis blanditiis minus! Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, consequatur nobis libero omnis in voluptatum laudantium labore sed. Repudiandae neque porro vero delectus impedit debitis, odio aliquam autem blanditiis eum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima voluptate non necessitatibus iste accusantium accusamus. Reiciendis assumenda consectetur nam quam repellat ipsam quae placeat tenetur tempore minima. Necessitatibus, neque pariatur! Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, eveniet reprehenderit? Id, quasi beatae ipsam vel error delectus ab sit consectetur repellendus vero, voluptas unde voluptatum deleniti rerum quas dolorem! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt eius consequuntur assumenda quo eaque illo, vitae ad. Exercitationem numquam tenetur vero enim magni consequatur, dolorum ipsa repellat assumenda adipisci voluptas?
+              </mat-card-subtitle>
+          </mat-card>
+      </div>
+      </mat-tab>
+      <mat-tab label="Venue">
+        <div class="container">
+          <mat-card class="example-card">
+              <mat-card-header>
+              </mat-card-header>
+              <mat-card-subtitle>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. A perferendis porro eum! Nobis, vel consequatur. Molestiae, nisi fuga, harum praesentium laboriosam culpa placeat ipsa, sint corrupti porro accusamus laborum vero. Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id, voluptatibus dolores! Perspiciatis explicabo, cupiditate itaque eveniet aliquam ex! Quas nostrum magnam nisi distinctio dicta esse fuga deserunt odio voluptatem eaque! Lorem ipsum dolor, sit amet consectetur adipisicing elit. Animi assumenda perspiciatis provident voluptas ex, nihil dicta? Quis facere velit aliquam officia quibusdam, nihil repellat optio quia nisi? Repellat, consequatur quod. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fuga veniam suscipit id error quisquam eaque explicabo illum, mollitia commodi sequi enim soluta, magni ab voluptatem. Ut magnam expedita velit eveniet. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora nam rem, reprehenderit deserunt alias expedita nihil id vero culpa fugiat placeat accusamus, corrupti minima deleniti odit suscipit a dolor atque? Lorem ipsum dolor sit, amet consectetur adipisicing elit. Fugit laboriosam corporis repellendus recusandae delectus. Amet nemo dolore earum quibusdam? Fuga eligendi natus deserunt sapiente minima repellendus cumque tenetur amet nobis. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat voluptate optio eaque, quaerat, impedit nisi asperiores reiciendis ducimus perferendis eum minus. Quia omnis veniam veritatis, aspernatur corporis qui quos natus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia optio cupiditate, ipsam et, adipisci voluptatibus a, dolore sequi debitis facilis temporibus? Voluptatibus, iure ipsum cumque culpa similique tenetur voluptatum corporis? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Laboriosam nihil eius aspernatur blanditiis cumque doloribus illum. Odit esse illo eveniet nisi consequuntur porro dicta necessitatibus non tenetur! Est, officiis earum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit eum expedita nam quia. Quibusdam, accusamus veniam voluptatibus aspernatur, tempore nulla sint, distinctio porro reprehenderit beatae excepturi quasi nesciunt repudiandae fugiat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam ex consequuntur, eligendi praesentium aperiam harum neque mollitia assumenda incidunt commodi dicta earum facere ipsum nisi magni, veniam quia, velit sint? Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam doloremque eaque temporibus dolorem tempora minima? Rerum voluptas id, velit dignissimos quia, culpa esse ex omnis iusto, natus veritatis blanditiis minus! Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi, consequatur nobis libero omnis in voluptatum laudantium labore sed. Repudiandae neque porro vero delectus impedit debitis, odio aliquam autem blanditiis eum. Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima voluptate non necessitatibus iste accusantium accusamus. Reiciendis assumenda consectetur nam quam repellat ipsam quae placeat tenetur tempore minima. Necessitatibus, neque pariatur! Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur, eveniet reprehenderit? Id, quasi beatae ipsam vel error delectus ab sit consectetur repellendus vero, voluptas unde voluptatum deleniti rerum quas dolorem! Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt eius consequuntur assumenda quo eaque illo, vitae ad. Exercitationem numquam tenetur vero enim magni consequatur, dolorum ipsa repellat assumenda adipisci voluptas?
+              </mat-card-subtitle>
+          </mat-card>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+    <mat-card>
+      <h4>Tiket Explore {{event[0].name}}, {{event[0].location.city}}, {{event[0].location.country}}</h4>
+      <div class="fromSchedule">
+        <mat-form-field>
+          <input matInput [matDatepicker]="startDate" placeholder="Tanggal Mulai" [(ngModel)] = "fromDate">
+          <input hidden [formControl] = "formattedStart" matinput [ngModel] = "fromDate | date:'yyyy-MM-dd'">
+          <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+          <mat-datepicker #startDate></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="login" *ngIf="!user">
+          <div id="title">
+              <label for="">Log in/Daftar</label>
+          </div>
+
+          <div id="desc">
+              <p>Perjalanan serumu dimulai di sini.</p>
+          </div>
+
+          <form class="loginForm">
+            <mat-form-field class="Email or Phone">
+              <mat-label>Email Or Phone</mat-label>
+              <input matInput class="emailOrPhone">
+            </mat-form-field>
+
+            <mat-form-field class="Password">
+              <mat-label>password</mat-label>
+              <input matInput type = "password" class="password">
+            </mat-form-field>
+          </form>
+
+          <app-button title="LANJUTKAN" width = 15></app-button>
+
+          <div>
+              <div class="line">
+                  <hr>
+              </div>
+              <div>
+                  atau dengan
+              </div>
+              <div class="line">
+                  <hr>
+              </div>
+          </div>
+
+          <div id="socmed">
+              <div id="google" >
+                  <img src="../../../assets/Login/google.svg" alt="">
+                  <p>Google</p>
+              </div>
+              <hr>
+              <div id="facebook" >
+                  <img src="../../../assets/Login/facebook.svg" alt="">
+                  <p>Facebook</p>
+              </div>
+          </div>
+
+          <div>
+              Dengan mendaftar kamu menyetujui <a href="">Kebijakan Privasi</a> dan <a href="">Syarat & Ketentuan</a> kami.
+          </div>
+          <div class="line">
+              <hr>
+          </div>
+        </div>
+      <div class="content"*ngIf="user">
+
+        <div class="detail">
+          <div class="ordered-detail"  *ngIf="user">
+            <div class="ordered-detail-title">Detail Pemesan</div>
+            <header>
+              <mat-form-field class="title">
+                <mat-label>Title</mat-label>
+                <input  matInput class="title">
+              </mat-form-field>
+              <mat-form-field class="name">
+                <mat-label>Full Name</mat-label>
+                <input  matInput class="name">
+              </mat-form-field>
+            </header>
+            <section>
+              <mat-form-field class="email">
+                <mat-label>Email</mat-label>
+                <input  matInput class="email">
+              </mat-form-field>
+            </section>
+            <footer>
+              <mat-form-field class="phoneNumber">
+                <mat-label>PhoneNumber</mat-label>
+                <input  matInput class="phoneNumber">
+              </mat-form-field>
+            </footer>
+          </div>
+        </div>
+      </div>
+      <button mat-button (click)="orderNow()">Order Now</button>
+    </mat-card>
+  </div>
+</body>

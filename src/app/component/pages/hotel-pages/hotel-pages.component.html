@@ -55,9 +55,9 @@
     </div>
   </div>
   <div class="content">
-    <div class="filter" *ngIf="!buy">
+    <div class="filter" *ngIf="!buy && !openMap">
       <app-button title="Open Map" width = 21 (click)="setOpenMap()"></app-button>
-      <app-button title="Order" width = 21 *ngIf="openMap"></app-button>
+
       <div class="rangePrice">
         <div class="title">Range Price</div>
         <mat-form-field class="minimumPrice">
@@ -71,21 +71,108 @@
       </div>
 
 
-      <mat-expansion-panel>
+      <mat-expansion-panel >
         <mat-expansion-panel-header>
           <mat-panel-title>
             Sort
           </mat-panel-title>
         </mat-expansion-panel-header>
-
-        <button mat-button (click)="cheapPriceSort()">Harga Terendah</button>
-        <button mat-button (click)="expensivePriceSort()">Harga Tertinggi</button>
-        <button mat-button (click)="starSort()">Bintang Tertinggi</button>
-        <button mat-button (click)="ratingSort()">Rating Tertinggi</button>
+        <div class="buttons" style="display: flex; flex-direction: column;">
+          <button mat-button (click)="cheapPriceSort()">Harga Terendah</button>
+          <button mat-button (click)="expensivePriceSort()">Harga Tertinggi</button>
+        </div>
+        <mat-expansion-panel >
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Read More
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="buttons" style="display: flex; flex-direction: column;">
+            <button mat-button (click)="starSort()">Bintang Tertinggi</button>
+            <button mat-button (click)="ratingSort()">Rating Tertinggi</button>
+            <button mat-button (click)="nameSort()">Nama</button>
+          </div>
+        </mat-expansion-panel>
       </mat-expansion-panel>
 
     </div>
-    <div id="map"></div>
+    <div id="map">
+      <div class="filter">
+        <app-button title="Close Map" width = 21 (click)="setOpenMap()" style="z-index: 1000;"></app-button>
+        <app-button title="Order" width = 21 *ngIf="openMap" style="z-index: 1000;"></app-button>
+        <mat-card class="range-price" style="z-index: 1000; max-width: fit-content;">
+            <div class="title">Range Price</div>
+            <mat-form-field class="minimumPrice">
+              <mat-label>Minimum Price</mat-label>
+              <input [formControl] = "minimumPrice" matInput placeholder="0">
+            </mat-form-field>
+            <mat-form-field class="maximumPrice">
+              <mat-label>Maximum Price</mat-label>
+              <input [formControl] = "maximumPrice" matInput placeholder="0">
+            </mat-form-field>
+        </mat-card>
+        <mat-card class="sort" style="z-index: 1000; max-width: fit-content;">
+          <mat-expansion-panel >
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Sort
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="buttons" style="display: flex; flex-direction: column;">
+              <button mat-button (click)="cheapPriceSort()">Harga Terendah</button>
+              <button mat-button (click)="expensivePriceSort()">Harga Tertinggi</button>
+            </div>
+            <mat-expansion-panel >
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Read More
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="buttons" style="display: flex; flex-direction: column;">
+                <button mat-button (click)="starSort()">Bintang Tertinggi</button>
+                <button mat-button (click)="ratingSort()">Rating Tertinggi</button>
+                <button mat-button (click)="nameSort()">Nama</button>
+              </div>
+            </mat-expansion-panel>
+          </mat-expansion-panel>
+        </mat-card>
+        <div class="hotel-results" style="z-index: 1000; max-width: fit-content; background-color: white; border-radius: 10px;" *ngIf="hotels">
+            <div class="sub-results" *ngFor="let hotel of hotels; let i = index" style="display: flex; flex-direction: column; max-width: fit-content;">
+              <div class="hotel-result" *ngIf="filterValidation(i)" style="display: flex; flex-direction: column;">
+                <section style="display: flex; flex-direction: column;">
+                  <div class="left" style="max-width: fit-content;">
+                    <img src="../../../../assets/airline/hotel.jpg" alt="">
+                    <div class="model">
+                      <div class="model-name">
+                        {{hotel.name}}
+                      </div>
+                      <div class="model-description">
+                        <div class="hotel-facilites" *ngFor="let hotelFacility of hotel.hotelFacility;">
+                          <button mat-button matTooltip = {{hotelFacility.facility.name}}><i class="fa fa-building-o" aria-hidden="true"></i></button>
+                        </div>
+                      </div>
+                      <div class="stars">
+                        <div class="star" *ngFor="let star of count(5); let i = index">
+                          <div class="shining-star" *ngIf="hotel.rating > i">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="right" style="display: flex; flex-direction: column;">
+                    Rating : {{hotel.rating}}
+                    Price : Rp. {{hotel.hotelRoom[0].room.price}}
+                  </div>
+                </section>
+                <footer>
+                  <app-button title="BELI" width="8" (click) = "redirectToDetailPage($event)" id="{{hotel.id}}" style="z-index: 4;"></app-button>
+                </footer>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
 
     <div class="wrapper-hotel" *ngIf="!buy">
       <div class="hotel-results">

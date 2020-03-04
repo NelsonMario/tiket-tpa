@@ -85,21 +85,18 @@ body{
     display: flex;
     justify-content: space-between;
     position: relative;
-    .filter{
-      z-index: 2;
-    }
-    .displayHotel{
-      background-color: white;
-      display: flex;
-      justify-content: flex-end;
-      z-index: 4;
-    }
+
     #map{
       display: none;
       position: absolute;
       width: 100vw;
-      height: 100vh;
-      z-index: 1;
+      height: 200vh;
+      z-index: 5;
+      .filter{
+        display: flex;
+        flex-direction: column;
+        z-index: 1000;
+      }
     }
 
     .wrapper-hotel{

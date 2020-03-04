@@ -108,22 +108,20 @@
         </mat-expansion-panel-header>
 
         <button mat-button (click)="priceSort()">Harga Terendah</button>
-        <button mat-button >Keberangkatan paling Awal</button>
-        <button mat-button>Keberangkatan paling Akhir</button>
-        <button mat-button>Kedatangan paling Awal</button>
-        <button mat-button>Kedatangan paling Akhir</button>
+        <button mat-button (click)="typeSort()">Nama Kereta</button>
+        <button mat-button (click)="classSort()">Kelas</button>
         <button mat-button (click)="durationSort()">Durasi</button>
       </mat-expansion-panel>
     </div>
 
     <div class="wrapper-railroad">
       <div class="departures-results" *ngIf="!buy">
-        <div class="sub-results" *ngFor="let railroad of railroads; let i = index">
+        <div class="sub-results" *ngFor="let railroad of railroads; let i = index" style="max-width: 70%;">
           <div class="railroad-result" *ngIf="filterValidation(i)  && railroad.from.city == from">
-            <header>
+            <header  style="max-width: 70%;">
               <div class="name">{{railroad.train.name}}({{railroad.class}})</div>
             </header>
-            <section>
+            <section  style="max-width: 70%;">
               <div class="left">
                 <img src="../../../../assets/airline/citylink.png" alt="">
                 <div class="departure">
@@ -152,7 +150,7 @@
                 {{railroad.price}}
               </div>
             </section>
-            <footer>
+            <footer  style="max-width: 70%;">
               <div class="railroad-description">
                 <mat-tab-group>
                   <mat-tab label = "Detail Perjalanan">

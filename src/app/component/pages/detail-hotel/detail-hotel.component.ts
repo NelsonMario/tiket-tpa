@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 import { graphqlService } from 'src/app/service/graphql/graphql.service';
 import { HotelService } from 'src/app/service/hotel/hotel.service';
 import * as L from 'leaflet'
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-detail-hotel',
   templateUrl: './detail-hotel.component.html',
@@ -19,6 +19,33 @@ export class DetailHotelComponent implements OnInit {
   hotel: any[] = []
   hotel$: Subscription
 
+  types: any[] = [
+    {name: "Pay at Hotel", active: false},
+    {name: "Pembatalan Gratis", active: false},
+  ]
+
+  categories: any[] = [
+    {name: "Lokasi", active: false},
+    {name: "Kebersihan", active: false},
+    {name: "Kamar", active: false},
+    {name: "Pelayanan", active: false}
+  ]
+
+  lokasi : any = {score: 0, count: 0}
+  kebersihan: any = {score: 0, count: 0}
+  kamar: any = {score: 0, count: 0}
+  pelayanan: any = {score: 0, count: 0}
+
+  reviewRating: any[] = [
+    {number: 1, active: false},
+    {number: 2, active: false},
+    {number: 3, active: false},
+    {number: 4, active: false},
+    {number: 5, active: false}
+  ]
+
+  facilities: any[] = []
+  tempFacility: any[] = []
 
   map : L.Map
   marker : L.Marker[] = []
@@ -31,25 +58,43 @@ export class DetailHotelComponent implements OnInit {
 
   reviewDisplay : any[] = []
   review : any[] = []
+  review$ : Subscription
   pageCount : any[] = []
-  constructor(private graphqlService: graphqlService, private hotelService: HotelService, private route: ActivatedRoute) {
+  constructor(private graphqlService: graphqlService, private hotelService: HotelService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
-
-
-    for(let i = 0 ; i < 30 ; i++)
-    this.review.push({
-      reviewer: "Dummy" + i,
-      comment: "Mantul" + i
-    })
-    this.pushToPagination()
     this.id = this.route.snapshot.paramMap.get('id')
+    this.review$ = this.graphqlService.getReviewByHotelId(this.id).subscribe(async query => {
+      this.review = query.data.review
+      await
+      this.pushToPagination()
+      this.summary()
+      console.log("ASd")
+      console.log(this.kebersihan)
+    })
 
     this.hotel$ = this.graphqlService.hotelById(parseInt(this.id)).subscribe(async query =>{
       this.hotel = query.data.hotel
       await
+      console.log(query.data.hotel)
       console.log(this.hotel[0])
+      for(let i = 0 ; i < this.hotel[0].hotelRoom.length ; i++){
+        let hotelRoom = this.hotel[0].hotelRoom[i]
+        console.log(hotelRoom)
+        for(let j = 0 ; j < hotelRoom.room.roomFacility.length ; j++){
+          this.tempFacility.push(hotelRoom.room.roomFacility[j].facility.name)
+        }
+      }
+      this.tempFacility = this.tempFacility.filter((facilityTempName, i, arr) => arr.findIndex(a=>a==facilityTempName)==i)
+
+      this.tempFacility.forEach(element => {
+        this.facilities.push({
+          name: element,
+          active: false
+        })
+      });
+      console.log(this.facilities)
       this.nearestHotel$ = this.graphqlService.getNearestHotelByLocation(this.hotel[0].location.city).subscribe(async query =>{
         this.nearestHotel = query.data.nearestHotels
         await
@@ -131,5 +176,147 @@ export class DetailHotelComponent implements OnInit {
     for (let i = currPage * 5; i < (currPage+1) * 5 && i < this.review.length; i++) {
       this.reviewDisplay.push(this.review[i])
       }
+    }
+
+    navigateCheckout(room){
+      this.router.navigate(['checkout', this.id, room])
+    }
+
+    filterValidation(index){
+      if(!this.ratingValidation(index))
+        return false
+      else if(!this.categoryValidation(index))
+        return false
+      return true
+    }
+
+
+    roomValidation(index){
+      if(!this.typeValidation(index))
+        return false
+      else if(!this.facilityValidation(index))
+        return false
+      return true
+    }
+
+    categoryValidation(index){
+      var unchecked: Boolean = true;
+
+      for(let i = 0 ; i < this.categories.length ; i++){
+        if(this.categories[i].active){
+          unchecked = false;
+          break;
+        }
+      }
+
+      if(unchecked)return true;
+
+
+      var category = this.reviewDisplay[index].category
+
+      for(let i=0 ; i<this.categories.length ; i++){
+        var element = this.categories[i];
+        if(element.active && category === element.name){
+          return true;
+        }
+      }
+      return false;
+    }
+
+    typeValidation(index){
+      var unchecked: Boolean = true;
+
+      for(let i = 0 ; i < this.types.length ; i++){
+        if(this.types[i].active){
+          unchecked = false;
+          break;
+        }
+      }
+
+      if(unchecked)return true;
+
+
+      var type = this.hotel[0].hotelRoom[index].room.type
+      for(let i=0 ; i<this.types.length ; i++){
+        var element = this.types[i];
+        if(element.active && type === element.name){
+          return true;
+        }
+      }
+      return false;
+    }
+
+    facilityValidation(index){
+      var unchecked: Boolean = true;
+
+      for(let i = 0 ; i < this.facilities.length ; i++){
+        if(this.facilities[i].active){
+          unchecked = false;
+          break;
+        }
+      }
+
+      if(unchecked)return true;
+
+
+      var roomFacility = this.hotel[0].hotelRoom[index].room.roomFacility
+      for(let i=0 ; i<roomFacility.length ; i++){
+        for(let j=0 ; j<this.facilities.length ; j++)
+          var element = this.facilities[j].name
+          if(roomFacility[i].facility.name == element){
+            return true
+          }
+      }
+      return false;
+    }
+
+    ratingValidation(index){
+      var unchecked: Boolean = true;
+
+      for(let i = 0 ; i < this.reviewRating.length ; i++){
+        if(this.reviewRating[i].active){
+          unchecked = false;
+          break;
+        }
+      }
+
+      if(unchecked)return true;
+
+
+      var review = this.reviewDisplay[index].review
+
+      for(let i=0 ; i<this.reviewRating.length ; i++){
+        var element = this.reviewRating[i];
+        if(element.active && review == element.number){
+          return true;
+        }
+      }
+      return false;
+    }
+
+    ratingSort(){
+      this.reviewDisplay.sort(function(a, b){return a.review - b.review})
+    }
+    summary(){
+      this.review.forEach(element => {
+        if(element.category == "Lokasi"){
+          this.lokasi.score += parseInt(element.review)
+          this.lokasi.count++
+        }
+        else if(element.category == "Kebersihan"){
+          this.kebersihan.score += parseInt(element.review)
+          this.kebersihan.count++
+          console.log("ASD")
+        }
+        else if(element.category == "Kamar"){
+          this.kamar.score += parseInt(element.review)
+          this.kamar.count++
+        }
+        else{
+          this.pelayanan.score += parseInt(element.review)
+          this.pelayanan.count++
+        }
+
+      })
     }
 }

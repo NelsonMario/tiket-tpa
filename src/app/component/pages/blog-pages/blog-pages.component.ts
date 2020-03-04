@@ -53,7 +53,7 @@ export class BlogPagesComponent implements OnInit {
         }
       );
 
-      this.pollingData = Observable.interval(5000).switchMap(() => this.http.get('http://localhost:8080/?query=%7B%0Ablogs%7B%0A%20%20value%0A%7D%7D')).map((data) => JSON.stringify(data['data']['blogs']))
+      this.pollingData = Observable.interval(5000).switchMap(() => this.http.get('http://localhost:8080/api/success?query=%7B%0Ablogs%7B%0A%20%20value%0A%7D%7D')).map((data) => JSON.stringify(data['data']['blogs']))
         .subscribe((data) => {
           let blogsData = JSON.parse(data)
           this.dataCount = blogsData['length']

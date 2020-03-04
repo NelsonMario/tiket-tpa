@@ -1,46 +1,49 @@
+.carousel{
+  position: absolute;
+  z-index: 1;
+  top: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .carousel-container{
+    display: flex;
+    width: 100vw;
+    height: 40vh;
+    overflow: hidden;
+
+    .image{
+
+      animation: 25s carousel infinite;
+
+      img{
+        width: 100vw;
+        height: 40vh;
+      }
+
+      @keyframes carousel {
+        0%{
+          transform: translateX(0);
+        }
+        25%{
+          transform: translateX(-100%);
+        }
+        45%{
+          transform: translateX(-200%);
+        }
+        100%{
+          transform: translateX(-300%);
+        }
+      }
+    }
+  }
+}
+
 body{
   color: grey;
   position: relative;
   font-family: 'OpenSans',Arial,Helvetica,sans-serif;
   background-color: white;
-  .carousel{
-    position: absolute;
-    z-index: 1;
-    top: 20vh;
-    display: flex;
-    align-items: center;
-    .carousel-container{
-      display: flex;
-      width: 100vw;
-      height: 40vh;
-      overflow: hidden;
 
-      .image{
-
-        animation: 25s carousel infinite;
-
-        img{
-          width: 100vw;
-          height: 40vh;
-        }
-
-        @keyframes carousel {
-          0%{
-            transform: translateX(0);
-          }
-          25%{
-            transform: translateX(-100%);
-          }
-          45%{
-            transform: translateX(-200%);
-          }
-          100%{
-            transform: translateX(-300%);
-          }
-        }
-      }
-    }
-  }
 
   .thumbnail{
     display: flex;
@@ -62,7 +65,7 @@ body{
     justify-content: center;
     flex-direction: column;
     min-width: 30%;
-    max-width: 70%;
+    max-width: 50%;
     padding: 10px;
     background-color: white;
     border-radius: 10px;
@@ -72,23 +75,22 @@ body{
       flex-direction: column;
       justify-content: center;
       align-items: center;
+
       section{
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         .left{
+          display: flex;
+          justify-content: center;
           .model{
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             .model-map{
-              #map{
-                width: 50vw;
-                height: 50vh;
-                z-index: 2;
-              }
+
             }
           }
         }
@@ -98,4 +100,9 @@ body{
       }
     }
   }
+}
+#map{
+  width: 50vw;
+  height: 50vh;
+  z-index: 2;
 }

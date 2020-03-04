@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { GetHttpService } from 'src/app/service/get-http/get-http.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CountryByCallingPhone } from 'src/app/models/country-by-calling-phone';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { User } from 'src/app/models/user';
 import { graphqlService } from 'src/app/service/graphql/graphql.service';
 import { MatDialogRef } from '@angular/material/dialog';
 import { RailroadService } from 'src/app/service/railroad/railroad.service';
 import { CarService } from 'src/app/service/car/car.service';
 import { CheckoutCarService } from 'src/app/service/checkout-car/checkout-car.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { HotelService } from 'src/app/service/hotel/hotel.service';
+import { async } from '@angular/core/testing';
 
 @Component({
   selector: 'app-checkout-page',
@@ -35,21 +37,40 @@ export class CheckoutPageComponent implements OnInit {
   countryCode : string = ""
   isLogin : boolean = false;
   countryCode$: Observable<CountryByCallingPhone[]>;
-  car : any
+  hotel$ : Subscription
+  hotel: any[] = []
 
-  minute = 0
-  second = 60
+  minute = 60
+  second = 0
   interval : NodeJS.Timer
 
   from: string
   to: string
 
   loaded = false
-  constructor(private getHttpService : GetHttpService, private graphql: graphqlService, private checkout: CheckoutCarService, private router: Router, private carService : CarService) {
-    this.car = checkout.getCar();
-    console.log(checkout.getCar())
-    this.from = carService.fromDate
-    this.to = carService.toDate
+  isLinear = false;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  id : any
+  room : any
+  banks: any
+  bank$: any
+  hs : any
+
+  bankChoice: any
+  constructor(private getHttpService : GetHttpService, private graphql: graphqlService, public hotelService: HotelService, private router: Router, private _formBuilder: FormBuilder, private route: ActivatedRoute) {
+    this.bank$ = graphql.getBanks().subscribe(async query => {
+      this.banks = query.data.banks
+      await
+      console.log(this.banks)
+    })
+    this.id = route.snapshot.paramMap.get('id')
+    this.room = route.snapshot.paramMap.get('room')
+    this.hotel$ = graphql.hotelById(this.id).subscribe(async query => {
+      this.hotel = query.data.hotel
+      await
+      console.log(this.hotel)
+    })
   }
 
   ngOnInit(): void {
@@ -60,6 +81,7 @@ export class CheckoutPageComponent implements OnInit {
     this.interval = setInterval(() => {
       if(this.minute == 0 && this.second == 0){
         clearInterval(this.interval)
+        alert("Time Out!!")
         this.router.navigate([''])
       }
       if(this.second == 0){
@@ -77,6 +99,13 @@ export class CheckoutPageComponent implements OnInit {
       this.email.setValue(user[0].email)
       this.email.setValue(user[0].phoneNumber)
     }
+
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
   }
 
   navigate(){
@@ -86,8 +115,13 @@ export class CheckoutPageComponent implements OnInit {
   continue(){
     this.loaded = true
     document.getElementById("overlay").style.display = "flex"
-    setInterval(window.location.href = "http://localhost:4200/checkout/pay", 30000);
+    setInterval(function(){}, 3000);
   }
+
+  continueToBank(bank){
+    this.bankChoice = bank
+  }
+
   selected(event){
     this.countryCode = event.value;
   }
@@ -116,6 +150,8 @@ export class CheckoutPageComponent implements OnInit {
     })
 
   }
+
+
 
   pushFlag(){
     this.regions = [{code: "XD",name:"Adele Island"},

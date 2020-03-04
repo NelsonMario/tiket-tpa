@@ -8,7 +8,7 @@ export class User {
 	cityName:string;
 	address:string;
   postCode:string;
-
+  language:string
   setfirstName(firstName){
     this.firstName = firstName
   }

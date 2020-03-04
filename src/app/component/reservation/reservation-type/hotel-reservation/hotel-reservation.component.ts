@@ -22,6 +22,8 @@ export class HotelReservationComponent implements OnInit {
   toSchedule : string = ""
   hotel$: Subscription
   hotels: any[] = []
+  night = new FormControl()
+  person = new FormControl()
   constructor(private graphql: graphqlService, private locationService : LocationService, private hotelService: HotelService, private router: Router) { }
 
   ngOnInit() {
@@ -42,6 +44,8 @@ export class HotelReservationComponent implements OnInit {
       this.hotelService.location = this.location.value.city
       this.hotelService.fromDate = this.formattedStart.value
       this.hotelService.toDate = this.formattedEnd.value
+      this.hotelService.night = this.night.value
+      this.hotelService.person = this.person.value
       this.router.navigate(['search-hotel'])
     })
 

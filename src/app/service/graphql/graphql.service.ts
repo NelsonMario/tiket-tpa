@@ -55,6 +55,7 @@ export class graphqlService {
             cityName
             address
             postcode
+            language
         }
       }
         `,
@@ -231,11 +232,11 @@ export class graphqlService {
     })
   }
 
-  updateUser(id, firstName, lastName, phoneNumber, email, cityName, address, postCode){
+  updateUser(id, firstName, lastName, phoneNumber, email, cityName, address, postCode, language){
     return this.apollo.mutate<any>({
       mutation: gql`
-      mutation updateUser($id: Int!, $firstName: String!, $lastName: String!, $phoneNumber: String!,$email: String!, $cityName: String!, $address: String!, $postCode: String!){
-        updateUser(id: $id, first_name: $firstName, last_name: $lastName, phone_number: $phoneNumber,email: $email, city_name: $cityName, address: $address, post_code: $postCode){
+      mutation updateUser($id: Int!, $firstName: String!, $lastName: String!, $phoneNumber: String!,$email: String!, $cityName: String!, $address: String!, $postCode: String!, $language: String!){
+        updateUser(id: $id, first_name: $firstName, last_name: $lastName, phone_number: $phoneNumber,email: $email, city_name: $cityName, address: $address, post_code: $postCode, language: $language){
           id
           firstName
           lastName
@@ -255,7 +256,8 @@ export class graphqlService {
         "id": id,
         "lastName": lastName,
         "postCode": postCode,
-        "phoneNumber": phoneNumber
+        "phoneNumber": phoneNumber,
+        "language": language
       }
     })
   }
@@ -313,6 +315,7 @@ export class graphqlService {
               checkOut
               maxGuest
               bed
+              type
               roomFacility{
                 id
                 facilityType
@@ -347,6 +350,20 @@ export class graphqlService {
         query {
           distinctAirports{
             city
+          }
+        }
+      `
+    })
+  }
+
+  getBanks(){
+    return this.apollo.query<any>({
+      query:gql`
+        query {
+          banks{
+            id
+            name
+            desc
           }
         }
       `
@@ -1076,6 +1093,8 @@ export class graphqlService {
           eventLng
           eventLat
           category
+          startDate
+          endDate
           }
         }
       `,
@@ -1103,6 +1122,8 @@ export class graphqlService {
           eventLng
           eventLat
           category
+          startDate
+          endDate
           }
         }
       `,
@@ -1132,6 +1153,8 @@ export class graphqlService {
           eventLng
           eventLat
           category
+          startDate
+          endDate
           }
         }
       `,
@@ -1167,6 +1190,38 @@ export class graphqlService {
       `,
       variables:{
         "category" : category
+      },
+      fetchPolicy: 'no-cache'
+    })
+  }
+
+  getEventById(id){
+    return this.apollo.query<any>({
+      query: gql`
+      query eventById($id: Int!){
+        eventById(id : $id){
+          id
+          name
+          location{
+            id
+            city
+            country
+          }
+          eventDetail{
+            id
+            price
+            name
+          }
+          eventLng
+          eventLat
+          category
+          startDate
+          endDate
+          }
+        }
+      `,
+      variables:{
+        "id" : id
       },
       fetchPolicy: 'no-cache'
     })
@@ -1282,6 +1337,27 @@ export class graphqlService {
             promoCode
             disc
           }
+        }
+      }
+      `,variables:{
+        "id": id
+      },
+      fetchPolicy: 'no-cache'
+    })
+  }
+  getReviewByHotelId(id){
+    return this.apollo.query<any>({
+      query: gql`
+      query promoById($id: Int!){
+        review(id: $id){
+          id
+          caption
+          description
+          hotelRefer
+          user
+          review
+          createdAt
+          category
         }
       }
       `,variables:{

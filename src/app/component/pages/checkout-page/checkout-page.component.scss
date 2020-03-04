@@ -2,8 +2,7 @@ a{
   text-decoration: none;
   color: #155ab4;
 }
-body{
-
+.first-form{
   .login{
       font-family: 'OpenSans',Arial,Helvetica,sans-serif;
       width: 21vw;
@@ -12,7 +11,6 @@ body{
       align-items: center;
       flex-direction: column;
       border-radius: 10px;
-      box-shadow: 0px 0px 20px darkgray;
       background-color: white;
       #title{
           font-size: 20px;
@@ -130,13 +128,20 @@ body{
   .content{
     display: flex;
     .result{
-      .car{
+      .hotel{
         background-color: white;
         min-width: 30%;
         padding: 10px;
         margin: 10px;
         border-radius: 10px;
       }
+    }
+    .price{
+      background-color: white;
+      min-width: 30%;
+      padding: 10px;
+      margin: 10px;
+      border-radius: 10px;
     }
     .detail{
       .passenger-detail{
@@ -169,4 +174,16 @@ body{
   justify-content: center;
   align-items: center;
   background-color: rgba($color: #00000009, $alpha: 1.0);
+}
+
+
+@media only screen and (max-width: 500px) {
+  .room-results{
+    .sub-results{
+      .room-result{
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
 }

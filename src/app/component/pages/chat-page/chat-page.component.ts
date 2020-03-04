@@ -34,11 +34,11 @@ export class ChatPageComponent implements OnInit {
     this.chatService.emit("chat", JSON.stringify({ message: this.chatForm.value,
                                                     starred: false,
                                                     archived: false,
-                                                    type: "message"}));
+                                                    type: "message",
+                                                    time: Date.now}));
   }
   sendImage():void{
     const fileName = this.fileForm.value.split('\\')
-
     this.chatService.emit("chat", JSON.stringify({ message: "..\\..\\assets\\airline\\"+fileName[fileName.length - 1],
                                                     starred: false,
                                                     archived: false,

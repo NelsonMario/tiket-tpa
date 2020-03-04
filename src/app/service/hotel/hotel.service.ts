@@ -11,6 +11,8 @@ export class HotelService {
   toDate : string
   location: string
   hotel: any
+  night: any
+  person: any
 
   constructor() { }
 

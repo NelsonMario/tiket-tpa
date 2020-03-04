@@ -26,7 +26,9 @@ import { EventEditorComponent } from './component/event-editor/event-editor.comp
 import { PromoComponent } from './component/pages/promo/promo.component';
 import { PromoDetailComponent } from './component/pages/promo-detail/promo-detail.component';
 import { PayComponent } from './component/pages/pay/pay.component';
-import { EventDetailPageComponent } from './pages/event-detail-page/event-detail-page.component';
+import { EventDetailPagesComponent } from './component/pages/event-detail-pages/event-detail-pages.component';
+import { CalendarComponent } from './component/calendar/calendar.component';
+import { EventOrderComponent } from './component/pages/event-order/event-order.component';
 
 
 const routes: Routes = [
@@ -134,7 +136,7 @@ const routes: Routes = [
       outlet: "customer-page"},
     ]
   },
-  {path: 'checkout',
+  {path: 'checkout/:id/:room',
     component: CustomerComponent,
     children: [
       {path: '',
@@ -163,7 +165,16 @@ const routes: Routes = [
     component: CustomerComponent,
     children: [
       {path: '',
-      component: EventDetailPageComponent,
+      component: EventDetailPagesComponent,
+      outlet: "customer-page"},
+    ]
+  },
+  {
+    path: 'event-order/:id',
+    component: CustomerComponent,
+    children: [
+      {path: '',
+      component: EventOrderComponent,
       outlet: "customer-page"},
     ]
   },
@@ -255,6 +266,17 @@ const routes: Routes = [
       },
     ]
   },
+  {
+    path: 'calendar',
+    component: CustomerComponent,
+    children: [
+      {
+        path: '',
+        component: CalendarComponent,
+        outlet: "customer-page"
+      },
+    ]
+  }
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

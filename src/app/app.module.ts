@@ -75,7 +75,13 @@ import { EventEditorComponent } from './component/event-editor/event-editor.comp
 import { PromoComponent } from './component/pages/promo/promo.component';
 import { PromoDetailComponent } from './component/pages/promo-detail/promo-detail.component';
 import { PayComponent } from './component/pages/pay/pay.component';
-import { EventDetailPageComponent } from './pages/event-detail-page/event-detail-page.component';
+import { EventDetailPagesComponent } from './component/pages/event-detail-pages/event-detail-pages.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CalendarComponent } from './component/calendar/calendar.component';
+import { DatePipe } from '@angular/common';
+import { MatStepperModule } from '@angular/material/stepper';
+import { EventOrderComponent } from './component/pages/event-order/event-order.component';
 
 let gapiClientConfig: NgGapiClientConfig = {
   client_id: "602076487631-28k1qh3apnsm4510llsq5reejkq4qtlt.apps.googleusercontent.com",
@@ -132,8 +138,9 @@ let gapiClientConfig: NgGapiClientConfig = {
     PromoComponent,
     PromoDetailComponent,
     PayComponent,
-    EventDetailPageComponent
-
+    EventDetailPagesComponent,
+    CalendarComponent,
+    EventOrderComponent
   ],
   entryComponents: [
     LoginComponent,
@@ -161,6 +168,9 @@ let gapiClientConfig: NgGapiClientConfig = {
     MatExpansionModule,
     MatSnackBarModule,
     MaterialModule,
+    MatStepperModule,
+    GoogleApiModule,
+
 
     RouterModule.forRoot([{
       path: 'redirect',
@@ -171,12 +181,18 @@ let gapiClientConfig: NgGapiClientConfig = {
       provide: NG_GAPI_CONFIG,
       useValue: gapiClientConfig
     }),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    }),
     GraphQLModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
+    { provide: DatePipe},
   ],
   bootstrap: [AppComponent],
 })

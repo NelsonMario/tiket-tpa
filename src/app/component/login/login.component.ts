@@ -1,16 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { GoogleAuthService } from 'ng-gapi';
 import { GoogleLoginService } from '../../service/google/google-login.service';
-import { SheetResourceService } from '../../service/google/sheet-resource.service';
 import { GoogleApiService } from 'ng-gapi';
 import {ActivatedRoute} from '@angular/router';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { AuthService } from 'src/app/service/auth/auth.service';
 import { graphqlService } from '../../service/graphql/graphql.service'
-import { async } from '@angular/core/testing';
-import { query } from '@angular/animations';
 import { User } from 'src/app/models/user';
-import { tokenName } from '@angular/compiler';
 import { FormControl } from '@angular/forms';
 
 declare const FB: any;
@@ -30,14 +24,12 @@ export class LoginComponent implements OnInit {
   public shown = "password"
 
   constructor(
-    private userService: GoogleLoginService,
+    // private userService: GoogleLoginService,
     private route: ActivatedRoute,
-    private authService: GoogleAuthService,
-    private gapiService: GoogleApiService,
+    // private gapiService: GoogleApiService,
     private dialogReference: MatDialogRef<any>,
-    private myAuthService: AuthService,
     private graphql: graphqlService) {
-    this.gapiService.onLoad().subscribe();
+    // this.gapiService.onLoad().subscribe();
 
     };
 
@@ -65,14 +57,14 @@ export class LoginComponent implements OnInit {
       }(document, 'script', 'facebook-jssdk'));
     }
 
-    public isLoggedIn(): boolean {
-      return this.userService.isUserSignedIn();
-    }
+    // public isLoggedIn(): boolean {
+    //   return this.userService.isUserSignedIn();
+    // }
 
 
-    public signInGoogle() {
-      this.userService.signIn();
-    }
+    // public signInGoogle() {
+    //   this.userService.signIn();
+    // }
 
     public signInFacebook(){
       console.log("submit login to facebook");
