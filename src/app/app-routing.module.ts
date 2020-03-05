@@ -30,6 +30,7 @@ import { EventDetailPagesComponent } from './component/pages/event-detail-pages/
 import { CalendarComponent } from './component/calendar/calendar.component';
 import { EventOrderComponent } from './component/pages/event-order/event-order.component';
 import { SubscribeComponent } from './component/pages/subscribe/subscribe.component';
+import { OrderPageComponent } from './component/pages/order-page/order-page.component';
 
 
 const routes: Routes = [
@@ -285,6 +286,17 @@ const routes: Routes = [
       {
         path: '',
         component: CalendarComponent,
+        outlet: "customer-page"
+      },
+    ]
+  },
+  {
+    path: 'order',
+    component: CustomerComponent,
+    children: [
+      {
+        path: '',
+        component: OrderPageComponent,
         outlet: "customer-page"
       },
     ]

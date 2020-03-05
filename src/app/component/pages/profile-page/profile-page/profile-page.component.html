@@ -24,22 +24,27 @@
       <mat-form-field class="email">
         <mat-label>Email</mat-label>
         <input [formControl] = "email" matInput class="email">
+        <mat-error *ngIf="email.hasError('email') && !email.hasError('required')"></mat-error>
       </mat-form-field>
       <mat-form-field class="phoneNumber">
         <mat-label>PhoneNumber</mat-label>
-        <input [formControl] = "phoneNumber" matInput class="phoneNumber">
+        <input [formControl] = "phoneNumber" matInput class="phoneNumber" >
+        <mat-error *ngIf="!phoneNumber.hasError('required')"></mat-error>
       </mat-form-field>
       <mat-form-field class="city-name">
         <mat-label>City</mat-label>
         <input [formControl] = "city" matInput class="city-name">
+        <mat-error *ngIf="!city.hasError('required')"></mat-error>
       </mat-form-field>
       <mat-form-field class="address">
         <mat-label>Address</mat-label>
         <input [formControl] = "address" matInput class="address">
+        <mat-error *ngIf="!address.hasError('required')"></mat-error>
       </mat-form-field>
       <mat-form-field class="postcode">
         <mat-label>postcode</mat-label>
         <input [formControl] = "postcode" matInput class="postcode">
+        <mat-error *ngIf="!postcode.hasError('required')"></mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-select [(value)]="languageSelected">

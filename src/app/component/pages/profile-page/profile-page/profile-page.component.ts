@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 import { CountryByCallingPhone } from 'src/app/models/country-by-calling-phone';
 import { Observable, Subscription } from 'rxjs';
 import { GetHttpService } from 'src/app/service/get-http/get-http.service';
@@ -16,11 +16,14 @@ export class ProfilePageComponent implements OnInit {
 
   firstName = new FormControl()
   lastName = new FormControl()
-  email = new FormControl()
-  phoneNumber = new FormControl()
-  city = new FormControl()
-  address = new FormControl()
-  postcode = new FormControl()
+  email = new FormControl('', [
+    Validators.required,
+    Validators.email,
+  ])
+  phoneNumber = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(10)])
+  city = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(10)])
+  address = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(10)])
+  postcode = new FormControl('', [Validators.required, Validators.minLength(5), Validators.maxLength(10)])
   validNumber: any
   language: any [] = [
     "ID", "EN", "CN"

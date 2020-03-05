@@ -1,0 +1,52 @@
+<mat-tab-group>
+  <mat-tab label="First">
+    <div class="hotel-order">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Filter
+          </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="sub-filter" *ngFor="let item of filter; let i = index">
+            {{item.name}}
+            <mat-checkbox [checked] = "item.active" [(ngModel)]="item.active" name= "{{i}}-name"></mat-checkbox>
+          </div>
+          <button (click)="reset()" matButton>Reset Filter</button>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Sort
+            </mat-panel-title>
+            </mat-expansion-panel-header>
+            <button mat-button (click)="monthSort()">Sort month</button>
+          </mat-expansion-panel>
+      <mat-card class="order" *ngFor="let item of hotelOrders; let i = index">
+        <div class="sub-order" *ngIf="filterValidation(i)">
+          <h3>{{hotels[item.id].name}}</h3>
+          <h4>{{item.checkIn}} ~ {{item.checkOut}}</h4>
+          <h4>{{item.totalGuest}}</h4>
+          <h4>{{item.confirmationCode}}</h4>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Detail
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <h4>Service Fee : {{item.serviceFee}}</h4>
+            <h4>Cleaning Fee :  {{item.cleaningFee}}</h4>
+            <h4>Total Night Fee : {{item.totalNightFee * (item.serviceFee + item.cleaningFee)}}</h4>
+          </mat-expansion-panel>
+        </div>
+      </mat-card>
+    </div>
+  </mat-tab>
+  <mat-tab label="Flight">
+  </mat-tab>
+  <mat-tab label="Car">
+  </mat-tab>
+  <mat-tab label="Train">
+  </mat-tab>
+  <mat-tab label="Event">
+  </mat-tab>
+</mat-tab-group>

@@ -1380,4 +1380,27 @@ export class graphqlService {
     })
   }
 
+  getHotelOrder(id){
+    return this.apollo.query<any>({
+      query: gql`
+      query eventById($id: Int!){
+        order(id : $id){
+          id
+          userRefer
+          checkIn
+          checkOut
+          totalGuest
+          cleaningFee
+          serviceFee
+          totalNightFee
+          confirmationCode
+        }
+        }
+      `,
+      variables:{
+        "id" : id
+      },
+      fetchPolicy: 'no-cache'
+    })
+  }
 }

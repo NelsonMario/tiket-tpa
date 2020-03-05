@@ -106,7 +106,8 @@ export class AdminFlightComponent implements OnInit {
 
   insertData(){
     this.graphql.insertFlight(this.airline.value.id, this.from.value.id, this.to.value.id, this.formattedArrival.value+"T"+this.inputArrival.value+"Z", this.formattedDeparture.value+"T"+this.inputDeparture.value+"Z", parseInt(this.duration.value), parseInt(this.price.value), parseInt(this.tax.value), parseInt(this.serviceCharge.value)).subscribe(async query => {
-      console.log(query.data.flights)
+      console.log(query.data.insertFlight)
+      console.log(query.data)
     })
   }
 
