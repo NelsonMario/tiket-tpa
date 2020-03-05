@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { Slider } from 'src/app/models/slider';
 import { Subscription } from 'rxjs';
 import { graphqlService } from 'src/app/service/graphql/graphql.service';
 import { HotelService } from 'src/app/service/hotel/hotel.service';
 import * as L from 'leaflet'
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-detail-hotel',
   templateUrl: './detail-hotel.component.html',
@@ -18,6 +19,12 @@ export class DetailHotelComponent implements OnInit {
   index = 0;
   hotel: any[] = []
   hotel$: Subscription
+  formattedEnd = new FormControl
+  formattedStart = new FormControl
+  isHidden: boolean = true
+  toDate: string
+  fromDate:string
+  @Output('')outputHidden = new EventEmitter
 
   types: any[] = [
     {name: "Pay at Hotel", active: false},
@@ -108,6 +115,13 @@ export class DetailHotelComponent implements OnInit {
 
   }
 
+  toggleOverlay(event){
+    if(event.target.id === "" && this.isHidden === false)
+      this.isHidden = !this.isHidden;
+    this.isHidden = !this.isHidden;
+    this.outputHidden.emit(this.outputHidden)
+    console.log(this.isHidden)
+  }
 
   ngOnDestroy(): void {
     this.image$.unsubscribe();

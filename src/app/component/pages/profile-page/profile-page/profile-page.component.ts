@@ -74,12 +74,12 @@ export class ProfilePageComponent implements OnInit {
 
   updateProfile(){
     var user : User = new User()
-    console.log(this.phoneNumber.value)
-    this.getHttpService.getValidNumber("http://apilayer.net/api/validate?access_key=456fb23c31b6966dfda380f8f928e5fd&number="+this.phoneNumber.value+"&country_code=&format=1").map((data) => JSON.stringify(data)).subscribe((data) => {
+    this.validNumber =  this.getHttpService.getValidNumber("http://apilayer.net/api/validate?access_key=456fb23c31b6966dfda380f8f928e5fd&number="+this.phoneNumber.value+"&country_code=&format=1").map((data) => JSON.stringify(data)).subscribe((data) => {
       this.validNumber = JSON.parse(data).valid
+      console.log(this.validNumber)
       return this.validNumber
     })
-
+    console.log(this.validNumber)
     if(!this.checkLength(this.firstName.value, 5, 10))alert("First Name must be 5 - 10 Chara")
     if(!this.checkLength(this.lastName.value, 5, 10))alert("Last Name must be 5 - 10 Chara")
     if(!this.validNumber)alert("Phone Format Wrong")

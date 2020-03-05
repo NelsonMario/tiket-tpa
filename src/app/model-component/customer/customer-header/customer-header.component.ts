@@ -17,8 +17,30 @@ export class CustomerHeaderComponent implements OnInit {
 
   user: User = JSON.parse(localStorage.getItem('currentUser'))
   constructor(public dialog:MatDialog, public graphqlService: graphqlService, public flightService: FlightService, public router: Router) { }
-
+  header: any[] = []
   ngOnInit() {
+    if(!this.user){
+      this.header.push("Pesawat")
+      this.header.push("Hotel")
+      this.header.push("Kereta Api")
+      this.header.push("Sewa Mobil")
+      this.header.push("Hiburan")
+    }else{
+      if(this.user[0].language == 'ID'){
+        this.header.push("Pesawat")
+        this.header.push("Hotel")
+        this.header.push("Kereta Api")
+        this.header.push("Sewa Mobil")
+        this.header.push("Hiburan")
+      }else{
+        this.header.push("Flight")
+        this.header.push("Hotel")
+        this.header.push("Train")
+        this.header.push("Rent Car")
+        this.header.push("Event")
+      }
+    }
+    console.log(JSON.parse(localStorage.getItem('currentUser')))
   }
 
   openRegisterDialog(){
