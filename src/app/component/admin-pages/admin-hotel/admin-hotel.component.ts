@@ -115,9 +115,16 @@ export class AdminHotelComponent implements OnInit {
 
   insertData(){
     this.graphql.insertHotel(this.hotelName.value, parseInt(this.rating.value), this.type.value, parseInt(this.location.value.id), parseFloat(this.hotelLat.value), parseFloat(this.hotelLng.value)).subscribe(async query => {
-      console.log(query.data.hotel)
+      console.log(query.data)
       await
-      window.location.reload()
+      console.log(query.data)
+      if(query.data.name == null || query.data.rating == null)
+        alert("Failed")
+      else{
+        alert("Success")
+        await
+        window.location.reload()
+      }
     })
   }
 

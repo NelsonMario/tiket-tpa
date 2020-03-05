@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { graphqlService } from 'src/app/service/graphql/graphql.service';
 import { Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
+import { QueryValueType } from '@angular/compiler/src/core';
 
 @Component({
   selector: 'app-text-editor',
@@ -45,7 +46,11 @@ export class TextEditorComponent implements OnInit {
     var user = JSON.parse(localStorage.getItem('currentUser'))
     let value = document.getElementById("output").innerHTML
     this.blog$ = this.graphql.insertBlog(parseInt(user[0].id), this.title.value, value, "", this.thumbnail.value, 0).subscribe(async query => {
-      alert('Success Publish Blog')
+      console.log(query.data)
+      if(query.data.title == null){
+        alert("Failed")
+      }else
+        alert('Success Publish Blog')
     })
   }
 

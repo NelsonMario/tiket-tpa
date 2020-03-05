@@ -97,7 +97,10 @@ export class EventEditorComponent implements OnInit {
     let value = document.getElementById("output").innerHTML
 
     this.event$ = this.graphql.insertEvent(this.name.value, this.location.value.id, this.formattedStartDate.value+"T"+this.inputStartDate.value+"Z", this.formattedEndDate.value+"T"+this.inputEndDate.value+"Z", this.location.value.lat, this.location.value.lng, this.inputCategory.value, value).subscribe(async query => {
-      alert('Success Publish Event')
+      if(query.data.name == null){
+        alert("Failed")
+      }else
+        alert('Success Publish Event')
     })
     if(this.inputEvent.value != null){
       this.graphql.insertEventDetail(this.inputEvent.value.id, this.inputEventDetailName, this.inputPrice.value).subscribe(async query => {
