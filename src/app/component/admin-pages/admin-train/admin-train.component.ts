@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Railroad } from 'src/app/models/railroad';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { Station } from 'src/app/models/station';
 import { Train } from 'src/app/models/train';
 import { graphqlService } from 'src/app/service/graphql/graphql.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin-train',
@@ -58,7 +59,11 @@ export class AdminTrainComponent implements OnInit {
 
   realRailroad : any[] = []
   pageCount : any[] = []
-  constructor(private graphql: graphqlService, private _snackBar: MatSnackBar, private route: Router) {
+
+  pollingData: any
+  tempCount = 0
+  dataCount = 0
+  constructor(private graphql: graphqlService, private _snackBar: MatSnackBar, private route: Router, private http: HttpClient) {
 
     if(localStorage.getItem("currentUser") == null)
       route.navigate([''])
@@ -73,6 +78,18 @@ export class AdminTrainComponent implements OnInit {
       console.log(this.realRailroad)
       this.pushToPagination()
       this.loaded = !this.loaded
+      this.tempCount = this.realRailroad.length
+      this.pollingData = Observable.interval(5000).switchMap(() => this.http.get('http://localhost:8080/api/success?query=%7B%0A%09railroads%7B%0A%20%20%20%20id%0A%20%20%7D%0A%7D')).map((data) => JSON.stringify(data['data']['railroads']))
+      .subscribe((data) => {
+        let railroadData = JSON.parse(data)
+        this.dataCount = railroadData['length']
+        console.log(this.dataCount + " " + this.tempCount)
+        if(this.tempCount != this.dataCount){
+          alert("New Railroad Has Publish")
+          this.tempCount = this.dataCount
+          return this.tempCount
+        }
+      });
     })
     this.station$ = graphql.getAllRealStation().subscribe(async query =>{
       this.stations = query.data.stations
@@ -84,6 +101,8 @@ export class AdminTrainComponent implements OnInit {
       await
       console.log(this.trains)
     })
+
+
   }
 
   ngOnInit(): void {
@@ -92,8 +111,7 @@ export class AdminTrainComponent implements OnInit {
   insertData(){
     this.graphql.insertRailroad(this.train.value.id, this.from.value.id, this.to.value.id, this.formattedArrival.value+"T"+this.inputArrival.value+"Z", this.formattedDeparture.value+"T"+this.inputDeparture.value+"Z", parseInt(this.duration.value), parseInt(this.price.value), parseInt(this.tax.value), parseInt(this.serviceCharge.value)).subscribe(async query => {
       console.log(query.data.flights)
-      await
-      window.location.reload()
+      alert("Insert Success")
     })
   }
 

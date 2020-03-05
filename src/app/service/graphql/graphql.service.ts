@@ -1367,4 +1367,17 @@ export class graphqlService {
     })
   }
 
+  insertContent(content){
+    return this.apollo.query<any>({
+      query: gql`
+      query insertContent($content: String!){
+        notifyEmail(content: $content)
+      }
+      `,variables:{
+        "content": content
+      },
+      fetchPolicy: 'no-cache'
+    })
+  }
+
 }

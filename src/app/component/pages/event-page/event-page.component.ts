@@ -16,10 +16,12 @@ export class EventPageComponent implements OnInit {
   attraction$: Subscription
   event$: Subscription
   activities$: Subscription
+  bestOffer$: Subscription
   attractions: any[] = []
   events: [] = []
   activities: [] = []
-
+  bestOffer: any[] = []
+  displayBestOffer: any[] = []
   constructor(private graphql: graphqlService, private locationService: LocationService) { }
 
   ngOnInit(): void {
@@ -32,8 +34,23 @@ export class EventPageComponent implements OnInit {
     this.activities$ = this.graphql.getEventByCategory("Activities").subscribe(async query => {
       this.activities = query.data.eventsByCategory
     })
+
+    this.bestOffer$ = this.graphql.getAllEvent().subscribe(async query=>{
+      this.bestOffer = query.data.events
+      await
+      this.shuffle(this.bestOffer)
+      for(let i=0 ; i<3 ; i++)
+        this.displayBestOffer.push(this.bestOffer[i])
+    })
   }
 
+  shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
 
   toggleOverlay(event){
     if(event.target.id === "" && this.isHidden === false)

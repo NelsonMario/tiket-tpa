@@ -82,6 +82,7 @@ import { CalendarComponent } from './component/calendar/calendar.component';
 import { DatePipe } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
 import { EventOrderComponent } from './component/pages/event-order/event-order.component';
+import { SubscribeComponent } from './component/pages/subscribe/subscribe.component';
 
 let gapiClientConfig: NgGapiClientConfig = {
   client_id: "602076487631-28k1qh3apnsm4510llsq5reejkq4qtlt.apps.googleusercontent.com",
@@ -140,7 +141,8 @@ let gapiClientConfig: NgGapiClientConfig = {
     PayComponent,
     EventDetailPagesComponent,
     CalendarComponent,
-    EventOrderComponent
+    EventOrderComponent,
+    SubscribeComponent
   ],
   entryComponents: [
     LoginComponent,

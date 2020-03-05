@@ -29,6 +29,7 @@ import { PayComponent } from './component/pages/pay/pay.component';
 import { EventDetailPagesComponent } from './component/pages/event-detail-pages/event-detail-pages.component';
 import { CalendarComponent } from './component/calendar/calendar.component';
 import { EventOrderComponent } from './component/pages/event-order/event-order.component';
+import { SubscribeComponent } from './component/pages/subscribe/subscribe.component';
 
 
 const routes: Routes = [
@@ -263,6 +264,17 @@ const routes: Routes = [
         path: '',
         component: PayComponent,
         outlet: "customer-page"
+      },
+    ]
+  },
+  {
+    path: 'email',
+    component: AdminComponent,
+    children: [
+      {
+        path: '',
+        component: SubscribeComponent,
+        outlet: "admin-page"
       },
     ]
   },

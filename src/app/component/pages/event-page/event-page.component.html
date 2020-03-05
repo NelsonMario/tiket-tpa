@@ -42,5 +42,18 @@
           </mat-card-actions>
       </mat-card>
       </div>
+      <h3>Best Offer</h3>
+      <div class="activity">
+        <mat-card class="example-card" *ngFor="let activity of displayBestOffer;let i = index">
+          <mat-card-header>
+              <mat-card-title>{{activity.name}}</mat-card-title>
+            </mat-card-header>
+            <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+            alt="Photo of a Shiba Inu">
+            <mat-card-actions>
+              <mat-card-subtitle>{{activity.location.city}}, {{activity.location.country}}</mat-card-subtitle>
+          </mat-card-actions>
+      </mat-card>
+      </div>
     </div>
 </section>

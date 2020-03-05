@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { graphqlService } from 'src/app/service/graphql/graphql.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormControl } from '@angular/forms';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { query } from '@angular/animations';
 import { async } from '@angular/core/testing';
 import { parse } from 'path';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin-hotel',
@@ -40,7 +41,11 @@ export class AdminHotelComponent implements OnInit {
 
   realHotel : any[] = []
   pageCount : any[] = []
-  constructor(private graphql: graphqlService, private _snackBar: MatSnackBar, private route: Router) {
+
+  pollingData : any
+  dataCount = 0
+  tempCount = 0
+  constructor(private graphql: graphqlService, private _snackBar: MatSnackBar, private route: Router, private http: HttpClient) {
 
     if(localStorage.getItem("currentUser") == null)
       route.navigate([''])
@@ -75,7 +80,19 @@ export class AdminHotelComponent implements OnInit {
         await
         console.log(this.realHotel)
         this.pushToPagination()
+        this.tempCount = this.realHotel.length
         this.loaded = !this.loaded
+        this.pollingData = Observable.interval(5000).switchMap(() => this.http.get('http://localhost:8080/api/success?query=%7B%0A%09hotels%7B%0A%20%20%20%20id%0A%20%20%20%20name%0A%20%20%7D%0A%7D')).map((data) => JSON.stringify(data['data']['hotels']))
+        .subscribe((data) => {
+          let hotelData = JSON.parse(data)
+          this.dataCount = hotelData['length']
+          console.log(this.dataCount + " " + this.tempCount)
+          if(this.tempCount != this.dataCount){
+            alert("New Hotel Has Publish")
+            this.tempCount = this.dataCount
+            return this.tempCount, window.location.reload()
+          }
+        });
       })
       this.facility$ = graphql.getAllFacility().subscribe(async query => {
         this.facilities = query.data.facilities

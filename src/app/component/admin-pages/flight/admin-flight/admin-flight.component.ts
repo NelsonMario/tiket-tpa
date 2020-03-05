@@ -4,10 +4,11 @@ import { Flight } from 'src/app/models/flight';
 import { graphqlService } from 'src/app/service/graphql/graphql.service';
 import { Airport } from 'src/app/models/airport';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { query } from '@angular/animations';
 import { async } from '@angular/core/testing';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-admin-flight',
@@ -57,8 +58,10 @@ export class AdminFlightComponent implements OnInit {
 
   realFlight: any[] = []
   pageCount: any[] = []
-
-  constructor(private graphql: graphqlService, private _snackBar: MatSnackBar, private route: Router) {
+  pollingData: any
+  tempCount = 0
+  dataCount = 0
+  constructor(private graphql: graphqlService, private _snackBar: MatSnackBar, private route: Router, private http: HttpClient) {
     console.log(JSON.parse(localStorage.getItem("currentUser"))[0].email)
     if(localStorage.getItem("currentUser") == null)
       route.navigate([''])
@@ -74,6 +77,18 @@ export class AdminFlightComponent implements OnInit {
       console.log(this.realFlight)
       this.pushToPagination()
       this.loaded = !this.loaded
+      this.tempCount = this.realFlight.length
+      this.pollingData = Observable.interval(5000).switchMap(() => this.http.get('http://localhost:8080/api/success?query=%7B%0A%09flights%7B%0A%20%20%20%20id%0A%20%20%7D%0A%7D')).map((data) => JSON.stringify(data['data']['flights']))
+      .subscribe((data) => {
+        let flightData = JSON.parse(data)
+        this.dataCount = flightData['length']
+        console.log(this.dataCount + " " + this.tempCount)
+        if(this.tempCount != this.dataCount){
+          alert("New Flight Has Publish")
+          this.tempCount = this.dataCount
+          return this.tempCount
+        }
+      });
     })
     this.airport$ = graphql.getAirports().subscribe(async query =>{
       this.airports = query.data.airports
@@ -92,8 +107,6 @@ export class AdminFlightComponent implements OnInit {
   insertData(){
     this.graphql.insertFlight(this.airline.value.id, this.from.value.id, this.to.value.id, this.formattedArrival.value+"T"+this.inputArrival.value+"Z", this.formattedDeparture.value+"T"+this.inputDeparture.value+"Z", parseInt(this.duration.value), parseInt(this.price.value), parseInt(this.tax.value), parseInt(this.serviceCharge.value)).subscribe(async query => {
       console.log(query.data.flights)
-      await
-      window.location.reload()
     })
   }
 

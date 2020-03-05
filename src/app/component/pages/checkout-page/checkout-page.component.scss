@@ -3,6 +3,9 @@ a{
   color: #155ab4;
 }
 .first-form{
+  display: flex;
+  justify-content: center;
+  max-width: 90%;
   .login{
       font-family: 'OpenSans',Arial,Helvetica,sans-serif;
       width: 21vw;

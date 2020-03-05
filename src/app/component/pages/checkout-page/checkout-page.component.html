@@ -1,108 +1,179 @@
+<body style="width: 100vw; display: flex; justify-content: center;">
+  <mat-horizontal-stepper [linear]="isLinear" #stepper style="max-width: 90%;">
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Input your transaction</ng-template>
+          <mat-card class = "first-form">
+            {{minute}}:{{second}}
+            <div class="login" *ngIf="!isLogin">
+                <div id="title">
+                    <label for="">Log in/Daftar</label>
+                </div>
 
-<mat-horizontal-stepper [linear]="isLinear" #stepper>
-  <mat-step [stepControl]="firstFormGroup">
-    <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Input your transaction</ng-template>
-        <mat-card class = "first-form">
-          {{minute}}:{{second}}
-          <div class="login" *ngIf="!isLogin">
-              <div id="title">
-                  <label for="">Log in/Daftar</label>
-              </div>
+                <div id="desc">
+                    <p>Perjalanan serumu dimulai di sini.</p>
+                </div>
 
-              <div id="desc">
-                  <p>Perjalanan serumu dimulai di sini.</p>
-              </div>
-
-              <form class="loginForm">
-                <mat-form-field class="Email or Phone">
-                  <mat-label>Email Or Phone</mat-label>
-                  <input [formControl] = "emailOrPhone" matInput class="emailOrPhone">
-                </mat-form-field>
-
-                <mat-form-field class="Password">
-                  <mat-label>password</mat-label>
-                  <input [formControl] = "password" matInput type = "password" class="password">
-                </mat-form-field>
-              </form>
-
-              <app-button (click)="login()" title="LANJUTKAN" width = 15></app-button>
-
-              <div>
-                  <div class="line">
-                      <hr>
-                  </div>
-                  <div>
-                      atau dengan
-                  </div>
-                  <div class="line">
-                      <hr>
-                  </div>
-              </div>
-
-              <div id="socmed">
-                  <div id="google" >
-                      <img src="../../../assets/Login/google.svg" alt="">
-                      <p>Google</p>
-                  </div>
-                  <hr>
-                  <div id="facebook" >
-                      <img src="../../../assets/Login/facebook.svg" alt="">
-                      <p>Facebook</p>
-                  </div>
-              </div>
-
-              <div>
-                  Dengan mendaftar kamu menyetujui <a href="">Kebijakan Privasi</a> dan <a href="">Syarat & Ketentuan</a> kami.
-              </div>
-
-              <div class="line">
-                  <hr>
-              </div>
-          </div>
-          <div class="content"*ngIf="isLogin">
-
-            <div class="detail">
-              <div class="ordered-detail"  *ngIf="isLogin">
-                <div class="ordered-detail-title">Detail Pemesan</div>
-                <header>
-                  <mat-form-field class="title">
-                    <mat-label>Title</mat-label>
-                    <input [formControl] = "title" matInput class="title">
+                <form class="loginForm">
+                  <mat-form-field class="Email or Phone">
+                    <mat-label>Email Or Phone</mat-label>
+                    <input [formControl] = "emailOrPhone" matInput class="emailOrPhone">
                   </mat-form-field>
-                  <mat-form-field class="name">
-                    <mat-label>Full Name</mat-label>
-                    <input [formControl] = "name" matInput class="name">
+
+                  <mat-form-field class="Password">
+                    <mat-label>password</mat-label>
+                    <input [formControl] = "password" matInput type = "password" class="password">
                   </mat-form-field>
-                </header>
-                <section>
-                  <mat-form-field class="email">
-                    <mat-label>Email</mat-label>
-                    <input [formControl] = "email" matInput class="email">
-                  </mat-form-field>
-                </section>
-                <footer>
-                  <mat-form-field class="phoneNumber">
-                    <mat-label>PhoneNumber</mat-label>
-                    <input [formControl] = "phoneNumber" matInput class="phoneNumber">
-                  </mat-form-field>
-                  <div class="country-code-select">
-                    <mat-label>Country Code</mat-label>
-                    <mat-select (selectionChange)="selected($event)">
-                      <mat-option [value] = "region" *ngFor="let region of regions">
-                        <img src="https://www.countryflags.io/{{region.code}}/flat/24.png"> {{region.name}}
-                      </mat-option>
-                    </mat-select>
-                  </div>
-                </footer>
+                </form>
+
+                <app-button (click)="login()" title="LANJUTKAN" width = 15></app-button>
+
+                <div>
+                    <div class="line">
+                        <hr>
+                    </div>
+                    <div>
+                        atau dengan
+                    </div>
+                    <div class="line">
+                        <hr>
+                    </div>
+                </div>
+
+                <div id="socmed">
+                    <div id="google" >
+                        <img src="../../../assets/Login/google.svg" alt="">
+                        <p>Google</p>
+                    </div>
+                    <hr>
+                    <div id="facebook" >
+                        <img src="../../../assets/Login/facebook.svg" alt="">
+                        <p>Facebook</p>
+                    </div>
+                </div>
+
+                <div>
+                    Dengan mendaftar kamu menyetujui <a href="">Kebijakan Privasi</a> dan <a href="">Syarat & Ketentuan</a> kami.
+                </div>
+
+                <div class="line">
+                    <hr>
+                </div>
+            </div>
+            <div class="content"*ngIf="isLogin">
+
+              <div class="detail">
+                <div class="ordered-detail"  *ngIf="isLogin">
+                  <div class="ordered-detail-title">Detail Pemesan</div>
+                  <header>
+                    <mat-form-field class="title">
+                      <mat-label>Title</mat-label>
+                      <input [formControl] = "title" matInput class="title">
+                    </mat-form-field>
+                    <mat-form-field class="name">
+                      <mat-label>Full Name</mat-label>
+                      <input [formControl] = "name" matInput class="name">
+                    </mat-form-field>
+                  </header>
+                  <section>
+                    <mat-form-field class="email">
+                      <mat-label>Email</mat-label>
+                      <input [formControl] = "email" matInput class="email">
+                    </mat-form-field>
+                  </section>
+                  <footer>
+                    <mat-form-field class="phoneNumber">
+                      <mat-label>PhoneNumber</mat-label>
+                      <input [formControl] = "phoneNumber" matInput class="phoneNumber">
+                    </mat-form-field>
+                    <div class="country-code-select">
+                      <mat-label>Country Code</mat-label>
+                      <mat-select (selectionChange)="selected($event)">
+                        <mat-option [value] = "region" *ngFor="let region of regions">
+                          <img src="https://www.countryflags.io/{{region.code}}/flat/24.png"> {{region.name}}
+                        </mat-option>
+                      </mat-select>
+                    </div>
+                  </footer>
+                </div>
+              </div>
+
+              <div class="result">
+                <mat-card class="hotel">
+                  <header>
+                    <h2>{{hotel[0].name}}</h2>
+                    <img src="../../../../assets/airline/agya.jpg" alt="">
+                  </header>
+                  <section style="display: flex; flex-direction: column;">
+                    <div>
+                      <h4>Location</h4> : {{hotel[0].location.city}}, {{hotel[0].location.country}}
+                    </div>
+                    <div>
+                      <h4>Size</h4> : {{hotel[0].hotelRoom[room].room.size}}
+                    </div>
+                    <div>
+                      <h4>Bed</h4> : {{hotel[0].hotelRoom[room].room.bed}}
+                    </div>
+                    <div>
+                      <h4>Time</h4> :  {{hotel[0].hotelRoom[room].room.checkIn}} - {{hotel[0].hotelRoom[room].room.checkOut}}
+                    </div>
+                    <h3>Facility</h3>
+                  </section>
+                  <footer *ngFor="let item of hotel[0].hotelRoom[room].room.roomFacility">
+                    {{item.facility.name}}
+                  </footer>
+                </mat-card>
+              </div>
+              <div class="price">
+                <h3>Detail Harga</h3>
+                <div>
+                  <h4>Night</h4> : {{hotelService.night}}
+                </div>
+                <div>
+                  <h4>Person</h4> : {{hotelService.person}}
+                </div>
+                <div>
+                  <h4>Total Price </h4> : {{hotel[0].hotelRoom[room].room.price * hotelService.night}}
+                </div>
               </div>
             </div>
+          </mat-card>
+        <div>
+          <button mat-button matStepperNext (click)="continue()">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup" style="display: flex; justify-content: center;">
+        <div class="content" style="display: flex; max-width: 90%; justify-content: center;">
+          <ng-template matStepLabel>Choose Bank</ng-template>
+          <div class="left">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Bank
+                </mat-panel-title>
+              </mat-expansion-panel-header>
 
+              <div class="bank-name" *ngFor="let bank of banks">
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      {{bank.name}}
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  {{bank.desc}}
+                  <button mat-button matStepperNext (click)="continue()">Next</button>
+                </mat-expansion-panel>
+              </div>
+            </mat-expansion-panel>
+          </div>
+          <div class="right" style="display: flex;">
             <div class="result">
               <mat-card class="hotel">
                 <header>
                   <h2>{{hotel[0].name}}</h2>
-                  <img src="../../../../assets/airline/agya.jpg" alt="">
+                  <img src="../../../../assets/airline/bali.jpg" alt="">
                 </header>
                 <section style="display: flex; flex-direction: column;">
                   <div>
@@ -124,7 +195,7 @@
                 </footer>
               </mat-card>
             </div>
-            <div class="price">
+            <mat-card class="price">
               <h3>Detail Harga</h3>
               <div>
                 <h4>Night</h4> : {{hotelService.night}}
@@ -135,91 +206,20 @@
               <div>
                 <h4>Total Price </h4> : {{hotel[0].hotelRoom[room].room.price * hotelService.night}}
               </div>
-            </div>
-          </div>
-        </mat-card>
-      <div>
-        <button mat-button matStepperNext (click)="continue()">Next</button>
-      </div>
-    </form>
-  </mat-step>
-  <mat-step [stepControl]="secondFormGroup">
-    <form [formGroup]="secondFormGroup" style="display: flex; justify-content: center;">
-      <div class="content" style="display: flex;">
-        <ng-template matStepLabel>Choose Bank</ng-template>
-        <div class="left">
-          <mat-expansion-panel>
-            <mat-expansion-panel-header>
-              <mat-panel-title>
-                Bank
-              </mat-panel-title>
-            </mat-expansion-panel-header>
-
-            <div class="bank-name" *ngFor="let bank of banks">
-              <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    {{bank.name}}
-                  </mat-panel-title>
-                </mat-expansion-panel-header>
-                {{bank.desc}}
-                <button mat-button matStepperNext (click)="continue()">Next</button>
-              </mat-expansion-panel>
-            </div>
-          </mat-expansion-panel>
-        </div>
-        <div class="right" style="display: flex;">
-          <div class="result">
-            <mat-card class="hotel">
-              <header>
-                <h2>{{hotel[0].name}}</h2>
-                <img src="../../../../assets/airline/bali.jpg" alt="">
-              </header>
-              <section style="display: flex; flex-direction: column;">
-                <div>
-                  <h4>Location</h4> : {{hotel[0].location.city}}, {{hotel[0].location.country}}
-                </div>
-                <div>
-                  <h4>Size</h4> : {{hotel[0].hotelRoom[room].room.size}}
-                </div>
-                <div>
-                  <h4>Bed</h4> : {{hotel[0].hotelRoom[room].room.bed}}
-                </div>
-                <div>
-                  <h4>Time</h4> :  {{hotel[0].hotelRoom[room].room.checkIn}} - {{hotel[0].hotelRoom[room].room.checkOut}}
-                </div>
-                <h3>Facility</h3>
-              </section>
-              <footer *ngFor="let item of hotel[0].hotelRoom[room].room.roomFacility">
-                {{item.facility.name}}
-              </footer>
             </mat-card>
           </div>
-          <mat-card class="price">
-            <h3>Detail Harga</h3>
-            <div>
-              <h4>Night</h4> : {{hotelService.night}}
-            </div>
-            <div>
-              <h4>Person</h4> : {{hotelService.person}}
-            </div>
-            <div>
-              <h4>Total Price </h4> : {{hotel[0].hotelRoom[room].room.price * hotelService.night}}
-            </div>
-          </mat-card>
         </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Transfer</ng-template>
+      <h3>{{bankChoice}}</h3>
+        <input type="text" matInput placeholder="No rekening">
+        <button mat-button>Saya sudah bayar</button>
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
       </div>
-    </form>
-  </mat-step>
-  <mat-step>
-    <ng-template matStepLabel>Transfer</ng-template>
-    <h3>{{bankChoice}}</h3>
-      <input type="text" matInput placeholder="No rekening">
-      <button mat-button>Saya sudah bayar</button>
-    <div>
-      <button mat-button matStepperPrevious>Back</button>
-      <button mat-button (click)="stepper.reset()">Reset</button>
-    </div>
-  </mat-step>
-</mat-horizontal-stepper>
-
+    </mat-step>
+  </mat-horizontal-stepper>
+</body>
